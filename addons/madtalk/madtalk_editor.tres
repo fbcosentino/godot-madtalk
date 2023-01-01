@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/madtalk/components/resources/DialogData.gd" type="Script" id=4]
+
+[resource]
+script = ExtResource( 4 )
+sheets = {
+
+}

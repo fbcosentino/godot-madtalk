@@ -1,0 +1,1108 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://addons/madtalk/images/header_condition.png" type="Texture" id=1]
+[ext_resource path="res://addons/madtalk/images/header_condition_arrow.png" type="Texture" id=2]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" type="DynamicFont" id=3]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_condition.gd" type="Script" id=4]
+[ext_resource path="res://addons/madtalk/images/icon_edit.png" type="Texture" id=5]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_PopupMenu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/madtalk/images/icon_x.png" type="Texture" id=7]
+[ext_resource path="res://addons/madtalk/images/icon_up.png" type="Texture" id=8]
+[ext_resource path="res://addons/madtalk/images/icon_down.png" type="Texture" id=9]
+[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=10]
+[ext_resource path="res://addons/madtalk/components/BtnTip.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=12]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_tiny.tres" type="DynamicFont" id=13]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.186, 0.172, 0.2, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.06, 0.06, 0.06, 1 )
+border_blend = true
+
+[node name="DialogNodeItem_condition" type="Control"]
+margin_left = 16.0
+margin_top = 130.0
+margin_right = 284.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 0, 34 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+margin_top = 1.0
+margin_right = 128.0
+margin_bottom = 33.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BGArrow" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -96.0
+margin_top = -12.0
+margin_bottom = 12.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConditionLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 29.0
+margin_top = 13.0
+margin_right = -38.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0.501961, 0, 1 )
+text = "Condition "
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupMenu" parent="." instance=ExtResource( 6 )]
+margin_left = 16.0
+margin_top = 150.0
+margin_right = 131.0
+margin_bottom = 282.0
+items = [ "Edit", ExtResource( 5 ), 0, false, false, 0, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Move Up", ExtResource( 8 ), 0, false, false, 1, 0, null, "", false, "Move Down", ExtResource( 9 ), 0, false, false, 2, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Remove", ExtResource( 7 ), 0, false, false, 3, 0, null, "", false ]
+
+[node name="DialogEdit" type="WindowDialog" parent="."]
+margin_left = -757.0
+margin_top = 164.0
+margin_right = -304.0
+margin_bottom = 499.0
+popup_exclusive = true
+window_title = "Condition Item"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="DialogEdit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel"]
+margin_left = 35.1291
+margin_top = 32.5417
+margin_right = 130.129
+margin_bottom = 46.5417
+custom_fonts/font = ExtResource( 12 )
+text = "Condition Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnConditionType" type="OptionButton" parent="DialogEdit/Panel"]
+anchor_right = 1.0
+margin_left = 140.0
+margin_top = 30.0
+margin_right = -76.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 12 )
+text = "Random"
+items = [ "Random", null, false, 0, null, "Variable True/False check", null, false, 1, null, "Variable at least", null, false, 2, null, "Variable under", null, false, 3, null, "Variable equal", null, false, 4, null, "Time range", null, false, 5, null, "Day of Week range", null, false, 6, null, "Day of Month range", null, false, 7, null, "Date range", null, false, 8, null, "Minutes elapsed since variable", null, false, 9, null, "Custom condition", null, false, 10, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnTip" parent="DialogEdit/Panel" instance=ExtResource( 11 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -41.599
+margin_top = 44.1581
+margin_right = -13.599
+margin_bottom = 70.1581
+
+[node name="SpecificFields" type="Panel" parent="DialogEdit/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 72.0
+margin_right = -8.0
+margin_bottom = -38.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Random" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/Random"]
+margin_left = 33.9795
+margin_top = 33.0356
+margin_right = 261.979
+margin_bottom = 47.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Chance of continuing the sequence:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/Random"]
+margin_left = 33.9795
+margin_top = 65.0356
+margin_right = 261.979
+margin_bottom = 79.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/Random"]
+margin_left = 332.0
+margin_top = 33.0
+margin_right = 365.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 12 )
+text = "%"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Random"]
+margin_left = 243.0
+margin_top = 27.0
+margin_right = 326.0
+margin_bottom = 51.0
+custom_fonts/font = ExtResource( 12 )
+align = 2
+placeholder_text = "e.g. 30.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VarBool" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/VarBool"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/VarBool"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 96.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue if:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/VarBool"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/VarBool"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 178.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "is equal to"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarBool"]
+margin_left = 147.0
+margin_top = 35.0
+margin_right = 339.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. has_met_npc1"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option1" type="OptionButton" parent="DialogEdit/Panel/SpecificFields/VarBool"]
+margin_left = 149.0
+margin_top = 69.0
+margin_right = 338.0
+margin_bottom = 89.0
+custom_fonts/font = ExtResource( 12 )
+text = "True (any non-zero value)"
+items = [ "True (any non-zero value)", null, false, 1, null, "False (zero)", null, false, 0, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VarAtLeast" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/VarAtLeast"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/VarAtLeast"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 96.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue if:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/VarAtLeast"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/VarAtLeast"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 178.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "is equal or greater than"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarAtLeast"]
+margin_left = 147.0
+margin_top = 35.0
+margin_right = 339.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. player_health"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarAtLeast"]
+margin_left = 187.0
+margin_top = 67.0
+margin_right = 270.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 12 )
+align = 2
+placeholder_text = "e.g. 25.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VarUnder" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="DialogEdit/Panel/SpecificFields/VarUnder"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 96.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue if:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/VarUnder"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/VarUnder"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/VarUnder"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 202.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "is less (and not equal) than "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarUnder"]
+margin_left = 147.0
+margin_top = 35.0
+margin_right = 339.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. player_health"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarUnder"]
+margin_left = 210.056
+margin_top = 66.0561
+margin_right = 293.056
+margin_bottom = 90.0561
+custom_fonts/font = ExtResource( 12 )
+align = 2
+placeholder_text = "e.g. 25.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VarString" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="DialogEdit/Panel/SpecificFields/VarString"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 96.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue if:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/VarString"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/VarString"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/VarString"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 202.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "contains the string"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarString"]
+margin_left = 160.0
+margin_top = 35.0
+margin_right = 367.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. player_location"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/VarString"]
+margin_left = 160.0
+margin_top = 66.0
+margin_right = 367.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. living_room"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label7" type="Label" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 96.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue when:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 50.0
+margin_top = 41.0
+margin_right = 173.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "In-game time between"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 50.0
+margin_top = 73.0
+margin_right = 284.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "in any day     (use 24h system - 17:00 instead of 5:00pm)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 276.0
+margin_top = 41.0
+margin_right = 297.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "and"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 184.0
+margin_top = 35.0
+margin_right = 264.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. 08:00"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Time"]
+margin_left = 312.0
+margin_top = 35.0
+margin_right = 392.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. 17:00"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DayWeek" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label8" type="Label" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 120.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue when:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 50.0
+margin_top = 41.0
+margin_right = 216.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "In-game day of week  between"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 50.0
+margin_top = 65.0
+margin_right = 216.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 12 )
+text = "(in every week)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 33.9795
+margin_top = 105.036
+margin_right = 261.979
+margin_bottom = 119.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 304.0
+margin_top = 41.0
+margin_right = 325.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "and"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option0" type="OptionButton" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 222.657
+margin_top = 36.795
+margin_right = 293.657
+margin_bottom = 56.795
+custom_fonts/font = ExtResource( 12 )
+text = "Sunday"
+items = [ "Sunday", null, false, 0, null, "Monday", null, false, 1, null, "Tuesday", null, false, 2, null, "Wednesday", null, false, 3, null, "Thursday", null, false, 4, null, "Friday", null, false, 5, null, "Saturday", null, false, 6, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option1" type="OptionButton" parent="DialogEdit/Panel/SpecificFields/DayWeek"]
+margin_left = 334.657
+margin_top = 36.795
+margin_right = 405.657
+margin_bottom = 56.795
+custom_fonts/font = ExtResource( 12 )
+text = "Sunday"
+items = [ "Sunday", null, false, 0, null, "Monday", null, false, 1, null, "Tuesday", null, false, 2, null, "Wednesday", null, false, 3, null, "Thursday", null, false, 4, null, "Friday", null, false, 5, null, "Saturday", null, false, 6, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DayMonth" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label9" type="Label" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 120.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue when:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 50.0
+margin_top = 41.0
+margin_right = 218.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "In-game day of month between"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 50.0
+margin_top = 65.0
+margin_right = 218.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 12 )
+text = "(in every month)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 50.0
+margin_top = 87.0
+margin_right = 257.0
+margin_bottom = 101.0
+custom_fonts/font = ExtResource( 13 )
+text = "For a single day, use same number on both fields"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 33.9795
+margin_top = 121.036
+margin_right = 261.979
+margin_bottom = 135.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 292.0
+margin_top = 41.0
+margin_right = 313.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "and"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 224.0
+margin_top = 35.0
+margin_right = 284.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. 1"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/DayMonth"]
+margin_left = 320.0
+margin_top = 35.0
+margin_right = 380.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. 30"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Date" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label10" type="Label" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 120.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue when:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 50.0
+margin_top = 41.0
+margin_right = 173.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "In-game date between"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 50.0
+margin_top = 73.0
+margin_right = 347.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "(Format is DD/MM and applies for every in-game year.)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 272.0
+margin_top = 41.0
+margin_right = 293.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "and"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 180.0
+margin_top = 35.0
+margin_right = 260.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. 25/01"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Date"]
+margin_left = 304.0
+margin_top = 35.0
+margin_right = 384.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. 31/12"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ElapsedVar" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label11" type="Label" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 120.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue when:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 50.0
+margin_top = 41.0
+margin_right = 133.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "In-game time is"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 33.9795
+margin_top = 113.036
+margin_right = 261.979
+margin_bottom = 127.036
+custom_fonts/font = ExtResource( 12 )
+text = "Otherwise the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 212.0
+margin_top = 41.0
+margin_right = 353.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 12 )
+text = "minutes later than the time value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 202.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 12 )
+text = "timestamped in the variable"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 141.0
+margin_top = 35.0
+margin_right = 201.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 2
+placeholder_text = "e.g. 30"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/ElapsedVar"]
+margin_left = 211.0
+margin_top = 67.0
+margin_right = 403.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. time_entered_room"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Custom" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 12 )
+text = "Custom condition code for ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 33.9795
+margin_top = 193.036
+margin_right = 394.979
+margin_bottom = 207.036
+custom_fonts/font = ExtResource( 12 )
+text = "If custom condition handler returns false, the dialog will branch out."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 52.0
+margin_top = 65.0
+margin_right = 193.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 12 )
+text = "called with the data:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 52.0
+margin_top = 82.0
+margin_right = 253.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 13 )
+text = "(Each line will be passed as a string in an Array)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 219.0
+margin_top = 35.0
+margin_right = 393.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 12 )
+align = 1
+placeholder_text = "e.g. combat"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="TextEdit" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 52.0
+margin_top = 96.0
+margin_right = 411.0
+margin_bottom = 172.0
+custom_fonts/font = ExtResource( 12 )
+highlight_current_line = true
+show_line_numbers = true
+draw_tabs = true
+caret_blink = true
+
+[node name="Label6" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 34.0
+margin_top = 17.0
+margin_right = 96.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 12 )
+text = "Continue on:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomBar" type="Control" parent="DialogEdit/Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnSave" type="Button" parent="DialogEdit/Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.5
+margin_top = -10.0
+margin_right = -59.5
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "OK"
+
+[node name="BtnCancel" type="Button" parent="DialogEdit/Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 53.0
+margin_top = -10.0
+margin_right = 107.0
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="." to="." method="_on_DialogNodeItem_condition_gui_input"]
+[connection signal="id_pressed" from="PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
+[connection signal="item_selected" from="DialogEdit/Panel/BtnConditionType" to="." method="_on_DialogEdit_BtnConditionType_item_selected"]
+[connection signal="pressed" from="DialogEdit/Panel/BottomBar/BtnSave" to="." method="_on_DialogEdit_BtnSave_pressed"]
+[connection signal="pressed" from="DialogEdit/Panel/BottomBar/BtnCancel" to="." method="_on_DialogEdit_BtnCancel_pressed"]

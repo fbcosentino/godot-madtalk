@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_tiny.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/madtalk/components/resources/ButtonStyle.tres" type="StyleBox" id=3]
+[ext_resource path="res://addons/madtalk/components/resources/SheetItemStyle.tres" type="StyleBox" id=4]
+
+[node name="SheetItem" type="Control"]
+margin_right = 200.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+size_flags_horizontal = 3
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="BGTitleLine" type="ColorRect" parent="Panel"]
+anchor_right = 1.0
+margin_left = 4.0
+margin_top = 14.0
+margin_right = -4.0
+margin_bottom = 16.0
+color = Color( 1, 1, 1, 0.12549 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SheetLabel" type="Label" parent="Panel"]
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 51.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 1 )
+text = "sheet_id"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescriptionLabel" type="Label" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 21.0
+margin_right = -3.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.580392, 0.580392, 0.580392, 1 )
+text = "Short sheet description
+"
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnOpen" type="Button" parent="Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -44.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = 22.0
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+text = "Open"
+__meta__ = {
+"_edit_use_anchors_": false
+}

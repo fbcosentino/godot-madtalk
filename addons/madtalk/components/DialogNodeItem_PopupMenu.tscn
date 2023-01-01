@@ -1,0 +1,11 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/madtalk/images/icon_edit.png" type="Texture" id=1]
+[ext_resource path="res://addons/madtalk/images/icon_up.png" type="Texture" id=2]
+[ext_resource path="res://addons/madtalk/images/icon_down.png" type="Texture" id=3]
+[ext_resource path="res://addons/madtalk/images/icon_x.png" type="Texture" id=4]
+
+[node name="PopupMenu" type="PopupMenu"]
+margin_right = 20.0
+margin_bottom = 20.0
+items = [ "Edit", ExtResource( 1 ), 0, false, false, 0, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Move Up", ExtResource( 2 ), 0, false, false, 1, 0, null, "", false, "Move Down", ExtResource( 3 ), 0, false, false, 2, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Remove", ExtResource( 4 ), 0, false, false, 3, 0, null, "", false ]

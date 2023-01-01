@@ -1,0 +1,171 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=1]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/madtalk/components/MainEditor_DialogSheetEdit.gd" type="Script" id=3]
+[ext_resource path="res://addons/madtalk/components/resources/InputDarkStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://addons/madtalk/components/resources/ButtonStyle.tres" type="StyleBox" id=5]
+
+[node name="DialogSheetEdit" type="WindowDialog"]
+visible = true
+margin_left = -808.0
+margin_top = 113.0
+margin_right = -282.0
+margin_bottom = 392.0
+popup_exclusive = true
+window_title = "Edit Current Sheet"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomBar" type="Control" parent="Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+margin_bottom = 3.05176e-05
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnSave" type="Button" parent="Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.5
+margin_top = -10.0
+margin_right = -59.5
+margin_bottom = 10.0
+focus_mode = 0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+enabled_focus_mode = 0
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnCancel" type="Button" parent="Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 53.0
+margin_top = -10.0
+margin_right = 107.0
+margin_bottom = 10.0
+focus_mode = 0
+custom_styles/hover = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IDLabel" type="Label" parent="Panel"]
+margin_left = 24.0
+margin_top = 21.5796
+margin_right = 83.0
+margin_bottom = 35.5796
+custom_fonts/font = ExtResource( 2 )
+text = "Sheet ID:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IDLabel2" type="Label" parent="Panel"]
+margin_left = 216.0
+margin_top = 44.0
+margin_right = 490.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.592157, 0.592157, 0.592157, 1 )
+text = "<- Renaming the sheet ID might break existing
+     dialog logic if it relies on this ID"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SheetIDEdit" type="LineEdit" parent="Panel"]
+margin_left = 23.6254
+margin_top = 40.3746
+margin_right = 201.625
+margin_bottom = 64.3746
+custom_styles/focus = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = ExtResource( 2 )
+placeholder_text = "e.g. npc_forest_wizard"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescLabel" type="Label" parent="Panel"]
+margin_left = 24.0
+margin_top = 85.5796
+margin_right = 122.0
+margin_bottom = 99.5796
+custom_fonts/font = ExtResource( 2 )
+text = "Sheet description:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SheedDescEdit" type="LineEdit" parent="Panel"]
+margin_left = 24.0
+margin_top = 104.0
+margin_right = 502.0
+margin_bottom = 128.0
+custom_styles/focus = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = ExtResource( 2 )
+placeholder_text = "e.g. Wizard NPC in the forest (information and shop)"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeleteLabel" type="Label" parent="Panel"]
+margin_left = 304.0
+margin_top = 149.58
+margin_right = 402.0
+margin_bottom = 163.58
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.662745, 0.662745, 0.662745, 1 )
+text = "To delete this sheet, type the word
+\"delete\" in the box below"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SheetDeleteEdit" type="LineEdit" parent="Panel"]
+margin_left = 308.0
+margin_top = 184.0
+margin_right = 500.0
+margin_bottom = 208.0
+custom_styles/focus = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.498039, 0, 1 )
+align = 1
+placeholder_text = "type \"delete\" here to delete sheet"
+placeholder_alpha = 0.2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Panel/BottomBar/BtnSave" to="." method="_on_BtnSave_pressed"]
+[connection signal="pressed" from="Panel/BottomBar/BtnCancel" to="." method="_on_BtnCancel_pressed"]

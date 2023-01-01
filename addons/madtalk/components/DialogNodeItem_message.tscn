@@ -1,0 +1,577 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_message.gd" type="Script" id=1]
+[ext_resource path="res://addons/madtalk/images/panel_bg.png" type="Texture" id=2]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_tiny.tres" type="DynamicFont" id=3]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=4]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_italic_small.tres" type="DynamicFont" id=5]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_bolditalic_small.tres" type="DynamicFont" id=6]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" type="DynamicFont" id=7]
+[ext_resource path="res://addons/madtalk/components/BtnTip.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/madtalk/images/icon_edit.png" type="Texture" id=9]
+[ext_resource path="res://addons/madtalk/images/icon_up.png" type="Texture" id=10]
+[ext_resource path="res://addons/madtalk/images/icon_down.png" type="Texture" id=11]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_PopupMenu.tscn" type="PackedScene" id=12]
+[ext_resource path="res://addons/madtalk/images/icon_x.png" type="Texture" id=13]
+[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=14]
+[ext_resource path="res://addons/madtalk/components/resources/RichLabelPreviewStyle.tres" type="StyleBox" id=15]
+[ext_resource path="res://addons/madtalk/components/resources/RichLabelPreviewAlphaStyle.tres" type="StyleBox" id=16]
+[ext_resource path="res://addons/madtalk/fonts/FreeSansBold_tiny.tres" type="DynamicFont" id=17]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.741176, 0.741176, 0.741176, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.486275, 0.486275, 0.486275, 1 )
+
+[node name="DialogNodeItem" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 100 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLine" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 13.0
+margin_right = -8.0
+margin_bottom = 14.0
+mouse_filter = 2
+color = Color( 0.282353, 0.258824, 0.301961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="."]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 50.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Message"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeakerLabel" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 15.0
+margin_right = 65.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.2, 0.2, 0.2, 1 )
+text = "Speaker:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeakerNameLabel" type="Label" parent="."]
+anchor_right = 0.5
+margin_left = 58.0
+margin_top = 17.0
+margin_right = 22.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 17 )
+custom_colors/font_color = Color( 0, 0.192157, 0.223529, 1 )
+text = "Speaker"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeakerVarLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 32.0
+margin_top = 15.0
+margin_right = 81.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.2, 0.2, 0.2, 1 )
+text = "Variant:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeakerVariantLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 1.0
+margin_left = 70.0
+margin_top = 14.5796
+margin_right = -12.0
+margin_bottom = 26.5796
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0.192157, 0.223529, 1 )
+text = "Variant"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VoiceLabel" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 27.0
+margin_right = 65.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.2, 0.2, 0.2, 1 )
+text = "Voice clip:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VoiceFileLabel" type="Label" parent="."]
+anchor_right = 1.0
+margin_left = 64.0
+margin_top = 27.0
+margin_right = -12.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.2, 0.373333, 0.4, 1 )
+text = "Speaker"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 40.0
+margin_right = -8.0
+margin_bottom = -8.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessageLabel" type="RichTextLabel" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+mouse_filter = 2
+custom_styles/focus = ExtResource( 15 )
+custom_styles/normal = ExtResource( 15 )
+custom_fonts/bold_italics_font = ExtResource( 6 )
+custom_fonts/italics_font = ExtResource( 5 )
+custom_fonts/bold_font = ExtResource( 7 )
+custom_fonts/normal_font = ExtResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+bbcode_text = "[color=red][b]Lorem[/b][/color] [color=blue][i]ipsum[/i][/color]"
+text = "Lorem ipsum"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HideOnEndLabel" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_top = -20.0
+margin_right = -9.0
+margin_bottom = -8.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0.2, 0.2, 0.2, 1 )
+text = "Hide after"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupMenu" parent="." instance=ExtResource( 12 )]
+margin_left = -149.907
+margin_top = 15.5564
+margin_right = -34.9066
+margin_bottom = 147.556
+items = [ "Edit", ExtResource( 9 ), 0, false, false, 0, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Move Up", ExtResource( 10 ), 0, false, false, 1, 0, null, "", false, "Move Down", ExtResource( 11 ), 0, false, false, 2, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Remove", ExtResource( 13 ), 0, false, false, 3, 0, null, "", false ]
+
+[node name="DialogEdit" type="WindowDialog" parent="."]
+visible = true
+margin_left = -773.0
+margin_top = 14.0
+margin_right = -60.0
+margin_bottom = 543.0
+popup_exclusive = true
+window_title = "Message Item"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="DialogEdit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeakerLabel" type="Label" parent="DialogEdit/Panel"]
+margin_left = 23.0
+margin_top = 16.0
+margin_right = 92.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Speaker ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeakerEdit" type="LineEdit" parent="DialogEdit/Panel"]
+anchor_right = 0.5
+margin_left = 92.0
+margin_top = 12.0
+margin_right = -28.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+placeholder_text = "string id for the character "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TipSpeaker" parent="DialogEdit/Panel" instance=ExtResource( 8 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -24.0627
+margin_top = 12.1479
+margin_right = 3.93732
+margin_bottom = 34.1479
+tip_title = "Speaker ID"
+tip_text = "The speaker ID is a string identifying the character speaking the message. It is used to show the avatar and name.
+You have to configure the avatar and name separately."
+
+[node name="VariantLabel" type="Label" parent="DialogEdit/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 23.0
+margin_top = 16.0
+margin_right = 92.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Variant"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VariantEdit" type="LineEdit" parent="DialogEdit/Panel"]
+anchor_left = 0.5
+anchor_right = 1.0
+margin_left = 72.0
+margin_top = 12.0
+margin_right = -56.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+placeholder_text = "avatar variant - leave blank for default"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TipVariant" parent="DialogEdit/Panel" instance=ExtResource( 8 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -52.5627
+margin_top = 12.1479
+margin_right = -24.5627
+margin_bottom = 34.1479
+tip_title = "Avatar Variant"
+tip_text = "The avatar variant is a string identifying an alternate texture ID for the character avatar. If specified, a texture with this ID will be used instead of the default one. You have to configure the avatar variants separately.
+
+This is used mainly for emotions, so different images can be used for \"angry\", \"happy\", \"sad\", etc, but since the IDs and their interpretations are up to you, they can be anything - e.g. different clothes, different background scenarios, etc."
+
+[node name="VoiceLabel" type="Label" parent="DialogEdit/Panel"]
+margin_left = 23.0
+margin_top = 48.0
+margin_right = 92.0
+margin_bottom = 62.0
+custom_fonts/font = ExtResource( 4 )
+text = "Voice Clip"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VoiceEdit" type="LineEdit" parent="DialogEdit/Panel"]
+anchor_right = 1.0
+margin_left = 92.0
+margin_top = 44.0
+margin_right = -100.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 4 )
+placeholder_text = "res://... .../filename.wav"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnSelectClip" type="Button" parent="DialogEdit/Panel/VoiceEdit"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 3.0
+margin_top = -10.0
+margin_right = 44.0
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TipVoice" parent="DialogEdit/Panel" instance=ExtResource( 8 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -52.0627
+margin_top = 44.1479
+margin_right = -24.0627
+margin_bottom = 66.1479
+tip_title = "Voice Clip"
+tip_text = "The Voice Clip is the path for an audio file (WAV or OGG) which should be played when this message is displayed. Usually it is a voice transcription of the text, but anything can be used (e.g. a robot could have a \"beep bop beep bop\" sound when speaking).
+
+The path is in the resource folder - that is, starts with res:// followed by file location.
+
+Please note the MadTalk plugin will not automatically play the sound. Since different projects will manage audio buses and implement stream players differently, the actual sound playback must be coded separately. MadTalk will emit a signal \"voice_clip_requested\" providing the file path entered here."
+
+[node name="BtnHideOnEnd" type="CheckButton" parent="DialogEdit/Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -346.0
+margin_top = 73.0
+margin_right = -55.0
+margin_bottom = 113.0
+custom_fonts/font = ExtResource( 4 )
+text = "Force hiding message before next item"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TipHideOnEnd" parent="DialogEdit/Panel" instance=ExtResource( 8 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -52.0627
+margin_top = 82.1479
+margin_right = -24.0627
+margin_bottom = 104.148
+tip_title = "Hide Before Next Item"
+tip_text = "During a dialog session, messages usually stay on screen when the next item is not another message - including menus, animations and custom effects. This is to allow the player to review the last message before selecting an option, and to allow narration over cutscenes. Text messages are replaced when next item is another message, and hidden in the very end of the dialog session.
+
+Selecting this option forces the message box to hide when processing the next item even if it would normally stay visible. Useful if the menu is not related to the last message, or if you want animations without any text on screen."
+
+[node name="MessageLabel" type="Label" parent="DialogEdit/Panel"]
+margin_left = 23.0
+margin_top = 97.0
+margin_right = 182.0
+margin_bottom = 111.0
+custom_fonts/font = ExtResource( 4 )
+text = "Message (BB Code allowed):"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessageEdit" type="TextEdit" parent="DialogEdit/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 118.0
+margin_right = -16.0
+margin_bottom = -198.0
+custom_fonts/font = ExtResource( 4 )
+highlight_current_line = true
+show_line_numbers = true
+draw_tabs = true
+highlight_all_occurrences = true
+shortcut_keys_enabled = false
+wrap_enabled = true
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewLabel" type="Label" parent="DialogEdit/Panel"]
+margin_left = 21.0
+margin_top = 343.0
+margin_right = 180.0
+margin_bottom = 355.0
+custom_fonts/font = ExtResource( 4 )
+text = "Message Preview"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnTextColor" type="ColorPickerButton" parent="DialogEdit/Panel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -441.0
+margin_top = -191.0
+margin_right = -377.0
+margin_bottom = -171.0
+toggle_mode = false
+expand_icon = true
+edit_alpha = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextColorLabel" type="Label" parent="DialogEdit/Panel/BtnTextColor"]
+margin_left = 69.0
+margin_top = 4.0
+margin_right = 228.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 4 )
+text = "Default Text Color"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnBGColor" type="ColorPickerButton" parent="DialogEdit/Panel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -185.0
+margin_top = -191.0
+margin_right = -121.0
+margin_bottom = -171.0
+toggle_mode = false
+expand_icon = true
+color = Color( 1, 1, 1, 1 )
+edit_alpha = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextColorLabel" type="Label" parent="DialogEdit/Panel/BtnBGColor"]
+margin_left = 69.0
+margin_top = 4.0
+margin_right = 228.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 4 )
+text = "Background Color"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewBox" type="ColorRect" parent="DialogEdit/Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -167.0
+margin_right = -16.0
+margin_bottom = -26.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewLabel" type="RichTextLabel" parent="DialogEdit/Panel/PreviewBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.8909
+margin_right = -8.0
+margin_bottom = -7.1091
+custom_styles/normal = ExtResource( 16 )
+custom_fonts/bold_italics_font = ExtResource( 6 )
+custom_fonts/italics_font = ExtResource( 5 )
+custom_fonts/bold_font = ExtResource( 7 )
+custom_fonts/normal_font = ExtResource( 4 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PreviewTimer" type="Timer" parent="DialogEdit/Panel/PreviewBox"]
+one_shot = true
+
+[node name="BottomBar" type="Control" parent="DialogEdit/Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnSave" type="Button" parent="DialogEdit/Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.5
+margin_top = -10.0
+margin_right = -59.5
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "OK"
+
+[node name="BtnCancel" type="Button" parent="DialogEdit/Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 53.0
+margin_top = -10.0
+margin_right = 107.0
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VoiceClipDialog" type="FileDialog" parent="."]
+visible = true
+margin_left = -774.0
+margin_top = 573.0
+margin_right = -70.0
+margin_bottom = 1034.0
+rect_min_size = Vector2( 150, 52.5 )
+popup_exclusive = true
+window_title = "Select Voice Clip"
+resizable = true
+dialog_hide_on_ok = true
+mode_overrides_title = false
+mode = 0
+filters = PoolStringArray( "*.wav; WAV files", "*.ogg; OGG clips" )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="." to="." method="_on_DialogNodeItem_gui_input"]
+[connection signal="id_pressed" from="PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
+[connection signal="pressed" from="DialogEdit/Panel/VoiceEdit/BtnSelectClip" to="." method="_on_BtnSelectClip_pressed"]
+[connection signal="text_changed" from="DialogEdit/Panel/MessageEdit" to="." method="_on_DialogEdit_MessageEdit_text_changed"]
+[connection signal="color_changed" from="DialogEdit/Panel/BtnTextColor" to="." method="_on_DialogEdit_BtnTextColor_color_changed"]
+[connection signal="color_changed" from="DialogEdit/Panel/BtnBGColor" to="." method="_on_DialogEdit_BtnBGColor_color_changed"]
+[connection signal="timeout" from="DialogEdit/Panel/PreviewBox/PreviewTimer" to="." method="_on_DialogEdit_PreviewTimer_timeout"]
+[connection signal="pressed" from="DialogEdit/Panel/BottomBar/BtnSave" to="." method="_on_DialogEdit_BtnSave_pressed"]
+[connection signal="pressed" from="DialogEdit/Panel/BottomBar/BtnCancel" to="." method="_on_DialogEdit_BtnCancel_pressed"]
+[connection signal="file_selected" from="VoiceClipDialog" to="." method="_on_FileDialog_voiceclip_selected"]

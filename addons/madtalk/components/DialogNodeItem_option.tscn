@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/madtalk/images/header_option.png" type="Texture" id=2]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_option.gd" type="Script" id=3]
+[ext_resource path="res://addons/madtalk/images/header_option_condition.png" type="Texture" id=4]
+
+[node name="DialogNodeItem_option" type="Control"]
+margin_left = 16.0
+margin_top = 150.0
+margin_right = 284.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 34 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+margin_top = 1.0
+margin_right = 128.0
+margin_bottom = 33.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 29.0
+margin_top = 16.0
+margin_right = -2.0
+margin_bottom = -8.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Condition" type="TextureRect" parent="."]
+visible = false
+margin_left = 9.0
+margin_top = 18.0
+margin_right = 21.0
+margin_bottom = 30.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

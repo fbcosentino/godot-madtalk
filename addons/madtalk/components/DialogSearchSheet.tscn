@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=4]
+[ext_resource path="res://addons/madtalk/components/DialogSearchSheetItem.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/madtalk/components/resources/SheetItemStyle.tres" type="StyleBox" id=7]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.186, 0.172, 0.2, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.06, 0.06, 0.06, 1 )
+border_blend = true
+
+[node name="DialogSearchSheet" type="WindowDialog"]
+margin_left = 53.6241
+margin_top = 46.2745
+margin_right = 506.624
+margin_bottom = 381.274
+rect_min_size = Vector2( 450, 330 )
+popup_exclusive = true
+window_title = "Search Dialog Sheets"
+resizable = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SearchEdit" type="LineEdit" parent="Panel"]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 5.0
+margin_right = -8.0
+margin_bottom = 29.0
+custom_styles/normal = ExtResource( 7 )
+custom_fonts/font = ExtResource( 2 )
+placeholder_text = "Search ID or description"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IDLabel" type="Label" parent="Panel"]
+margin_left = 12.0
+margin_top = 36.0
+margin_right = 69.0
+margin_bottom = 50.0
+text = "Sheet ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescLabel" type="Label" parent="Panel"]
+margin_left = 144.0
+margin_top = 36.0
+margin_right = 253.0
+margin_bottom = 50.0
+text = "Short description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SearchResultsPanel" type="Panel" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 52.0
+margin_right = -8.0
+margin_bottom = -30.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scroll" type="ScrollContainer" parent="Panel/SearchResultsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxResults" type="VBoxContainer" parent="Panel/SearchResultsPanel/Scroll"]
+margin_right = 437.0
+margin_bottom = 253.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="DialogSearchSheetItem" parent="Panel/SearchResultsPanel/Scroll/VBoxResults" instance=ExtResource( 5 )]
+
+[node name="BottomBar" type="Control" parent="Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnCancel" type="Button" parent="Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.0
+margin_top = -10.0
+margin_right = 27.0
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}

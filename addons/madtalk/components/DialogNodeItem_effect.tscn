@@ -1,0 +1,785 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_effect.gd" type="Script" id=1]
+[ext_resource path="res://addons/madtalk/components/BtnTip.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_PopupMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=6]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_tiny.tres" type="DynamicFont" id=7]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" type="DynamicFont" id=8]
+[ext_resource path="res://addons/madtalk/images/icon_up.png" type="Texture" id=9]
+[ext_resource path="res://addons/madtalk/images/icon_down.png" type="Texture" id=10]
+[ext_resource path="res://addons/madtalk/images/icon_x.png" type="Texture" id=11]
+[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=12]
+[ext_resource path="res://addons/madtalk/images/icon_edit.png" type="Texture" id=13]
+[ext_resource path="res://addons/madtalk/images/header_effect.png" type="Texture" id=14]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.186, 0.172, 0.2, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.06, 0.06, 0.06, 1 )
+border_blend = true
+
+[node name="DialogNodeItem_effect" type="Control"]
+margin_left = 16.0
+margin_top = 165.0
+margin_right = 284.0
+margin_bottom = 199.0
+rect_min_size = Vector2( 0, 34 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+margin_top = 1.0
+margin_right = 128.0
+margin_bottom = 33.0
+texture = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EffectLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 29.0
+margin_top = 13.0
+margin_right = -6.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0, 1, 1, 1 )
+text = "Effect"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupMenu" parent="." instance=ExtResource( 5 )]
+margin_left = 16.0
+margin_top = 150.0
+margin_right = 131.0
+margin_bottom = 282.0
+items = [ "Edit", ExtResource( 13 ), 0, false, false, 0, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Move Up", ExtResource( 9 ), 0, false, false, 1, 0, null, "", false, "Move Down", ExtResource( 10 ), 0, false, false, 2, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Remove", ExtResource( 11 ), 0, false, false, 3, 0, null, "", false ]
+
+[node name="DialogEdit" type="WindowDialog" parent="."]
+visible = true
+margin_left = -757.0
+margin_top = 164.0
+margin_right = -304.0
+margin_bottom = 499.0
+popup_exclusive = true
+window_title = "Condition Item"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="DialogEdit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel"]
+margin_left = 35.0
+margin_top = 33.0
+margin_right = 108.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 6 )
+text = "Effect Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnEffectType" type="OptionButton" parent="DialogEdit/Panel"]
+anchor_right = 1.0
+margin_left = 112.0
+margin_top = 30.0
+margin_right = -76.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 6 )
+text = "Change Sheet"
+items = [ "Change Sheet", null, false, 0, null, "Set Variable", null, false, 1, null, "Add Variable", null, false, 2, null, "Randomize Variable", null, false, 3, null, "Stamp Time", null, false, 4, null, "Spend Minutes", null, false, 5, null, "Spend Days", null, false, 6, null, "Skip to Given Time", null, false, 7, null, "Skip to Given Weekday", null, false, 8, null, "Play Animation and Wait", null, false, 9, null, "Custom Effect", null, false, 10, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnTip" parent="DialogEdit/Panel" instance=ExtResource( 4 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -41.599
+margin_top = 44.1581
+margin_right = -13.599
+margin_bottom = 70.1581
+
+[node name="SpecificFields" type="Panel" parent="DialogEdit/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 72.0
+margin_right = -8.0
+margin_bottom = -38.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChangeSheet" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/ChangeSheet"]
+margin_left = 33.9795
+margin_top = 33.0356
+margin_right = 261.979
+margin_bottom = 47.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Stop this sequence and change to dialog sheet:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/ChangeSheet"]
+margin_left = 33.9795
+margin_top = 145.036
+margin_right = 317.979
+margin_bottom = 159.036
+custom_fonts/font = ExtResource( 6 )
+text = "(Items in current sequence below this effect will not run.)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/ChangeSheet"]
+margin_left = 33.9795
+margin_top = 97.0356
+margin_right = 291.979
+margin_bottom = 111.036
+custom_fonts/font = ExtResource( 6 )
+text = "Optional: start the dialog in sequence ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/ChangeSheet"]
+margin_left = 35.0
+margin_top = 51.0
+margin_right = 394.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 6 )
+placeholder_text = "e.g. city_arrival"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/ChangeSheet"]
+margin_left = 260.0
+margin_top = 91.0
+margin_right = 391.0
+margin_bottom = 115.0
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 1
+placeholder_text = "Start is always zero"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SetVariable" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/SetVariable"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Set variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/SetVariable"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 178.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "to the fixed value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/SetVariable"]
+margin_left = 172.0
+margin_top = 121.0
+margin_right = 298.0
+margin_bottom = 135.0
+custom_fonts/font = ExtResource( 6 )
+text = "To use this variable in True/False checks,
+enter the number:
+
+    True:   1 (or any non-zero number)
+    False:  0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/SetVariable"]
+margin_left = 166.0
+margin_top = 35.0
+margin_right = 371.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. player_health"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/SetVariable"]
+margin_left = 166.0
+margin_top = 67.0
+margin_right = 249.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 2
+placeholder_text = "e.g. 25.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddVariable" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/AddVariable"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Add to variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/AddVariable"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 178.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "the value (can be negative for subtraction)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/AddVariable"]
+margin_left = 182.0
+margin_top = 35.0
+margin_right = 387.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. player_health"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/AddVariable"]
+margin_left = 303.0
+margin_top = 67.0
+margin_right = 386.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 2
+placeholder_text = "e.g. 25.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RandomizeVariable" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Set variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 200.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "to a random value between"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 52.0
+margin_top = 89.0
+margin_right = 200.0
+margin_bottom = 103.0
+custom_fonts/font = ExtResource( 6 )
+text = "(inclusive)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 294.0
+margin_top = 73.0
+margin_right = 315.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "and"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 182.0
+margin_top = 35.0
+margin_right = 387.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. npc1_love"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 221.0
+margin_top = 67.0
+margin_right = 279.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 2
+placeholder_text = "e.g. -5.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue2" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/RandomizeVariable"]
+margin_left = 329.0
+margin_top = 67.0
+margin_right = 387.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 2
+placeholder_text = "e.g. 10.0"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StampTime" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/StampTime"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Timestamp current in-game time value"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/StampTime"]
+margin_left = 52.0
+margin_top = 73.0
+margin_right = 200.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "to a variable named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/StampTime"]
+margin_left = 182.0
+margin_top = 67.0
+margin_right = 387.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. player_entered_room3"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpendMinutes" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/SpendMinutes"]
+margin_left = 65.9795
+margin_top = 41.0356
+margin_right = 293.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Advance current in-game time in"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/SpendMinutes"]
+margin_left = 180.0
+margin_top = 73.0
+margin_right = 328.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "minutes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/SpendMinutes"]
+margin_left = 62.0
+margin_top = 67.0
+margin_right = 169.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. 15"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpendDays" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/SpendDays"]
+margin_left = 65.9795
+margin_top = 41.0356
+margin_right = 293.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Advance current in-game time in"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/SpendDays"]
+margin_left = 180.0
+margin_top = 73.0
+margin_right = 328.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "days"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/SpendDays"]
+margin_left = 62.0
+margin_top = 67.0
+margin_right = 169.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. 2"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkipToTime" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/SkipToTime"]
+margin_left = 66.0
+margin_top = 41.0
+margin_right = 274.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 6 )
+text = "Advance in-game time until the time is"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/SkipToTime"]
+margin_left = 280.0
+margin_top = 35.0
+margin_right = 371.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. 07:00"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SkipToWeekday" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/SkipToWeekday"]
+margin_left = 66.0
+margin_top = 41.0
+margin_right = 274.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 6 )
+text = "Advance in-game time until the weekday is"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/SkipToWeekday"]
+margin_left = 66.0
+margin_top = 73.0
+margin_right = 355.0
+margin_bottom = 87.0
+custom_fonts/font = ExtResource( 6 )
+text = "Time will be set to 00:00 (beginning of the given day)."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option0" type="OptionButton" parent="DialogEdit/Panel/SpecificFields/SkipToWeekday"]
+margin_left = 306.657
+margin_top = 36.795
+margin_right = 377.657
+margin_bottom = 56.795
+custom_fonts/font = ExtResource( 6 )
+text = "Sunday"
+items = [ "Sunday", null, false, 0, null, "Monday", null, false, 1, null, "Tuesday", null, false, 2, null, "Wednesday", null, false, 3, null, "Thursday", null, false, 4, null, "Friday", null, false, 5, null, "Saturday", null, false, 6, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaitAnim" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/WaitAnim"]
+margin_left = 65.9795
+margin_top = 41.0356
+margin_right = 293.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Play animation named"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="DialogEdit/Panel/SpecificFields/WaitAnim"]
+margin_left = 66.0
+margin_top = 73.0
+margin_right = 361.0
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 6 )
+text = "from the Effects AnimationPlayer set in the MadTalk node,
+and wait for it to finish before continuing the sequence."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/WaitAnim"]
+margin_left = 202.0
+margin_top = 33.0
+margin_right = 350.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. first_cutscene"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Custom" type="Control" parent="DialogEdit/Panel/SpecificFields"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 49.9795
+margin_top = 41.0356
+margin_right = 277.979
+margin_bottom = 55.0356
+custom_fonts/font = ExtResource( 6 )
+text = "Custom effect code for ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 52.0
+margin_top = 65.0
+margin_right = 193.0
+margin_bottom = 79.0
+custom_fonts/font = ExtResource( 6 )
+text = "called with the data:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 52.0
+margin_top = 82.0
+margin_right = 253.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 7 )
+text = "(Each line will be passed as a string in an Array)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue0" type="LineEdit" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 196.0
+margin_top = 34.0
+margin_right = 392.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 6 )
+align = 1
+placeholder_text = "e.g. give_item"
+placeholder_alpha = 0.4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EditValue1" type="TextEdit" parent="DialogEdit/Panel/SpecificFields/Custom"]
+margin_left = 52.0
+margin_top = 96.0
+margin_right = 411.0
+margin_bottom = 172.0
+custom_fonts/font = ExtResource( 6 )
+highlight_current_line = true
+show_line_numbers = true
+draw_tabs = true
+caret_blink = true
+
+[node name="BottomBar" type="Control" parent="DialogEdit/Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnSave" type="Button" parent="DialogEdit/Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.5
+margin_top = -10.0
+margin_right = -59.5
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "OK"
+
+[node name="BtnCancel" type="Button" parent="DialogEdit/Panel/BottomBar"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 53.0
+margin_top = -10.0
+margin_right = 107.0
+margin_bottom = 10.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="gui_input" from="." to="." method="_on_DialogNodeItem_effect_gui_input"]
+[connection signal="id_pressed" from="PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
+[connection signal="item_selected" from="DialogEdit/Panel/BtnEffectType" to="." method="_on_DialogEdit_BtnConditionType_item_selected"]
+[connection signal="pressed" from="DialogEdit/Panel/BottomBar/BtnSave" to="." method="_on_DialogEdit_BtnSave_pressed"]
+[connection signal="pressed" from="DialogEdit/Panel/BottomBar/BtnCancel" to="." method="_on_DialogEdit_BtnCancel_pressed"]

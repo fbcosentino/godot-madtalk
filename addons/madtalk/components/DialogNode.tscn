@@ -1,0 +1,173 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://addons/madtalk/components/DialogNode.gd" type="Script" id=1]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_message.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" type="Script" id=3]
+[ext_resource path="res://addons/madtalk/images/icon_options.png" type="Texture" id=4]
+[ext_resource path="res://addons/madtalk/images/icon_plus.png" type="Texture" id=5]
+[ext_resource path="res://addons/madtalk/components/resources/NodeStyle.tres" type="StyleBox" id=6]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans.tres" type="DynamicFont" id=7]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_option.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_condition.tscn" type="PackedScene" id=9]
+[ext_resource path="res://addons/madtalk/components/DialogNodeItem_effect.tscn" type="PackedScene" id=10]
+[ext_resource path="res://addons/madtalk/images/icon_effect.png" type="Texture" id=11]
+[ext_resource path="res://addons/madtalk/images/icon_condition.png" type="Texture" id=12]
+[ext_resource path="res://addons/madtalk/images/icon_x.png" type="Texture" id=13]
+[ext_resource path="res://addons/madtalk/images/icon_message.png" type="Texture" id=14]
+
+[sub_resource type="Theme" id=1]
+GraphNode/constants/title_offset = 22
+GraphNode/icons/close = ExtResource( 13 )
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = "mr_name"
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Hello world"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [ 50 ]
+effect_type = 0
+effect_values = [  ]
+
+[node name="DialogNode" type="GraphNode"]
+margin_left = 250.0
+margin_top = 130.0
+margin_right = 610.0
+margin_bottom = 370.0
+theme = SubResource( 1 )
+custom_styles/frame = ExtResource( 6 )
+custom_styles/selectedframe = ExtResource( 6 )
+custom_fonts/title_font = ExtResource( 7 )
+custom_colors/title_color = Color( 1, 1, 1, 1 )
+custom_colors/resizer_color = Color( 1, 1, 1, 1 )
+title = "0"
+show_close = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = true
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 0.501961, 0, 1 )
+slot/3/left_enabled = false
+slot/3/left_type = 0
+slot/3/left_color = Color( 1, 1, 1, 1 )
+slot/3/right_enabled = false
+slot/3/right_type = 0
+slot/3/right_color = Color( 1, 1, 1, 1 )
+slot/4/left_enabled = false
+slot/4/left_type = 0
+slot/4/left_color = Color( 1, 1, 1, 1 )
+slot/4/right_enabled = false
+slot/4/right_type = 0
+slot/4/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBar" type="Control" parent="."]
+margin_left = 16.0
+margin_top = 22.0
+margin_right = 344.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="BtnAdd" type="TextureButton" parent="TopBar"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -44.0
+margin_top = -8.0
+margin_right = -28.0
+margin_bottom = 8.0
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnOptions" type="TextureButton" parent="TopBar"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -8.0
+margin_right = -4.0
+margin_bottom = 8.0
+texture_normal = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddMenu" type="PopupMenu" parent="TopBar"]
+margin_left = -155.016
+margin_top = -38.3086
+margin_right = -135.016
+margin_bottom = -18.3086
+items = [ "Message", ExtResource( 14 ), 0, false, false, 0, 0, null, "", false, "Condition", ExtResource( 12 ), 0, false, false, 1, 0, null, "", false, "Effect", ExtResource( 11 ), 0, false, false, 2, 0, null, "", false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogRemove" type="ConfirmationDialog" parent="TopBar"]
+margin_left = -664.0
+margin_top = -42.0
+margin_right = -368.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 140, 49 )
+popup_exclusive = true
+window_title = "Remove Item"
+dialog_text = "
+    Are you sure you want to remove this item?    "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogNodeItem_message" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 16.0
+margin_top = 47.0
+margin_right = 344.0
+margin_bottom = 147.0
+data = SubResource( 2 )
+
+[node name="DialogNodeItem_condition" parent="." instance=ExtResource( 9 )]
+margin_top = 148.0
+margin_right = 344.0
+margin_bottom = 182.0
+
+[node name="DialogNodeItem_effect" parent="." instance=ExtResource( 10 )]
+margin_top = 183.0
+margin_right = 344.0
+margin_bottom = 217.0
+
+[node name="DialogNodeItem_option" parent="." instance=ExtResource( 8 )]
+margin_top = 218.0
+margin_right = 344.0
+margin_bottom = 252.0
+
+[connection signal="dragged" from="." to="." method="_on_DialogNode_dragged"]
+[connection signal="pressed" from="TopBar/BtnAdd" to="." method="_on_BtnAdd_pressed"]
+[connection signal="pressed" from="TopBar/BtnOptions" to="." method="_on_BtnOptions_pressed"]
+[connection signal="id_pressed" from="TopBar/AddMenu" to="." method="_on_AddMenu_id_pressed"]
+[connection signal="confirmed" from="TopBar/DialogRemove" to="." method="_on_DialogRemove_confirmed"]
