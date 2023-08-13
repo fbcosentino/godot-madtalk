@@ -95,8 +95,8 @@ margin_left = 9.0
 margin_top = 42.0
 margin_right = -7.0
 margin_bottom = 54.0
-custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0.470588, 0.898039, 1, 1 )
+custom_fonts/font = ExtResource( 13 )
 text = "first_sheet"
 valign = 1
 clip_text = true
@@ -122,9 +122,9 @@ margin_left = 6.0
 margin_top = 78.0
 margin_right = -5.0
 margin_bottom = 98.0
-custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.772549, 0.772549, 0.772549, 1 )
-text = "This is the first sheet showing up when the game starts"
+custom_fonts/font = ExtResource( 9 )
+text = "Don't delete this please. You don't have to use it either."
 autowrap = true
 clip_text = true
 
@@ -135,8 +135,8 @@ margin_left = -45.0
 margin_top = 3.0
 margin_right = -3.0
 margin_bottom = 23.0
-custom_styles/normal = ExtResource( 10 )
 custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = ExtResource( 10 )
 text = "Edit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -171,8 +171,8 @@ margin_left = 3.0
 margin_top = 137.0
 margin_right = -1.0
 margin_bottom = 161.0
-custom_styles/normal = ExtResource( 11 )
 custom_fonts/font = ExtResource( 3 )
+custom_styles/normal = ExtResource( 11 )
 placeholder_text = "Search ID or description"
 placeholder_alpha = 0.4
 __meta__ = {
@@ -189,8 +189,8 @@ __meta__ = {
 }
 
 [node name="VBox" type="VBoxContainer" parent="SideBar/Content/SheetsScroll"]
-margin_right = 188.0
-margin_bottom = 776.0
+margin_right = 200.0
+margin_bottom = 329.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -202,10 +202,10 @@ margin_left = 4.0
 margin_top = -24.0
 margin_right = -4.0
 margin_bottom = -4.0
+custom_fonts/font = ExtResource( 3 )
 custom_styles/hover = ExtResource( 10 )
 custom_styles/focus = ExtResource( 10 )
 custom_styles/normal = ExtResource( 10 )
-custom_fonts/font = ExtResource( 3 )
 text = "Create New Dialog Sheet"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -220,10 +220,10 @@ margin_left = 4.0
 margin_top = -24.0
 margin_right = -4.0
 margin_bottom = -4.0
+custom_fonts/font = ExtResource( 3 )
 custom_styles/hover = ExtResource( 10 )
 custom_styles/focus = ExtResource( 10 )
 custom_styles/normal = ExtResource( 10 )
-custom_fonts/font = ExtResource( 3 )
 text = "Save Database"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -288,34 +288,6 @@ margin_bottom = 411.0
 [connection signal="gui_input" from="GraphArea" to="." method="_on_GraphEdit_gui_input"]
 [connection signal="dragged" from="GraphArea/DialogNode_ID0" to="GraphArea/DialogNode_ID0" method="_on_DialogNode_dragged"]
 [connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem" to="GraphArea/DialogNode_ID0/DialogNodeItem" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem2" to="GraphArea/DialogNode_ID0/DialogNodeItem2" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem3" to="GraphArea/DialogNode_ID0/DialogNodeItem3" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem4" to="GraphArea/DialogNode_ID0/DialogNodeItem4" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem5" to="GraphArea/DialogNode_ID0/DialogNodeItem5" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem6" to="GraphArea/DialogNode_ID0/DialogNodeItem6" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem7" to="GraphArea/DialogNode_ID0/DialogNodeItem7" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem8" to="GraphArea/DialogNode_ID0/DialogNodeItem8" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem9" to="GraphArea/DialogNode_ID0/DialogNodeItem9" method="_on_DialogNodeItem_gui_input"]
-[connection signal="dragged" from="GraphArea/DialogNode_ID4" to="GraphArea/DialogNode_ID4" method="_on_DialogNode_dragged"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID4/DialogNodeItem" to="GraphArea/DialogNode_ID4/DialogNodeItem" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID4/DialogNodeItem_condition2" to="GraphArea/DialogNode_ID4/DialogNodeItem_condition2" method="_on_DialogNodeItem_condition_gui_input"]
-[connection signal="dragged" from="GraphArea/DialogNode_ID5" to="GraphArea/DialogNode_ID5" method="_on_DialogNode_dragged"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem" to="GraphArea/DialogNode_ID5/DialogNodeItem" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem2" to="GraphArea/DialogNode_ID5/DialogNodeItem2" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem3" to="GraphArea/DialogNode_ID5/DialogNodeItem3" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem4" to="GraphArea/DialogNode_ID5/DialogNodeItem4" method="_on_DialogNodeItem_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem_effect2" to="GraphArea/DialogNode_ID5/DialogNodeItem_effect2" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem_effect3" to="GraphArea/DialogNode_ID5/DialogNodeItem_effect3" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem_effect4" to="GraphArea/DialogNode_ID5/DialogNodeItem_effect4" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem_effect5" to="GraphArea/DialogNode_ID5/DialogNodeItem_effect5" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem_effect6" to="GraphArea/DialogNode_ID5/DialogNodeItem_effect6" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID5/DialogNodeItem_effect7" to="GraphArea/DialogNode_ID5/DialogNodeItem_effect7" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="dragged" from="GraphArea/DialogNode_ID6" to="GraphArea/DialogNode_ID6" method="_on_DialogNode_dragged"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID6/DialogNodeItem_effect2" to="GraphArea/DialogNode_ID6/DialogNodeItem_effect2" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="dragged" from="GraphArea/DialogNode_ID7" to="GraphArea/DialogNode_ID7" method="_on_DialogNode_dragged"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID7/DialogNodeItem_effect2" to="GraphArea/DialogNode_ID7/DialogNodeItem_effect2" method="_on_DialogNodeItem_effect_gui_input"]
-[connection signal="dragged" from="GraphArea/DialogNode_ID8" to="GraphArea/DialogNode_ID8" method="_on_DialogNode_dragged"]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID8/DialogNodeItem_effect2" to="GraphArea/DialogNode_ID8/DialogNodeItem_effect2" method="_on_DialogNodeItem_effect_gui_input"]
 [connection signal="pressed" from="SideBar/Content/CurrentPanel/BtnEditSheet" to="." method="_on_BtnEditSheet_pressed"]
 [connection signal="text_changed" from="SideBar/Content/SearchEdit" to="." method="_on_SideBar_SearchEdit_text_changed"]
 [connection signal="pressed" from="SideBar/Content/BtnNewSheet" to="." method="_on_BtnNewSheet_pressed"]

@@ -29,6 +29,16 @@ signal message_text_shown(speaker_id, speaker_variant, message_text, force_hidin
 signal menu_option_activated(option_id)
 signal time_updated(datetime_dict)
 
+# Requests the menu to be processed externally, if dialog_buttons_container is not set
+# menu_options is an Array of DialogNodeOptionData
+# The signal handler can process it as below:
+#    func _on_MadTalk_external_menu_requested(menu_options):
+#        for option in menu_options:
+#            print(option.text) # Prints the string for this option as written in the sheet
+# One of the options can then be selected with:
+#    $MadTalk.select_menu_option( <numerical index in the menu_options array> )
+signal external_menu_requested(menu_options)
+
 signal dialog_aborted
 
 # Your scene should have a Control-descendant node with all dialog controls
@@ -70,6 +80,8 @@ onready var dialog_speakeravatar = get_node_or_null(DialogSpeakerAvatar)
 # The Control-descendant holding the entire button menu, including containers,
 # decorations, etc. Hiding this should be enough to leave no trace of the
 # menu on screen
+# Having a menu in the game is entirely optional and you can leave menu-related
+# items unassigned if you don't use menus in the dialog system
 export(NodePath) var DialogButtonsMenu
 onready var dialog_menu = get_node_or_null(DialogButtonsMenu)
 
@@ -77,6 +89,9 @@ onready var dialog_menu = get_node_or_null(DialogButtonsMenu)
 # directly. There must be nothing inside this node, this is the lowest
 # hierarchy node in the customization/decoration branch of the scene tree, and
 # buttons will be created as direct children of this node
+# If this node is not assigned, menus can still be used externally via signals
+# If this is not assigned and menu is also not handled externally, menu options
+# will not work
 export(NodePath) var DialogButtonsContainer
 onready var dialog_buttons_container = get_node_or_null(DialogButtonsContainer)
 
@@ -138,6 +153,8 @@ export(int) var YearOfReference = 1970
 
 export(NodePath) var KeyPressAudioStreamPlayer
 onready var sfx_key_press = get_node_or_null(KeyPressAudioStreamPlayer)
+
+export(bool) var EnableDebugOutput = false
 
 # ==============================================================================
 
@@ -222,6 +239,11 @@ var custom_effect_method = ""
 var is_abort_requested = false
 var is_skip_requested = false
 
+
+# Array mapping menu indices to the dialog IDs they connect to
+# Mostly used when using external menus
+var menu_connected_ids = []
+
 # RandomNumberGenerator used for, well, random numbers
 # Global is not used to avoid restricting from other uses
 var rng = RandomNumberGenerator.new()
@@ -229,7 +251,8 @@ var rng = RandomNumberGenerator.new()
 var msgparser = MessageCodeParser.new()
 
 func debug_print(text: String) -> void:
-	print("MADTALK: "+text)
+	if EnableDebugOutput:
+		print("MADTALK: "+text)
 
 func bool_as_int(value):
 	return 0 if (value == 0) else 1
@@ -550,7 +573,9 @@ func _assemble_menu(options: Array) -> int:
 		
 	# Add new buttons
 	var count = 0
+	menu_connected_ids.clear()
 	for option_item in options:
+		menu_connected_ids.append(option_item.text)
 		var _new_btn = _assemble_button(option_item.connected_to_id, option_item.text, dialog_buttons_container)
 		count += 1
 		
@@ -897,10 +922,14 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 			# finished the item list and have to process the end of sequence
 			# This means showing options or routing to the "continue" ID 
 			
+			# We process menu options even if dialog_buttons_container is not
+			# assigned, as the menu might be handled externally via signals
+			
 			# Even if we have options, some of them can be conditional, and
 			# it might be the case all of them are and no item is left to
 			# be shown at the menu. So we have to buffer a list
 			var options_to_show = []
+			menu_connected_ids.clear()
 			
 			for option_item in sequence_data.options:
 				if (not option_item.is_conditional) or _check_option_condition(
@@ -909,6 +938,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					option_item.condition_value
 				):
 					options_to_show.append(option_item)
+					menu_connected_ids.append(option_item.connected_to_id)
 			
 			# Process options and build menu only with remaining items
 			if options_to_show.size() > 0:
@@ -916,7 +946,6 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				
 				# If we skipped dialog, there are no visible messages. We show
 				# last one back
-				print("last_message_item finally is: %s" % str(last_message_item))
 				if is_skip_requested and (last_message_item.message_hide_on_end == 0):
 					
 						MadTalkGlobals.is_during_cinematic = true
@@ -944,28 +973,35 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						
 				MadTalkGlobals.is_during_cinematic = true
 				
-				# Make sure menu is not visible
-				if dialog_menu_active:
-					yield(_anim_dialog_menu_visible(false), "completed")
-				# Regenerate buttons
-				var __= _assemble_menu(options_to_show)
-				# Show menu
-				yield(_anim_dialog_menu_visible(true), "completed")
+				# Internal menu logic (via dialog_buttons_container)
+				if dialog_buttons_container:
+					# Make sure menu is not visible
+					if dialog_menu_active:
+						yield(_anim_dialog_menu_visible(false), "completed")
+					# Regenerate buttons
+					var __= _assemble_menu(options_to_show)
+					# Show menu
+					yield(_anim_dialog_menu_visible(true), "completed")
+				
+				else:
+					emit_signal("external_menu_requested", options_to_show)
 				
 				MadTalkGlobals.is_during_cinematic = false
 				
-				# There is always at least one optiong there otherwise we
-				# would not be into this `if`
-				dialog_buttons_container.get_child(0).grab_focus()
+				if dialog_buttons_container:
+					# There is always at least one optiong there otherwise we
+					# would not be into this `if`
+					dialog_buttons_container.get_child(0).grab_focus()
 				
 				# Wait for an option
 				# Selecting an option is mandatory and dialog halts until then
 				var option_id = yield(self, "menu_option_activated")
 				
 				# Hide menu
-				MadTalkGlobals.is_during_cinematic = true
-				yield(_anim_dialog_menu_visible(false), "completed")
-				MadTalkGlobals.is_during_cinematic = false
+				if dialog_buttons_container:
+					MadTalkGlobals.is_during_cinematic = true
+					yield(_anim_dialog_menu_visible(false), "completed")
+					MadTalkGlobals.is_during_cinematic = false
 				
 				if option_id > -1:
 					# jumping to another sequence might also be same speaker 
@@ -1187,7 +1223,14 @@ func dialog_skip():
 func change_scene(scene_path: String) -> void:
 	# Convenience method giving access to get_tree().change_scene()
 	# as a node method in the scene tree
+	# This exists so you can connect signals from animation tracks in
+	# AnimationPlayer's directly to cause scene changes
 	var __= get_tree().change_scene(scene_path)
+
+func select_menu_option(index: int):
+	if index < menu_connected_ids.size():
+		emit_signal("menu_option_activated", menu_connected_ids[index])
+
 
 func _on_animation_finished(anim_name):
 	if anim_name == TransitionAnimationName_TextShow:
@@ -1200,3 +1243,5 @@ func _on_animated_text_tween_completed():
 func _on_menu_button_pressed(id):
 	emit_signal("menu_option_activated", id)
 
+func get_sheet_names():
+	return dialog_data.sheets.keys()

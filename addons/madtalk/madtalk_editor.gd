@@ -35,8 +35,11 @@ var deleting_node = null
 
 func _ready() -> void:
 	
-	#current_sheet = dialog_data.sheets[0]
-	open_sheet("first_sheet")
+	if dialog_data.sheets.size() == 0:
+		create_new_sheet()
+	
+	else:
+		open_sheet(dialog_data.sheets.keys()[0])
 	
 # Opens a sheet for the first time, or reopens (updates area content)
 func open_sheet(sheet_id: String) -> void:

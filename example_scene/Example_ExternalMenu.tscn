@@ -1,0 +1,264 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://madtalk/CharacterData.gd" type="Script" id=1]
+[ext_resource path="res://example_scene/images/francesco.png" type="Texture" id=2]
+[ext_resource path="res://example_scene/images/maria.png" type="Texture" id=3]
+[ext_resource path="res://example_scene/sfx/click.wav" type="AudioStream" id=4]
+[ext_resource path="res://madtalk/madtalk_runtime.gd" type="Script" id=5]
+[ext_resource path="res://addons/madtalk/fonts/FreeSans.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://addons/madtalk/fonts/FreeSansBoldOblique.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://addons/madtalk/fonts/FreeSansOblique.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://addons/madtalk/fonts/FreeSansBold.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Control
+
+# If using a typing sound as .wav file, remember to set it to loop and reimport
+
+# Icon IDs are used to reference to textures:
+var icons = {
+	\"red\": preload(\"res://example_scene/images/can_red.png\"),
+	\"blue\": preload(\"res://example_scene/images/can_blue.png\"),
+	\"green\": preload(\"res://example_scene/images/can_green.png\"),
+	\"yellow\": preload(\"res://example_scene/images/can_yellow.png\"),
+}
+
+onready var vending_machine = $VendingMachine
+onready var vending_machine_itemlist = $VendingMachine/ScrollContainer/ItemList
+
+func _ready():
+	# In case you forget to hide manually in the scene tree before saving
+	$Dialog.hide()
+	$Dialog/DialogBox.hide()
+	vending_machine.hide()
+	# You can use animations to handle this, and in that case the animation
+	# RESET track can take care of this
+	
+
+
+func _on_Button_pressed():
+	# Starting a dialog is as simplas as this:
+	# just start_dialog( <sheet name> )
+	$MadTalk.start_dialog(\"external_menu\")
+
+
+func _unhandled_key_input(event):
+	# How the user tells the dialog to continue is up to you
+	# it can be a key press, a mouse click, touch event, etc
+	# All you have to do is call dialog_acknowledge() 
+	if (event.pressed) and (not event.echo) and (event.scancode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
+		$MadTalk.dialog_acknowledge()
+
+
+
+
+
+func _on_MadTalk_external_menu_requested(menu_options):
+	vending_machine_itemlist.clear()
+	
+	for option in menu_options:
+		# This time, we pack 2 fields separated with ,
+		# an icon ID and the text
+		var option_packed_data = option.text.split(\",\")
+		var option_icon = icons[option_packed_data[0]]
+		var option_text = option_packed_data[1]
+		
+		vending_machine_itemlist.add_item(option_text, option_icon)
+	
+	# Since we have nothing else in the item list, the item index
+	# matches the index in the menu_options array
+	# Otherwise we would need to store the index somewhere
+	
+	vending_machine.show()
+	vending_machine_itemlist.grab_focus()
+
+
+
+
+
+
+func _on_ItemList_item_activated(index):
+	# Conveniently the ItemList index matches the menu_options index,
+	# so the index argument is already what we want
+	# Otherwise we would need to fetch it from somewhere
+	
+	# First we hide the external menu
+	vending_machine.hide()
+	vending_machine_itemlist.unselect_all() # Just to be safe
+	
+	# Now the magic: we just inform MadTalk we are selecting an item
+	# from the menu. That's it. MadTalk takes care of the rest
+	$MadTalk.select_menu_option(index)
+"
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 1 )
+id = "foo"
+name = "Maria"
+avatar = ExtResource( 3 )
+variants = {
+}
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 1 )
+id = "bar"
+name = "Francesco"
+avatar = ExtResource( 2 )
+variants = {
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 20
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = -4
+extra_spacing_bottom = -4
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=6]
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = -4
+extra_spacing_bottom = -4
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=7]
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = -4
+extra_spacing_bottom = -4
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=8]
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = -4
+extra_spacing_bottom = -4
+font_data = ExtResource( 6 )
+
+[node name="ExternalMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MadTalk" type="Node" parent="."]
+script = ExtResource( 5 )
+ListOfCharacters = [ SubResource( 2 ), SubResource( 3 ) ]
+DialogMainControl = NodePath("../Dialog")
+DialogMessageBox = NodePath("../Dialog/DialogBox")
+DialogMessageLabel = NodePath("../Dialog/DialogBox/LabelMessage")
+DialogSpeakerLabel = NodePath("../Dialog/DialogBox/LabelName")
+DialogSpeakerAvatar = NodePath("../Dialog/DialogBox/Avatar")
+KeyPressAudioStreamPlayer = NodePath("../Dialog/SFXClick")
+
+[node name="Button" type="Button" parent="."]
+margin_left = 17.0
+margin_top = 17.0
+margin_right = 164.0
+margin_bottom = 64.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Click here to start"
+
+[node name="VendingMachine" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -174.0
+margin_top = -262.0
+margin_right = 109.0
+margin_bottom = 71.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Label" type="Label" parent="VendingMachine"]
+margin_top = -19.0
+margin_right = 194.0
+margin_bottom = -5.0
+text = "Vending Machine"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VendingMachine"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 45.0
+
+[node name="ItemList" type="ItemList" parent="VendingMachine/ScrollContainer"]
+margin_right = 328.0
+margin_bottom = 333.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+allow_reselect = true
+max_text_lines = 2
+max_columns = 3
+same_column_width = true
+fixed_column_width = 128
+icon_mode = 0
+fixed_icon_size = Vector2( 128, 64 )
+
+[node name="Dialog" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="DialogBox" type="Panel" parent="Dialog"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -438.5
+margin_top = -222.0
+margin_right = 438.5
+margin_bottom = -32.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Avatar" type="TextureRect" parent="Dialog/DialogBox"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 144.0
+margin_bottom = 144.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LabelName" type="Label" parent="Dialog/DialogBox"]
+margin_left = 17.0
+margin_top = 149.0
+margin_right = 144.0
+margin_bottom = 180.0
+align = 1
+autowrap = true
+clip_text = true
+
+[node name="LabelMessage" type="RichTextLabel" parent="Dialog/DialogBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 168.0
+margin_top = 22.0
+margin_right = -20.0
+margin_bottom = -18.0
+custom_fonts/bold_italics_font = SubResource( 5 )
+custom_fonts/italics_font = SubResource( 6 )
+custom_fonts/bold_font = SubResource( 7 )
+custom_fonts/normal_font = SubResource( 8 )
+bbcode_enabled = true
+
+[node name="SFXClick" type="AudioStreamPlayer" parent="Dialog"]
+stream = ExtResource( 4 )
+volume_db = -6.0
+
+[connection signal="external_menu_requested" from="MadTalk" to="." method="_on_MadTalk_external_menu_requested"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="item_activated" from="VendingMachine/ScrollContainer/ItemList" to="." method="_on_ItemList_item_activated"]

@@ -1,46 +1,461 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=44 format=2]
 
 [ext_resource path="res://addons/madtalk/components/resources/DialogNodeData.gd" type="Script" id=1]
 [ext_resource path="res://addons/madtalk/components/resources/DialogSheetData.gd" type="Script" id=2]
 [ext_resource path="res://addons/madtalk/components/resources/DialogData.gd" type="Script" id=3]
 [ext_resource path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" type="Script" id=4]
+[ext_resource path="res://addons/madtalk/components/resources/DialogNodeOptionData.gd" type="Script" id=5]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 4 )
 item_type = 0
 connected_to_id = -1
-message_speaker_id = ""
+message_speaker_id = "foo"
 message_speaker_variant = ""
 message_voice_clip = ""
-message_text = "You can ignore this sheet, but don't delete it.
-
-It is a current bug. There must be a sheet called \"first_sheet\"."
+message_text = "This is an example sheet. You can rename and use it, or discard and create your own."
 message_hide_on_end = 0
 condition_type = 0
 condition_values = [  ]
 effect_type = 0
 effect_values = [  ]
 
+[sub_resource type="Resource" id=4]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Would you like to see more dialog messages?"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=5]
+script = ExtResource( 5 )
+text = "Yes"
+connected_to_id = 1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=6]
+script = ExtResource( 5 )
+text = "No"
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
 [sub_resource type="Resource" id=2]
 script = ExtResource( 1 )
 sequence_id = 0
 position = Vector2( 0, 0 )
 comment = ""
-items = [ SubResource( 1 ) ]
+items = [ SubResource( 1 ), SubResource( 4 ) ]
+options = [ SubResource( 5 ), SubResource( 6 ) ]
+continue_sequence_id = -1
+continue_port_index = -1
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = "bar"
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "The speaker IDs are \"foo\" and \"bar\", but the display names are \"Maria\" and \"Francesco\"."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=8]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = "bar"
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "This is so you can have fancy nice looking display names, but you don't have to type them all the time in the system."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=9]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "A blank speaker ID is valid. If there are no characters with blank ID, it's treated as empty name."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=10]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You can have a character data item with blank ID, but having a display name (and even avatar), such as \"Narrator\", \"Player\", or whatever you like. It will be used when the message has no speaker ID."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=11]
+script = ExtResource( 1 )
+sequence_id = 1
+position = Vector2( 580, -60 )
+comment = ""
+items = [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ]
 options = [  ]
 continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 2 )
-sheet_id = "first_sheet"
-sheet_description = "Don't delete this please. You don't have to use it either."
-next_sequence_id = 1
-nodes = [ SubResource( 2 ) ]
+sheet_id = "1_start_here"
+sheet_description = "Demonstration sheet. You can delete this in your game, or repurpose it."
+next_sequence_id = 2
+nodes = [ SubResource( 2 ), SubResource( 11 ) ]
+
+[sub_resource type="Resource" id=12]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "If you do not assign a node to Dialog Button Container (dialog_buttons_container), automatic menu will not be enabled.
+In this case, if you want menu options, you have to process the menu externally. 
+(You can, however, have dialogs without menus: simply never use menu options.)"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=13]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "If you [b][i]do[/i][/b] use menu options in the dialog sheet, and do not assign a node for automatic menus and also do not handle the menu externally, then menus will not work (attempting to show menu options will cause the dialog to get stuck)."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Processing the menu externally is easy:
+When the dialog reaches a menu, the [color=#99ff00][b]external_menu_requested([color=#ff9955]menu_options[/color])[/b][/color] signal is called, where [color=#ff9955][b]menu_options[/b][/color] is an Array with the menu options.
+Each item has a [color=#99ffff][b]text[/b][/color] property containing the text for that option, from the dialog sheet.
+So [b][color=#ff9955]menu_options[[color=#ffff00]0[/color]][/color].[color=#99ffff]text[/color][/b] is the text of the first option, etc."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "The menu will then pause and wait for your code to select one of the options from that array.
+You take the input from the player in any way you like, and then select an option by calling the method [b][color=#9999ff]select_menu_option( [color=#ffff00]index[/color] )[/color][/b] where the argument is the index of the desired option from the [color=#ff9955][b]menu_options[/b][/color] array.
+Selecting an invalid index is simply ignored."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Using external menus, the option text can be used as IDs, as CSV lines packing several fields, or any other purpose you like, since building the menu is up to you.
+This way you can have more control and flexibility, while still having all the dialog managed by MadTalk."
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=14]
+script = ExtResource( 1 )
+sequence_id = 0
+position = Vector2( 0, 0 )
+comment = ""
+items = [ SubResource( 12 ), SubResource( 13 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ]
+options = [  ]
+continue_sequence_id = 1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=19]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Please select an option with double click."
+message_hide_on_end = 1
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=20]
+script = ExtResource( 5 )
+text = "red,PokaTola"
+connected_to_id = 2
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=21]
+script = ExtResource( 5 )
+text = "red,PokaTola Diet"
+connected_to_id = 3
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=22]
+script = ExtResource( 5 )
+text = "blue,Zepsi"
+connected_to_id = 4
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=23]
+script = ExtResource( 5 )
+text = "blue,Zepsi Zero"
+connected_to_id = 5
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=25]
+script = ExtResource( 5 )
+text = "green,Buaraná Ankartida"
+connected_to_id = 6
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=26]
+script = ExtResource( 5 )
+text = "yellow,Strike"
+connected_to_id = 7
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id=24]
+script = ExtResource( 1 )
+sequence_id = 1
+position = Vector2( 600, 40 )
+comment = ""
+items = [ SubResource( 19 ) ]
+options = [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 25 ), SubResource( 26 ) ]
+continue_sequence_id = -1
+continue_port_index = -1
+
+[sub_resource type="Resource" id=27]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You have selected the normal PokaTola"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=28]
+script = ExtResource( 1 )
+sequence_id = 2
+position = Vector2( 1280, -320 )
+comment = ""
+items = [ SubResource( 27 ) ]
+options = [  ]
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=29]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You have selected the Diet PokaTola"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=30]
+script = ExtResource( 1 )
+sequence_id = 3
+position = Vector2( 1280, -120 )
+comment = ""
+items = [ SubResource( 29 ) ]
+options = [  ]
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=31]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You have selecteed the normal Zepsi"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=32]
+script = ExtResource( 1 )
+sequence_id = 4
+position = Vector2( 1280, 80 )
+comment = ""
+items = [ SubResource( 31 ) ]
+options = [  ]
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=33]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You have selected the Diet Zepsi"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=34]
+script = ExtResource( 1 )
+sequence_id = 5
+position = Vector2( 1280, 280 )
+comment = ""
+items = [ SubResource( 33 ) ]
+options = [  ]
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=35]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Good choice! You have selected the Buaraná Ankartida"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=36]
+script = ExtResource( 1 )
+sequence_id = 6
+position = Vector2( 1280, 480 )
+comment = ""
+items = [ SubResource( 35 ) ]
+options = [  ]
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=37]
+script = ExtResource( 4 )
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You have selected the Strike"
+message_hide_on_end = 0
+condition_type = 0
+condition_values = [  ]
+effect_type = 0
+effect_values = [  ]
+
+[sub_resource type="Resource" id=38]
+script = ExtResource( 1 )
+sequence_id = 7
+position = Vector2( 1280, 680 )
+comment = ""
+items = [ SubResource( 37 ) ]
+options = [  ]
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id=15]
+script = ExtResource( 2 )
+sheet_id = "external_menu"
+sheet_description = ""
+next_sequence_id = 8
+nodes = [ SubResource( 14 ), SubResource( 24 ), SubResource( 28 ), SubResource( 30 ), SubResource( 32 ), SubResource( 34 ), SubResource( 36 ), SubResource( 38 ) ]
 
 [resource]
 script = ExtResource( 3 )
 version = 1.0
 sheets = {
-"first_sheet": SubResource( 3 )
+"1_start_here": SubResource( 3 ),
+"external_menu": SubResource( 15 )
 }
