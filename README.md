@@ -343,6 +343,8 @@ You can't enter if it isn't.
 
 I consider improving this using GDScript evaluation for the conditions (or something similar), but it's low priority now. It's easier and more debug friendly to make separate sequences for those messages and use branching.
 
+There are also some special variables used in substitution: `$time`, `$date`, `$date_inv`, `$weekday` and `wday`. You don't use the `<<>>` sintax for them, you just type them normally. They correspond to the fields from the in-game time dictionary, and meaning for them is explained further below in the section about signals.
+
 &nbsp;
 
 ### Globals
@@ -508,13 +510,13 @@ speaker_changed("alice", "", "bob", "happy")
 
 * `voice_clip_requested(speaker_id: String, clip_path: String)`:
 
-As explained in the _Voice Clip_ section earlier in this readme, this signal is emitted whenever showing a message with a voice clip set. The argument `speaker_id` is the speaker ID for the message, and `clip_path` is a String containing the path to the audio file. The method connected to this signal is responsible for playing the audio
+As explained in the _Voice Clip_ section earlier in this readme, this signal is emitted whenever showing a message with a voice clip set. The argument `speaker_id` is the speaker ID for the message, and `clip_path` is a String containing the path to the audio file. The method connected to this signal is responsible for playing the audio.
 
 &nbsp;
 
 * `external_menu_requested(menu_options)`:
 
-As explained in the _Custom menu_ section, this signal is emitted when a menu is required but there is no node set in the `Dialog Buttons Container`property in the `MadTalk` node. Argument is an `Array` of `String` contianing the menu options
+As explained in the _Custom menu_ section, this signal is emitted when a menu is required but there is no node set in the `Dialog Buttons Container`property in the `MadTalk` node. Argument is an `Array` of `String` containing the menu options.
 
 &nbsp;
 
@@ -614,7 +616,7 @@ I'm writing the below because this plugin has some emotional value to me.
   
   * Somewhere 2020 - Learned how to make dialog plugins and work with resources. Kissed the JSON system good bye and revamped everything to use resources and built-in dialog editor (the message/condition/effect system was kept per the original)
   
-  * Nov 2020 - [pulawskig](pulawskig.itch.io) made the game _Lovely Story_ for the [Godot Wild Jam #27](https://itch.io/jam/godot-wild-jam-27/rate/825625) and we discussed the dialog tools used. I decided MadTalk deserved more visibility and crushed development as if there was no tomorrow to polish the editor plugin interface with nice images and buttons, to propose presenting it in a talk in the upcoming [GodotCon Jan 2021](https://godotengine.org/article/online-godotcon-2021-schedule/)
+  * Nov 2020 - [pulawskig](http://pulawskig.itch.io) made the game _Lovely Story_ for the [Godot Wild Jam #27](https://itch.io/jam/godot-wild-jam-27/rate/825625) and we discussed the dialog tools used. I decided MadTalk deserved more visibility and crushed development as if there was no tomorrow to polish the editor plugin interface with nice images and buttons, to propose presenting it in a talk in the upcoming [GodotCon Jan 2021](https://godotengine.org/article/online-godotcon-2021-schedule/)
   
   * Dec 2020 - I have ADHD, and my hyperfocus suddenly decided to turn off and I could not work on it anymore. The only thing left to do at the time before proposing was _one single bug_, which in retrospect sounds infuriating
   
