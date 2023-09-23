@@ -12,6 +12,8 @@ MadTalk is the dialog plugin behind almost all Mad Parrot games with dialogs, an
 
 You can check a feature showcase in the [example project](https://madparrot.itch.io/madtalk-example-project) _(be aware that project is more than 2 years old, so if it feels outdated it's because it is)_.
 
+If you want to play a game using MadTalk to see it in real life, one example is [Ciara and the Witch's Cauldron](https://subvertissement.itch.io/ciara-and-the-witchs-cauldron).
+
 Other dialog plugins are made to be very generic and neutral, which is good in itself, but might be daunting (or even confusing) for beginners. MadTalk on the [otter hand](docs/otter_hand.png) is not afraid of getting specific, and thrives in its unique set of features (some which are specifically helpful for some game genres) putting it aside from average dialog systems around. The strong points are:
 
 &nbsp;
@@ -26,7 +28,9 @@ Other dialog plugins are made to be very generic and neutral, which is good in i
   * Nearly all options and features anywhere in the plugin include a question mark button with a help popup explaining what that is and how to use it, so you don't need lots of documentation browsing to know how to use things
   
 ![](docs/img_01.png)
+
 ![](docs/img_02.png)
+
 ![](docs/img_07.png)
 
   
@@ -40,7 +44,9 @@ Other dialog plugins are made to be very generic and neutral, which is good in i
   * Again, each condition and effect comes with their own question mark explaining the parameters
   
 ![](docs/img_08.png)
+
 ![](docs/img_04.png)
+
 ![](docs/img_05.png)
   
   
@@ -180,12 +186,14 @@ After you create any of them, you can right click the item to edit, reorder it i
 In the menu options icon, you can set the menu options for this sequence. If you don't have any, the menu will be replaced by a default "Continue" output, which you can connect to any other sequence to continue the dialog. If you set options, MadTalk will work the menu for you in the end of this sequence, and branch accordingly. The sequence will show one output for each of the options, for you to connect to other sequences in this sheet.
 
 ![](docs/editor_03.png)
+
 ![](docs/editor_03b.png)
 
 
 You can click the tiny condition icon in the left of a menu option to set a condition which is required to show that button. If the condition is not met, the menu will show as if that button didn't exist. (Menu option conditions are limited to variable comparisons.)
 
 ![](docs/editor_04.png)
+
 ![](docs/editor_04b.png)
 
 To create a new sequence, right click on any empty space. To connect them, just drag an output from a sequence to an input of another sequence. Connecting a sequence to itself _is valid_, but only do that if you know what you're doing.
@@ -614,7 +622,7 @@ I'm writing the below because this plugin has some emotional value to me.
   
   * Jan 2023 - The ADHD gods smiled at me again and I suddenly felt _I could do this_. Interestingly enough, it was January 1st, the default first day of in-game time, when I finally added the second, revamped version of MadTalk to github. Yeeyy. The only problem was I didn't write any readme, so people would find this repo and have no interest in it whatsoever
   
-  * Fall 2023 (now as I type) - There is a new GodotCon around (Nov 2023). I considered proposing to present this, but I'm still sore I couldn't finish it in 2021. Then Unity made controversial announcements causing an influx of developers into Godot, who would be searching for nice stuff in Godot asset store. This fuelled me to finally make this readme (which is the longest I ever wrote) to finally put this plugin into the asset store. The only new feature added after all this time was the voice clip, which was added for the [Warthunder Type H](https://madparrot.itch.io/warthunderth-gwj36) game. Everything else (including UI polish) is as of today pretty much the version made aiming the GodotCon Jan 2021. Hopefully it will be easier to work on it further on, as people can see it and give feedback
+  * Fall 2023 (now as I type) - There is a new GodotCon around (Nov 2023). I considered proposing to present this, but I'm still sore I couldn't finish it in 2021. Then Unity made controversial announcements causing an influx of developers into Godot, who would be searching for nice stuff in Godot asset store. This fuelled me to finally make this readme (which is the longest I ever wrote) to finally put this plugin into the asset store. The only new feature added after all this time was the voice clip, which was added for the [Warthunder Type H](https://madparrot.itch.io/warthunderth-gwj36) game, and the external menu, added for a WIP game. Everything else (including UI polish) is as of today pretty much the version made aiming the GodotCon Jan 2021. Hopefully it will be easier to work on it further on, as people can see it and give feedback
   
 &nbsp;
 
