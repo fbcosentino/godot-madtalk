@@ -31,6 +31,8 @@ func _enter_tree():
 	
 	get_editor_interface().get_editor_viewport().add_child(main_panel)
 	make_visible(false)
+	
+	add_autoload_singleton("MadTalkGlobals", "res://madtalk/MadTalkGlobals.tscn")
 
 
 func _exit_tree():
@@ -38,6 +40,8 @@ func _exit_tree():
 	
 	if main_panel:
 		main_panel.queue_free()
+	
+	remove_autoload_singleton("MadTalkGlobals")
 
 func has_main_screen():
 	return true

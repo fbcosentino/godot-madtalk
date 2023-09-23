@@ -1125,7 +1125,7 @@ func evaluate_condition(condition_type, condition_values):
 			return (delta_currently_elapsed >= delta_time)
 
 		MTDefs.ConditionTypes.Custom:
-			if (not custom_condition_object) or (custom_condition_method == "") or (not custom_condition_method in custom_condition_object):
+			if (not custom_condition_object) or (custom_condition_method == "") or (not custom_condition_object.has_method(custom_condition_method)):
 				return false
 			
 			var custom_id = condition_values[0]

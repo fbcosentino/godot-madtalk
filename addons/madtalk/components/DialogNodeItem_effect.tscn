@@ -49,8 +49,8 @@ margin_left = 29.0
 margin_top = 13.0
 margin_right = -6.0
 margin_bottom = -3.0
-custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0, 1, 1, 1 )
+custom_fonts/font = ExtResource( 8 )
 text = "Effect"
 valign = 1
 clip_text = true
@@ -66,13 +66,12 @@ margin_bottom = 282.0
 items = [ "Edit", ExtResource( 13 ), 0, false, false, 0, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Move Up", ExtResource( 9 ), 0, false, false, 1, 0, null, "", false, "Move Down", ExtResource( 10 ), 0, false, false, 2, 0, null, "", false, "", null, 0, false, true, -1, 0, null, "", true, "Remove", ExtResource( 11 ), 0, false, false, 3, 0, null, "", false ]
 
 [node name="DialogEdit" type="WindowDialog" parent="."]
-visible = true
 margin_left = -757.0
 margin_top = 164.0
 margin_right = -304.0
 margin_bottom = 499.0
 popup_exclusive = true
-window_title = "Condition Item"
+window_title = "Effect Item"
 __meta__ = {
 "_edit_use_anchors_": false
 }

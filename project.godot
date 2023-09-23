@@ -102,7 +102,7 @@ config/name="MadTalk"
 
 [autoload]
 
-MadTalkGlobals="*res://madtalk/MadTalkGlobals.gd"
+MadTalkGlobals="*res://madtalk/MadTalkGlobals.tscn"
 
 [editor_plugins]
 
