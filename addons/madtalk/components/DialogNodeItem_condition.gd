@@ -46,8 +46,6 @@ var template_PopupMenu: PackedScene = preload("res://addons/madtalk/components/p
 var popup_menu: PopupMenu
 
 func _ready():
-	for item in edit_specificlist.get_children():
-		item.hide()
 	if data:
 		set_data(data)
 
@@ -73,6 +71,9 @@ func create_dialog_edit():
 		edit_condition_type = dialog_edit.get_node("Panel/BtnConditionType")
 		edit_specificlist = dialog_edit.get_node("Panel/SpecificFields")
 		edit_btntip = dialog_edit.get_node("Panel/BtnTip")
+
+		for item in edit_specificlist.get_children():
+			item.hide()
 
 func dispose_dialog_edit():
 	if dialog_edit:
