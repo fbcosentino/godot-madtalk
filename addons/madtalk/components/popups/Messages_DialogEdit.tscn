@@ -1,0 +1,313 @@
+[gd_scene load_steps=8 format=3 uid="uid://cy4tp1rk7owe8"]
+
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="1_ebfqh"]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="2_yr8qn"]
+[ext_resource type="PackedScene" uid="uid://dyepkyvo6sodg" path="res://addons/madtalk/components/BtnTip.tscn" id="3_fqggi"]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="4_w10ta"]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_italic_small.tres" id="5_ypyua"]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bolditalic_small.tres" id="6_u7epw"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/RichLabelPreviewAlphaStyle.tres" id="7_3pci6"]
+
+[node name="DialogEdit" type="Window"]
+initial_position = 2
+size = Vector2i(750, 500)
+visible = false
+exclusive = true
+popup_window = true
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = ExtResource("1_ebfqh")
+
+[node name="SpeakerLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 92.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Speaker ID"
+
+[node name="SpeakerEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
+anchor_right = 0.5
+offset_left = 92.0
+offset_top = 12.0
+offset_right = -28.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "string id for the character "
+
+[node name="TipSpeaker" parent="Panel" instance=ExtResource("3_fqggi")]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0627
+offset_top = 12.1479
+offset_right = 3.93732
+offset_bottom = 34.1479
+tip_title = "Speaker ID"
+tip_text = "The speaker ID is a string identifying the character speaking the message. It is used to show the avatar and name.
+You have to configure the avatar and name separately."
+
+[node name="VariantLabel" type="Label" parent="Panel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 92.0
+offset_bottom = 30.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Variant"
+
+[node name="VariantEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 1.0
+offset_left = 72.0
+offset_top = 12.0
+offset_right = -56.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "avatar variant - leave blank for default"
+
+[node name="TipVariant" parent="Panel" instance=ExtResource("3_fqggi")]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.5627
+offset_top = 12.1479
+offset_right = -24.5627
+offset_bottom = 34.1479
+tip_title = "Avatar Variant"
+tip_text = "The avatar variant is a string identifying an alternate texture ID for the character avatar. If specified, a texture with this ID will be used instead of the default one. You have to configure the avatar variants separately.
+
+This is used mainly for emotions, so different images can be used for \"angry\", \"happy\", \"sad\", etc, but since the IDs and their interpretations are up to you, they can be anything - e.g. different clothes, different background scenarios, etc."
+
+[node name="VoiceLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 50.0
+offset_right = 92.0
+offset_bottom = 73.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Voice Clip"
+
+[node name="VoiceEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 92.0
+offset_top = 45.0
+offset_right = -100.0
+offset_bottom = 76.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "res://... .../filename.wav"
+
+[node name="BtnSelectClip" type="Button" parent="Panel/VoiceEdit"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -15.0
+offset_right = 44.0
+offset_bottom = 16.0
+focus_mode = 0
+text = "..."
+
+[node name="TipVoice" parent="Panel" instance=ExtResource("3_fqggi")]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.0627
+offset_top = 44.1479
+offset_right = -24.0627
+offset_bottom = 66.1479
+tip_title = "Voice Clip"
+tip_text = "The Voice Clip is the path for an audio file (WAV or OGG) which should be played when this message is displayed. Usually it is a voice transcription of the text, but anything can be used (e.g. a robot could have a \"beep bop beep bop\" sound when speaking).
+
+The path is in the resource folder - that is, starts with res:// followed by file location.
+
+Please note the MadTalk plugin will not automatically play the sound. Since different projects will manage audio buses and implement stream players differently, the actual sound playback must be coded separately. MadTalk will emit a signal \"voice_clip_requested\" providing the file path entered here."
+
+[node name="BtnHideOnEnd" type="CheckButton" parent="Panel"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -346.0
+offset_top = 73.0
+offset_right = -55.0
+offset_bottom = 113.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Force hiding message before next item"
+
+[node name="TipHideOnEnd" parent="Panel" instance=ExtResource("3_fqggi")]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.0627
+offset_top = 82.1479
+offset_right = -24.0627
+offset_bottom = 104.148
+tip_title = "Hide Before Next Item"
+tip_text = "During a dialog session, messages usually stay on screen when the next item is not another message - including menus, animations and custom effects. This is to allow the player to review the last message before selecting an option, and to allow narration over cutscenes. Text messages are replaced when next item is another message, and hidden in the very end of the dialog session.
+
+Selecting this option forces the message box to hide when processing the next item even if it would normally stay visible. Useful if the menu is not related to the last message, or if you want animations without any text on screen."
+
+[node name="MessageLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 97.0
+offset_right = 182.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Message (BB Code allowed):"
+
+[node name="MessageEdit" type="TextEdit" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 118.0
+offset_right = -16.0
+offset_bottom = -198.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+shortcut_keys_enabled = false
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+caret_blink = true
+
+[node name="PreviewLabel" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 310.0
+offset_right = 180.0
+offset_bottom = 333.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Message Preview"
+
+[node name="BtnTextColor" type="ColorPickerButton" parent="Panel"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -441.0
+offset_top = -191.0
+offset_right = -377.0
+offset_bottom = -171.0
+toggle_mode = false
+expand_icon = true
+color = Color(1, 1, 1, 1)
+edit_alpha = false
+
+[node name="TextColorLabel" type="Label" parent="Panel/BtnTextColor"]
+layout_mode = 0
+offset_left = 69.0
+offset_right = 228.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Default Text Color"
+
+[node name="BtnBGColor" type="ColorPickerButton" parent="Panel"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -191.0
+offset_right = -186.0
+offset_bottom = -171.0
+toggle_mode = false
+expand_icon = true
+edit_alpha = false
+
+[node name="TextColorLabel" type="Label" parent="Panel/BtnBGColor"]
+layout_mode = 0
+offset_left = 69.0
+offset_right = 228.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_yr8qn")
+theme_override_font_sizes/font_size = 12
+text = "Background Color"
+
+[node name="PreviewBox" type="ColorRect" parent="Panel"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -167.0
+offset_right = -16.0
+offset_bottom = -26.0
+color = Color(0, 0, 0, 1)
+
+[node name="PreviewLabel" type="RichTextLabel" parent="Panel/PreviewBox"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.8909
+offset_right = -8.0
+offset_bottom = -7.1091
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_yr8qn")
+theme_override_fonts/bold_font = ExtResource("4_w10ta")
+theme_override_fonts/italics_font = ExtResource("5_ypyua")
+theme_override_fonts/bold_italics_font = ExtResource("6_u7epw")
+theme_override_styles/normal = ExtResource("7_3pci6")
+bbcode_enabled = true
+
+[node name="PreviewTimer" type="Timer" parent="Panel/PreviewBox"]
+wait_time = 0.5
+one_shot = true
+
+[node name="BottomBar" type="Control" parent="Panel"]
+anchors_preset = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+
+[node name="BtnSave" type="Button" parent="Panel/BottomBar"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.5
+offset_top = -10.0
+offset_right = -59.5
+offset_bottom = 10.0
+focus_mode = 0
+text = "OK"
+
+[node name="BtnCancel" type="Button" parent="Panel/BottomBar"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 53.0
+offset_top = -10.0
+offset_right = 107.0
+offset_bottom = 10.0
+focus_mode = 0
+text = "Cancel"

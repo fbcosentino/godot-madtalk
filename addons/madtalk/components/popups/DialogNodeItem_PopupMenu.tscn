@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://m0muqdnnedcu"]
+
+[ext_resource type="Texture2D" uid="uid://ccd654fnsh312" path="res://addons/madtalk/images/icon_edit.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://6iclvaqbm5dl" path="res://addons/madtalk/images/icon_up.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c4xg8811uuoq6" path="res://addons/madtalk/images/icon_down.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dxgulu8lvnwrr" path="res://addons/madtalk/images/icon_x.png" id="4"]
+
+[node name="PopupMenu" type="PopupMenu"]
+position = Vector2i(0, 36)
+size = Vector2i(136, 124)
+item_count = 6
+item_0/text = "Edit"
+item_0/icon = ExtResource("1")
+item_0/id = 0
+item_1/text = ""
+item_1/id = -1
+item_1/disabled = true
+item_1/separator = true
+item_2/text = "Move Up"
+item_2/icon = ExtResource("2")
+item_2/id = 1
+item_3/text = "Move Down"
+item_3/icon = ExtResource("3")
+item_3/id = 2
+item_4/text = ""
+item_4/id = -1
+item_4/disabled = true
+item_4/separator = true
+item_5/text = "Remove"
+item_5/icon = ExtResource("4")
+item_5/id = 3

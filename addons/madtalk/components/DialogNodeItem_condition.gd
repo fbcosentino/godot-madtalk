@@ -11,17 +11,16 @@ signal move_down_requested(requester)
 @export var data: Resource
 
 
-@onready var popup_menu = get_node("PopupMenu")
 enum PopupOptions {
 	Edit,
 	MoveUp,
 	MoveDown,
 	Remove
 }
-@onready var dialog_edit = get_node("DialogEdit")
-@onready var edit_condition_type = get_node("DialogEdit/Panel/BtnConditionType")
-@onready var edit_specificlist = get_node("DialogEdit/Panel/SpecificFields")
-@onready var edit_btntip = get_node("DialogEdit/Panel/BtnTip")
+#@onready var dialog_edit = get_node("DialogEdit")
+var edit_condition_type
+var edit_specificlist
+var edit_btntip
 
 # names of the nodes holding the controls in edit box
 const edit_specificlist_items = [
@@ -40,6 +39,12 @@ const edit_specificlist_items = [
 
 @onready var condition_conditionlabel = get_node("ConditionLabel")
 
+var template_DialogEdit: PackedScene = preload("res://addons/madtalk/components/popups/Condition_DialogEdit.tscn")
+var dialog_edit: Window
+
+var template_PopupMenu: PackedScene = preload("res://addons/madtalk/components/popups/DialogNodeItem_PopupMenu.tscn")
+var popup_menu: PopupMenu
+
 func _ready():
 	for item in edit_specificlist.get_children():
 		item.hide()
@@ -56,14 +61,52 @@ func update_from_data():
 		condition_conditionlabel.text = mtdefs.Condition_PrintFail(data.condition_type, data.condition_values)
 
 
+
+func create_dialog_edit():
+	if not dialog_edit:
+		dialog_edit = template_DialogEdit.instantiate() as Window
+		add_child(dialog_edit)
+		dialog_edit.get_node("Panel/BtnConditionType").item_selected.connect(_on_DialogEdit_BtnConditionType_item_selected)
+		dialog_edit.get_node("Panel/BottomBar/BtnSave").pressed.connect(_on_DialogEdit_BtnSave_pressed)
+		dialog_edit.get_node("Panel/BottomBar/BtnCancel").pressed.connect(_on_DialogEdit_BtnCancel_pressed)
+	
+		edit_condition_type = dialog_edit.get_node("Panel/BtnConditionType")
+		edit_specificlist = dialog_edit.get_node("Panel/SpecificFields")
+		edit_btntip = dialog_edit.get_node("Panel/BtnTip")
+
+func dispose_dialog_edit():
+	if dialog_edit:
+		dialog_edit.queue_free()
+		dialog_edit = null
+
+
+func create_popup_menu():
+	if not popup_menu:
+		popup_menu = template_PopupMenu.instantiate() as PopupMenu
+		add_child(popup_menu)
+		popup_menu.id_pressed.connect(_on_PopupMenu_id_pressed)
+
+func dispose_popup_menu():
+	if popup_menu:
+		popup_menu.queue_free()
+		popup_menu = null
+
+
 func _on_DialogNodeItem_condition_gui_input(event):
-	if (event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_RIGHT):
-		var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
-		popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
+	if (event is InputEventMouseButton) and (event.pressed):
+		if (event.button_index == MOUSE_BUTTON_LEFT) and event.double_click:
+			_on_PopupMenu_id_pressed(PopupOptions.Edit)
+			
+		if (event.button_index == MOUSE_BUTTON_RIGHT):
+			var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
+			create_popup_menu()
+			popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
 
 func _on_PopupMenu_id_pressed(id):
+	dispose_popup_menu()
 	match id:
 		PopupOptions.Edit:
+			create_dialog_edit()
 			edit_condition_type.selected = data.condition_type 
 			var values_size = data.condition_values.size()
 			# Nodes not commonly used so get_node is used directly for simplicity
@@ -122,7 +165,7 @@ func _on_DialogEdit_BtnConditionType_item_selected(index):
 	update_DialogEdit_contents(edit_condition_type.selected)
 	
 func _on_DialogEdit_BtnCancel_pressed():
-	dialog_edit.hide()
+	dispose_dialog_edit()
 
 
 func _on_DialogEdit_BtnSave_pressed():
@@ -157,7 +200,8 @@ func _on_DialogEdit_BtnSave_pressed():
 				data.condition_values[i] = value
 	
 	update_from_data()
-	dialog_edit.hide()
+	dispose_dialog_edit()
+
 
 
 func update_DialogEdit_contents(condition):

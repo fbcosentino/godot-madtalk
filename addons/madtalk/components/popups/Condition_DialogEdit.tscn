@@ -1,0 +1,939 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxbv32bsgov7f"]
+
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="1_axotx"]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="2_17q4f"]
+[ext_resource type="PackedScene" uid="uid://dyepkyvo6sodg" path="res://addons/madtalk/components/BtnTip.tscn" id="3_pak78"]
+[ext_resource type="FontFile" uid="uid://bhcws34lw0ak5" path="res://addons/madtalk/fonts/FreeSans_tiny.tres" id="4_4pido"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.186, 0.172, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.06, 0.06, 0.06, 1)
+border_blend = true
+
+[node name="DialogEdit" type="Window"]
+title = "Condition"
+initial_position = 2
+size = Vector2i(550, 400)
+visible = false
+transient = true
+exclusive = true
+popup_window = true
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = ExtResource("1_axotx")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 35.1291
+offset_top = 32.5417
+offset_right = 130.129
+offset_bottom = 46.5417
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Condition Type"
+
+[node name="BtnConditionType" type="OptionButton" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 140.0
+offset_top = 25.0
+offset_right = -76.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+item_count = 11
+popup/item_0/text = "Random"
+popup/item_0/id = 0
+popup/item_1/text = "Variable True/False check"
+popup/item_1/id = 1
+popup/item_2/text = "Variable at least"
+popup/item_2/id = 2
+popup/item_3/text = "Variable under"
+popup/item_3/id = 3
+popup/item_4/text = "Variable equal"
+popup/item_4/id = 4
+popup/item_5/text = "Time range"
+popup/item_5/id = 5
+popup/item_6/text = "Day of Week range"
+popup/item_6/id = 6
+popup/item_7/text = "Day of Month range"
+popup/item_7/id = 7
+popup/item_8/text = "Date range"
+popup/item_8/id = 8
+popup/item_9/text = "Minutes elapsed since variable"
+popup/item_9/id = 9
+popup/item_10/text = "Custom condition"
+popup/item_10/id = 10
+
+[node name="BtnTip" parent="Panel" instance=ExtResource("3_pak78")]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -41.599
+offset_top = 44.1581
+offset_right = -13.599
+offset_bottom = 70.1581
+
+[node name="SpecificFields" type="Panel" parent="Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 72.0
+offset_right = -8.0
+offset_bottom = -38.0
+theme_override_styles/panel = SubResource("1")
+
+[node name="Random" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/Random"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 33.0356
+offset_right = 261.979
+offset_bottom = 47.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Chance of continuing the sequence:"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/Random"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 65.0356
+offset_right = 261.979
+offset_bottom = 79.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/Random"]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 33.0
+offset_right = 365.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+text = "%"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/Random"]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 27.0
+offset_right = 326.0
+offset_bottom = 51.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+placeholder_text = "e.g. 30.0"
+
+[node name="VarBool" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/VarBool"]
+layout_mode = 0
+offset_left = 49.9795
+offset_top = 41.0356
+offset_right = 277.979
+offset_bottom = 55.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Variable named"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/VarBool"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 96.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue if:"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/VarBool"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/VarBool"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 73.0
+offset_right = 178.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "is equal to"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/VarBool"]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 35.0
+offset_right = 387.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+placeholder_text = "e.g. has_met_npc1"
+
+[node name="Option1" type="OptionButton" parent="Panel/SpecificFields/VarBool"]
+layout_mode = 0
+offset_left = 149.0
+offset_top = 69.0
+offset_right = 338.0
+offset_bottom = 89.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+item_count = 2
+selected = 0
+popup/item_0/text = "True (any non-zero numerical value)"
+popup/item_0/id = 1
+popup/item_1/text = "False (zero)"
+popup/item_1/id = 0
+
+[node name="VarAtLeast" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/VarAtLeast"]
+layout_mode = 0
+offset_left = 49.9795
+offset_top = 41.0356
+offset_right = 277.979
+offset_bottom = 55.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Variable named"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/VarAtLeast"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 96.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue if:"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/VarAtLeast"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/VarAtLeast"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 73.0
+offset_right = 178.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "is equal or greater than"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/VarAtLeast"]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 35.0
+offset_right = 339.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. player_health"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/VarAtLeast"]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 67.0
+offset_right = 270.0
+offset_bottom = 91.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 25.0"
+
+[node name="VarUnder" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label5" type="Label" parent="Panel/SpecificFields/VarUnder"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 96.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue if:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/VarUnder"]
+layout_mode = 0
+offset_left = 49.9795
+offset_top = 41.0356
+offset_right = 277.979
+offset_bottom = 55.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Variable named"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/VarUnder"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/VarUnder"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 73.0
+offset_right = 202.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "is less (and not equal) than "
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/VarUnder"]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 35.0
+offset_right = 339.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. player_health"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/VarUnder"]
+layout_mode = 0
+offset_left = 210.056
+offset_top = 66.0561
+offset_right = 293.056
+offset_bottom = 90.0561
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 25.0"
+
+[node name="VarString" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label6" type="Label" parent="Panel/SpecificFields/VarString"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 96.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue if:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/VarString"]
+layout_mode = 0
+offset_left = 49.9795
+offset_top = 41.0356
+offset_right = 277.979
+offset_bottom = 55.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Variable named"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/VarString"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/VarString"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 73.0
+offset_right = 202.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "contains the string"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/VarString"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 35.0
+offset_right = 367.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. player_location"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/VarString"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 66.0
+offset_right = 367.0
+offset_bottom = 90.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. living_room"
+
+[node name="Time" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label7" type="Label" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 96.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue when:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 41.0
+offset_right = 173.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "In-game time between"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 73.0
+offset_right = 284.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "in any day     (use 24h system - 17:00 instead of 5:00pm)"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 276.0
+offset_top = 41.0
+offset_right = 297.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "and"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 35.0
+offset_right = 264.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 08:00"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/Time"]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 35.0
+offset_right = 392.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 17:00"
+
+[node name="DayWeek" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label8" type="Label" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 120.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue when:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 41.0
+offset_right = 216.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "In-game day of week  between"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 65.0
+offset_right = 216.0
+offset_bottom = 79.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "(in every week)"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 105.036
+offset_right = 261.979
+offset_bottom = 119.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 41.0
+offset_right = 366.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "and"
+
+[node name="Option0" type="OptionButton" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 36.795
+offset_right = 336.0
+offset_bottom = 64.795
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+item_count = 7
+selected = 0
+popup/item_0/text = "Sunday"
+popup/item_0/id = 0
+popup/item_1/text = "Monday"
+popup/item_1/id = 1
+popup/item_2/text = "Tuesday"
+popup/item_2/id = 2
+popup/item_3/text = "Wednesday"
+popup/item_3/id = 3
+popup/item_4/text = "Thursday"
+popup/item_4/id = 4
+popup/item_5/text = "Friday"
+popup/item_5/id = 5
+popup/item_6/text = "Saturday"
+popup/item_6/id = 6
+
+[node name="Option1" type="OptionButton" parent="Panel/SpecificFields/DayWeek"]
+layout_mode = 0
+offset_left = 374.75
+offset_top = 36.795
+offset_right = 480.75
+offset_bottom = 67.795
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+item_count = 7
+selected = 0
+popup/item_0/text = "Sunday"
+popup/item_0/id = 0
+popup/item_1/text = "Monday"
+popup/item_1/id = 1
+popup/item_2/text = "Tuesday"
+popup/item_2/id = 2
+popup/item_3/text = "Wednesday"
+popup/item_3/id = 3
+popup/item_4/text = "Thursday"
+popup/item_4/id = 4
+popup/item_5/text = "Friday"
+popup/item_5/id = 5
+popup/item_6/text = "Saturday"
+popup/item_6/id = 6
+
+[node name="DayMonth" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label9" type="Label" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 120.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue when:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 41.0
+offset_right = 218.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "In-game day of month between"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 65.0
+offset_right = 218.0
+offset_bottom = 79.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "(in every month)"
+
+[node name="Label5" type="Label" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 87.0
+offset_right = 257.0
+offset_bottom = 101.0
+theme_override_fonts/font = ExtResource("4_4pido")
+theme_override_font_sizes/font_size = 12
+text = "For a single day, use same number on both fields"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 121.036
+offset_right = 261.979
+offset_bottom = 135.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 292.0
+offset_top = 41.0
+offset_right = 313.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "and"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 35.0
+offset_right = 284.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 1"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/DayMonth"]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 35.0
+offset_right = 380.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 30"
+
+[node name="Date" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label10" type="Label" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 120.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue when:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 41.0
+offset_right = 173.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "In-game date between"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 73.0
+offset_right = 347.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "(Format is DD/MM and applies for every in-game year.)"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 41.0
+offset_right = 293.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "and"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 35.0
+offset_right = 260.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 25/01"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/Date"]
+layout_mode = 0
+offset_left = 304.0
+offset_top = 35.0
+offset_right = 384.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 31/12"
+
+[node name="ElapsedVar" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label11" type="Label" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 120.0
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue when:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 41.0
+offset_right = 133.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "In-game time is"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 33.9795
+offset_top = 113.036
+offset_right = 261.979
+offset_bottom = 127.036
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Otherwise the dialog will branch out."
+
+[node name="Label2" type="Label" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 41.0
+offset_right = 353.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "minutes later than the time value"
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 73.0
+offset_right = 202.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "timestamped in the variable"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 35.0
+offset_right = 201.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. 30"
+
+[node name="EditValue1" type="LineEdit" parent="Panel/SpecificFields/ElapsedVar"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 67.0
+offset_right = 403.0
+offset_bottom = 91.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. time_entered_room"
+
+[node name="Custom" type="Control" parent="Panel/SpecificFields"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label6" type="Label" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 17.0
+offset_right = 103.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Continue on:"
+
+[node name="Label" type="Label" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 49.9795
+offset_top = 41.0356
+offset_right = 277.979
+offset_bottom = 55.0356
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "Custom condition code for ID"
+
+[node name="Label3" type="Label" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 33.979
+offset_top = 220.0
+offset_right = 394.979
+offset_bottom = 243.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "If custom condition handler returns false, the dialog will branch out."
+
+[node name="Label4" type="Label" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 65.0
+offset_right = 193.0
+offset_bottom = 79.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+text = "called with the data:"
+
+[node name="Label5" type="Label" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 82.0
+offset_right = 253.0
+offset_bottom = 90.0
+theme_override_fonts/font = ExtResource("4_4pido")
+theme_override_font_sizes/font_size = 12
+text = "(Each line will be passed as a string in an Array)"
+
+[node name="EditValue0" type="LineEdit" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 35.0
+offset_right = 393.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "e.g. combat"
+
+[node name="EditValue1" type="TextEdit" parent="Panel/SpecificFields/Custom"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 110.0
+offset_right = 411.0
+offset_bottom = 186.0
+theme_override_fonts/font = ExtResource("2_17q4f")
+theme_override_font_sizes/font_size = 12
+placeholder_text = "e.g.: arena1
+monster_b"
+highlight_current_line = true
+draw_tabs = true
+caret_blink = true
+
+[node name="BottomBar" type="Control" parent="Panel"]
+anchors_preset = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -24.0
+
+[node name="BtnSave" type="Button" parent="Panel/BottomBar"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.5
+offset_top = -10.0
+offset_right = -59.5
+offset_bottom = 10.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "OK"
+
+[node name="BtnCancel" type="Button" parent="Panel/BottomBar"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 53.0
+offset_top = -10.0
+offset_right = 107.0
+offset_bottom = 10.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "Cancel"

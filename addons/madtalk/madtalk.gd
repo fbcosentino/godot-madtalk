@@ -50,6 +50,7 @@ func _has_main_screen():
 func _make_visible(visible):
 	if main_panel:
 		main_panel.visible = visible
+		main_panel.call_deferred("reopen_current_sheet")
 
 
 func _get_plugin_name():

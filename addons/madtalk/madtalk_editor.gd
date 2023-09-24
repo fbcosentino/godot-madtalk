@@ -79,7 +79,9 @@ func open_sheet(sheet_id: String) -> void:
 	await get_tree().process_frame
 	graph_area.scroll_offset.y += 1
 	graph_area.queue_redraw()
-	
+
+func reopen_current_sheet():
+	open_sheet(current_sheet)
 
 # Creates the visual representation of a node
 # Does not modify the data structure

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dhf1etqkj85p"]
+
+[node name="VoiceClipDialog" type="FileDialog"]
+title = "Load voice clip"
+initial_position = 2
+size = Vector2i(600, 500)
+popup_window = true
+ok_button_text = "Open"
+dialog_hide_on_ok = true
+mode_overrides_title = false
+file_mode = 0
+filters = PackedStringArray("*.wav; WAV files", "*.ogg; OGG clips")

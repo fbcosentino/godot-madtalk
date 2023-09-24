@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogData" load_steps=64 format=3 uid="uid://dxkjjrap15vxu"]
+[gd_resource type="Resource" script_class="DialogData" load_steps=63 format=3 uid="uid://dxkjjrap15vxu"]
 
 [ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeData.gd" id="1"]
 [ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogSheetData.gd" id="2"]
@@ -55,7 +55,7 @@ condition_value = ""
 [sub_resource type="Resource" id="2"]
 script = ExtResource("1")
 sequence_id = 0
-position = Vector2(-80, -200)
+position = Vector2(-20, 120)
 comment = ""
 items = [SubResource("1"), SubResource("4")]
 options = [SubResource("5"), SubResource("6")]
@@ -149,22 +149,12 @@ effect_values = []
 [sub_resource type="Resource" id="11"]
 script = ExtResource("1")
 sequence_id = 1
-position = Vector2(420, -280)
+position = Vector2(440, 120)
 comment = ""
 items = [SubResource("7"), SubResource("8"), SubResource("9"), SubResource("Resource_m1ifl"), SubResource("Resource_68gk6"), SubResource("Resource_14hyw")]
 options = []
 continue_sequence_id = -1
 continue_port_index = 1
-
-[sub_resource type="Resource" id="Resource_ver4n"]
-script = ExtResource("1")
-sequence_id = 5
-position = Vector2(420, 320)
-comment = ""
-items = []
-options = []
-continue_sequence_id = -1
-continue_port_index = 0
 
 [sub_resource type="Resource" id="Resource_jrxya"]
 script = ExtResource("4")
@@ -184,7 +174,7 @@ effect_values = []
 [sub_resource type="Resource" id="Resource_ixt6j"]
 script = ExtResource("1")
 sequence_id = 6
-position = Vector2(879.778, 13.4018)
+position = Vector2(860, 200)
 comment = ""
 items = [SubResource("Resource_jrxya")]
 options = []
@@ -196,7 +186,7 @@ script = ExtResource("2")
 sheet_id = "1_start_here"
 sheet_description = "Demonstration sheet. You can delete this in your game, or repurpose it."
 next_sequence_id = 7
-nodes = [SubResource("2"), SubResource("11"), SubResource("Resource_ver4n"), SubResource("Resource_ixt6j")]
+nodes = [SubResource("2"), SubResource("11"), SubResource("Resource_ixt6j")]
 
 [sub_resource type="Resource" id="Resource_vx7w3"]
 script = ExtResource("4")
