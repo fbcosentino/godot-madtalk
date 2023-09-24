@@ -106,7 +106,7 @@ signal dialog_aborted
 @export var DialogButtonTextProperty: String = "text"
 
 # Signal name emitted by DialogButtonSceneFile when the option is confirmed
-@export var DialogButtonSignalName: String = "button_pressed"
+@export var DialogButtonSignalName: String = "pressed"
 
 # AnimationPlayer object used for fade-in and fade-out transition animations
 # if not given, animations will simply be disabled and only show() and hide() 

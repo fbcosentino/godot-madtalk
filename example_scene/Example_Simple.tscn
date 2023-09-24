@@ -33,13 +33,16 @@ func _on_SheetID_text_entered(new_text):
 	$MadTalk.start_dialog(new_text)
 
 
-func _unhandled_key_input(event):
+func _input(event):
 	# How the user tells the dialog to continue is up to you
 	# it can be a key press, a mouse click, touch event, etc
 	# All you have to do is call dialog_acknowledge() 
-	if (event.pressed) and (not event.echo) and (event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
+	if (
+		(event is InputEventKey) and (event.pressed) and (not event.echo) and (event.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER])
+	) or (
+		(event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_LEFT)
+	):
 		$MadTalk.dialog_acknowledge()
-
 
 func _on_ItemList_item_activated(index):
 	if index >= 0:
@@ -101,9 +104,9 @@ offset_bottom = 358.0
 
 [node name="Label" type="Label" parent="PanelSheets"]
 layout_mode = 0
-offset_top = -19.0
-offset_right = 194.0
-offset_bottom = -5.0
+offset_top = -28.0
+offset_right = 232.0
+offset_bottom = -2.0
 text = "Double click to start the sheet"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelSheets"]
@@ -162,18 +165,22 @@ offset_bottom = -18.0
 bbcode_enabled = true
 
 [node name="MenuBox" type="Panel" parent="Dialog"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 224.0
+offset_left = 188.0
 offset_top = -455.0
-offset_right = 403.0
+offset_right = 424.0
 offset_bottom = -195.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="MenuContainer" type="VBoxContainer" parent="Dialog/MenuBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
