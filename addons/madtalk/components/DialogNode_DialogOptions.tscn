@@ -1,122 +1,107 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://bwa38eqib7e25"]
 
-[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/madtalk/components/DialogNode_DialogOptions.gd" type="Script" id=2]
-[ext_resource path="res://addons/madtalk/images/icon_plus.png" type="Texture" id=3]
-[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=4]
-[ext_resource path="res://addons/madtalk/components/DialogNodeOptionsButton.tscn" type="PackedScene" id=5]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
+[ext_resource type="Script" path="res://addons/madtalk/components/DialogNode_DialogOptions.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://xt0wkyrex027" path="res://addons/madtalk/images/icon_plus.png" id="3"]
+[ext_resource type="PackedScene" uid="uid://c5mhhbui1jcfd" path="res://addons/madtalk/components/DialogNodeOptionsButton.tscn" id="5"]
 
-[node name="DialogOptions" type="WindowDialog"]
-margin_right = 512.0
-margin_bottom = 366.0
-popup_exclusive = true
-window_title = "Option Buttons"
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="DialogOptions" type="Window"]
+initial_position = 2
+size = Vector2i(510, 400)
+visible = false
+transient = true
+exclusive = true
+popup_window = true
+script = ExtResource("2")
 
 [node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 
 [node name="HelpLabel" type="Label" parent="Panel"]
-margin_left = 16.0
-margin_top = 11.0
-margin_right = 494.0
-margin_bottom = 89.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 16.0
+offset_top = 11.0
+offset_right = 494.0
+offset_bottom = 89.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
 text = "Options below will be presented as buttons in the end of this dialog sequence.
 
 If option buttons are not desired, just leave this list empty. A dialog sequence without buttons will have a default leaving output. If the default leaving output is not connected,
 the dialog will end."
-autowrap = true
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="TitleLabel" type="Label" parent="Panel"]
-margin_left = 16.0
-margin_top = 102.0
-margin_right = 57.0
-margin_bottom = 114.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 16.0
+offset_top = 102.0
+offset_right = 57.0
+offset_bottom = 114.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
 text = "Buttons"
 
 [node name="BtnAdd" type="TextureButton" parent="Panel"]
-margin_left = 479.211
-margin_top = 96.6408
-margin_right = 495.211
-margin_bottom = 112.641
-texture_normal = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 479.211
+offset_top = 96.6408
+offset_right = 495.211
+offset_bottom = 112.641
+texture_normal = ExtResource("3")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = 116.0
-margin_right = -12.0
-margin_bottom = -32.0
-custom_styles/bg = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 12.0
+offset_top = 116.0
+offset_right = -12.0
+offset_bottom = -32.0
 
 [node name="VBox" type="VBoxContainer" parent="Panel/ScrollContainer"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 487.0
-margin_bottom = 217.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DialogNodeOptionsButton2" parent="Panel/ScrollContainer/VBox" instance=ExtResource( 5 )]
-margin_bottom = 36.0
+[node name="DialogNodeOptionsButton2" parent="Panel/ScrollContainer/VBox" instance=ExtResource("5")]
+layout_mode = 2
 
 [node name="BottomBar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -24.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_top = -24.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="BtnSave" type="Button" parent="BottomBar"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -100.5
-margin_top = -10.0
-margin_right = -59.5
-margin_bottom = 10.0
+offset_left = -100.5
+offset_top = -10.0
+offset_right = -59.5
+offset_bottom = 10.0
 focus_mode = 0
-enabled_focus_mode = 0
 text = "OK"
 
 [node name="BtnCancel" type="Button" parent="BottomBar"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 53.0
-margin_top = -10.0
-margin_right = 107.0
-margin_bottom = 10.0
+offset_left = 53.0
+offset_top = -10.0
+offset_right = 107.0
+offset_bottom = 10.0
 focus_mode = 0
-enabled_focus_mode = 0
 text = "Cancel"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="Panel/BtnAdd" to="." method="_on_BtnAdd_pressed"]
 [connection signal="pressed" from="BottomBar/BtnSave" to="." method="_on_BtnSave_pressed"]

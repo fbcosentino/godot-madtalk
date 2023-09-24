@@ -1,177 +1,166 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://c5mhhbui1jcfd"]
 
-[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/madtalk/images/panel_bg.png" type="Texture" id=2]
-[ext_resource path="res://addons/madtalk/components/resources/InputStyle_grey.tres" type="StyleBox" id=3]
-[ext_resource path="res://addons/madtalk/images/icon_x.png" type="Texture" id=4]
-[ext_resource path="res://addons/madtalk/images/icon_up.png" type="Texture" id=5]
-[ext_resource path="res://addons/madtalk/images/icon_down.png" type="Texture" id=6]
-[ext_resource path="res://addons/madtalk/components/DialogNodeOptionsButton.gd" type="Script" id=7]
-[ext_resource path="res://addons/madtalk/fonts/FreeSans.tres" type="DynamicFont" id=8]
-[ext_resource path="res://addons/madtalk/images/icon_opt_condition.png" type="Texture" id=9]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://dgal43srcee1q" path="res://addons/madtalk/images/panel_bg.png" id="2"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/InputStyle_grey.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://dxgulu8lvnwrr" path="res://addons/madtalk/images/icon_x.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://6iclvaqbm5dl" path="res://addons/madtalk/images/icon_up.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://c4xg8811uuoq6" path="res://addons/madtalk/images/icon_down.png" id="6"]
+[ext_resource type="Script" path="res://addons/madtalk/components/DialogNodeOptionsButton.gd" id="7"]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans.tres" id="8"]
+[ext_resource type="Texture2D" uid="uid://cxwd6i3apjou8" path="res://addons/madtalk/images/icon_opt_condition.png" id="9"]
 
 [node name="DialogNodeOptionsButton" type="Control"]
-margin_right = 486.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 0, 36 )
-rect_clip_content = true
-script = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+clip_contents = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 486.0
+offset_bottom = 36.0
+script = ExtResource("7")
 
 [node name="Panel" type="NinePatchRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 36.0
-texture = ExtResource( 2 )
+offset_bottom = 36.0
+texture = ExtResource("2")
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ButtonTextEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
 anchor_right = 1.0
-margin_left = 42.0
-margin_top = 5.0
-margin_right = -77.0
-margin_bottom = 31.0
-custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0.160784, 0.180392, 1 )
+offset_left = 42.0
+offset_top = 5.0
+offset_right = -77.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("3")
+theme_override_styles/focus = ExtResource("3")
 placeholder_text = "Type button text here"
-placeholder_alpha = 0.4
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BtnUp" type="TextureButton" parent="Panel"]
-modulate = Color( 0.207843, 0.207843, 0.207843, 1 )
+modulate = Color(0.207843, 0.207843, 0.207843, 1)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -73.0
-margin_top = 9.0
-margin_right = -57.0
-margin_bottom = 25.0
-texture_normal = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -73.0
+offset_top = 9.0
+offset_right = -57.0
+offset_bottom = 25.0
+texture_normal = ExtResource("5")
 
 [node name="BtnDown" type="TextureButton" parent="Panel"]
-modulate = Color( 0.207843, 0.207843, 0.207843, 1 )
+modulate = Color(0.207843, 0.207843, 0.207843, 1)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -53.0
-margin_top = 10.0
-margin_right = -37.0
-margin_bottom = 26.0
-texture_normal = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -53.0
+offset_top = 10.0
+offset_right = -37.0
+offset_bottom = 26.0
+texture_normal = ExtResource("6")
 
 [node name="BtnRemove" type="TextureButton" parent="Panel"]
-modulate = Color( 0.207843, 0.207843, 0.207843, 1 )
+modulate = Color(0.207843, 0.207843, 0.207843, 1)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -25.0
-margin_top = 10.0
-margin_right = -9.0
-margin_bottom = 26.0
-texture_normal = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -25.0
+offset_top = 10.0
+offset_right = -9.0
+offset_bottom = 26.0
+texture_normal = ExtResource("4")
 
 [node name="Condition" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 0
 anchor_right = 1.0
-margin_top = 33.0
-margin_bottom = 65.0
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 4, 0, 0 )
+offset_top = 33.0
+offset_bottom = 65.0
+texture = ExtResource("2")
+region_rect = Rect2(0, 4, 0, 0)
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VariableEdit" type="LineEdit" parent="Condition"]
+layout_mode = 0
 anchor_right = 1.0
-margin_left = 118.0
-margin_top = 5.0
-margin_right = -225.0
-margin_bottom = 25.0
-custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0.160784, 0.180392, 1 )
+offset_left = 118.0
+offset_top = 5.0
+offset_right = -225.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = ExtResource("3")
+theme_override_styles/focus = ExtResource("3")
 placeholder_text = "Type variable name here"
-placeholder_alpha = 0.4
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ButtonOperation" type="OptionButton" parent="Condition"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -219.0
-margin_top = 2.0
-margin_right = -170.0
-margin_bottom = 27.0
-custom_fonts/font = ExtResource( 8 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "="
+offset_left = -219.0
+offset_top = 2.0
+offset_right = -170.0
+offset_bottom = 27.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8")
 flat = true
-items = [ "=", null, false, 0, null, "!=", null, false, 1, null, ">", null, false, 2, null, ">=", null, false, 3, null, "<", null, false, 4, null, "<=", null, false, 5, null ]
-selected = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+item_count = 6
+popup/item_0/text = "="
+popup/item_0/id = 0
+popup/item_1/text = "!="
+popup/item_1/id = 1
+popup/item_2/text = ">"
+popup/item_2/id = 2
+popup/item_3/text = ">="
+popup/item_3/id = 3
+popup/item_4/text = "<"
+popup/item_4/id = 4
+popup/item_5/text = "<="
+popup/item_5/id = 5
 
 [node name="ValueEdit" type="LineEdit" parent="Condition"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -166.0
-margin_top = 5.0
-margin_right = -17.0
-margin_bottom = 25.0
-custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0, 0.160784, 0.180392, 1 )
+offset_left = -166.0
+offset_top = 5.0
+offset_right = -17.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = ExtResource("3")
+theme_override_styles/focus = ExtResource("3")
 placeholder_text = "Value or variable name"
-placeholder_alpha = 0.4
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Condition"]
-margin_left = 8.0
-margin_top = 7.0
-margin_right = 109.0
-margin_bottom = 21.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0.32, 0.32, 0.32, 1 )
+layout_mode = 0
+offset_left = 8.0
+offset_top = 7.0
+offset_right = 109.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 11
 text = "Show option when"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BtnOptionCondition" type="Button" parent="."]
-margin_left = 7.0
-margin_top = 6.0
-margin_right = 35.0
-margin_bottom = 28.0
-icon = ExtResource( 9 )
+layout_mode = 0
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 35.0
+offset_bottom = 28.0
+icon = ExtResource("9")
 flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="pressed" from="BtnOptionCondition" to="." method="_on_BtnOptionCondition_pressed"]

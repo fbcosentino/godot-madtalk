@@ -2,8 +2,8 @@ extends Resource
 class_name MTCharacterData
 
 
-export(String) var id = ""
-export(String) var name = ""
-export(Texture) var avatar = null
+@export var id: String = ""
+@export var name: String = ""
+@export var avatar: Texture2D = null
 
-export(Dictionary) var variants = {}
+@export var variants: Dictionary = {}

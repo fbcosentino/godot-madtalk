@@ -1,15 +1,16 @@
-tool
-extends WindowDialog
+@tool
+extends Window
 
 signal sheet_saved(sheet_id, sheet_desc, delete_word)
 
-onready var sheet_id_edit = get_node("Panel/SheetIDEdit")
-onready var sheet_desc_edit = get_node("Panel/SheedDescEdit")
-onready var sheet_delete_word = get_node("Panel/SheetDeleteEdit")
+@onready var sheet_id_edit = get_node("Panel/SheetIDEdit")
+@onready var sheet_desc_edit = get_node("Panel/SheedDescEdit")
+@onready var sheet_delete_word = get_node("Panel/SheetDeleteEdit")
 
 func _ready():
+	pass
 	# Hides the close button
-	get_close_button().hide()
+	#get_close_button().hide()
 
 
 func open(data):

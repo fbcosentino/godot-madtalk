@@ -1,10 +1,10 @@
-tool
+@tool
 extends Control
 
 var connected_id = -1
 
-onready var cond_panel = get_node("Condition")
-onready var cond_op_button = get_node("Condition/ButtonOperation")
+@onready var cond_panel = get_node("Condition")
+@onready var cond_op_button = get_node("Condition/ButtonOperation")
 
 func _ready():
 	cond_panel.visible = false
@@ -15,8 +15,8 @@ func _on_BtnOptionCondition_pressed() -> void:
 	update_condition_visible()
 	
 func update_condition_visible() -> void:
-	rect_min_size.y = 64 if cond_panel.visible else 36
-	rect_size.y = rect_min_size.y
+	custom_minimum_size.y = 64 if cond_panel.visible else 36
+	size.y = custom_minimum_size.y
 	
 func select_operator(op_text: String) -> void:
 	for i in range(cond_op_button.get_item_count()):

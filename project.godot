@@ -6,104 +6,17 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Resource",
-"class": "DialogData",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/resources/DialogData.gd"
-}, {
-"base": "GraphNode",
-"class": "DialogGraphNode",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/DialogNode.gd"
-}, {
-"base": "Resource",
-"class": "DialogNodeData",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/resources/DialogNodeData.gd"
-}, {
-"base": "Resource",
-"class": "DialogNodeItemData",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/resources/DialogNodeItemData.gd"
-}, {
-"base": "Control",
-"class": "DialogNodeItem_condition",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/DialogNodeItem_condition.gd"
-}, {
-"base": "Control",
-"class": "DialogNodeItem_effect",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/DialogNodeItem_effect.gd"
-}, {
-"base": "Control",
-"class": "DialogNodeItem_message",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/DialogNodeItem_message.gd"
-}, {
-"base": "Control",
-"class": "DialogNodeItem_option",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/DialogNodeItem_option.gd"
-}, {
-"base": "Resource",
-"class": "DialogNodeOptionData",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/resources/DialogNodeOptionData.gd"
-}, {
-"base": "Resource",
-"class": "DialogSheetData",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/resources/DialogSheetData.gd"
-}, {
-"base": "EditorProperty",
-"class": "InspectorPluginSheetIDFieldItem",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/InspectorPluginSheetIDFieldItem.gd"
-}, {
-"base": "Resource",
-"class": "MTCharacterData",
-"language": "GDScript",
-"path": "res://madtalk/CharacterData.gd"
-}, {
-"base": "Reference",
-"class": "MTDefs",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/MTDefs.gd"
-}, {
-"base": "Reference",
-"class": "MessageCodeParser",
-"language": "GDScript",
-"path": "res://addons/madtalk/components/MessageCodeParser.gd"
-} ]
-_global_script_class_icons={
-"DialogData": "",
-"DialogGraphNode": "",
-"DialogNodeData": "",
-"DialogNodeItemData": "",
-"DialogNodeItem_condition": "",
-"DialogNodeItem_effect": "",
-"DialogNodeItem_message": "",
-"DialogNodeItem_option": "",
-"DialogNodeOptionData": "",
-"DialogSheetData": "",
-"InspectorPluginSheetIDFieldItem": "",
-"MTCharacterData": "",
-"MTDefs": "",
-"MessageCodeParser": ""
-}
+config_version=5
 
 [application]
 
-config/name="MadTalk"
+config/name="MadTalk - Godot 4"
+config/features=PackedStringArray("4.1")
 
 [autoload]
 
-MadTalkGlobals="*res://madtalk/MadTalkGlobals.gd"
+MadTalkGlobals="*res://madtalk/MadTalkGlobals.tscn"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/madtalk/plugin.cfg" )
+enabled=PackedStringArray("res://addons/madtalk/plugin.cfg")

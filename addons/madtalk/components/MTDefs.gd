@@ -1,7 +1,7 @@
+@tool
 # This file is used for global defintions used across the MadTalk plugin
-tool
 class_name MTDefs
-extends Reference
+extends RefCounted
 
 const WeekdayNames = {
 	0: "Sunday",
@@ -106,7 +106,7 @@ const ConditionData = {
 	ConditionTypes.Random: {
 		"num_args": 1,
 		"default": [50],
-		"data_types": [TYPE_REAL],
+		"data_types": [TYPE_FLOAT],
 		"print_types": [TYPE_RANDOM],
 		"description": "Random",
 		"print_text": "Random chance %s %%",
@@ -129,8 +129,8 @@ const ConditionData = {
 	ConditionTypes.VarAtLeast: {
 		"num_args": 2,
 		"default": ["", 0],
-		"data_types": [TYPE_STRING, TYPE_REAL],
-		"print_types": [TYPE_STRING, TYPE_REAL],
+		"data_types": [TYPE_STRING, TYPE_FLOAT],
+		"print_types": [TYPE_STRING, TYPE_FLOAT],
 		"description": "Variable at least",
 		"print_text": "Variable [color=yellow]%s[/color] >= [color=aqua]%s[/color]",
 		"print_short": "%s >= %s",
@@ -141,8 +141,8 @@ const ConditionData = {
 	ConditionTypes.VarUnder: {
 		"num_args": 2,
 		"default": ["", 0],
-		"data_types": [TYPE_STRING, TYPE_REAL],
-		"print_types": [TYPE_STRING, TYPE_REAL],
+		"data_types": [TYPE_STRING, TYPE_FLOAT],
+		"print_types": [TYPE_STRING, TYPE_FLOAT],
 		"description": "Variable under",
 		"print_text": "Variable [color=yellow]%s[/color] < [color=aqua]%s[/color]",
 		"print_short": "%s < %s",
@@ -210,8 +210,8 @@ const ConditionData = {
 	ConditionTypes.ElapsedFromVar: {
 		"num_args": 2,
 		"default": [0, ""],
-		"data_types": [TYPE_REAL, TYPE_STRING],
-		"print_types": [TYPE_REAL, TYPE_STRING],
+		"data_types": [TYPE_FLOAT, TYPE_STRING],
+		"print_types": [TYPE_FLOAT, TYPE_STRING],
 		"description": "Minutes elapsed since variable",
 		"print_text": "Elapsed [color=blue]%s[/color] minutes after time stamped in variable [color=yellow]%s[/color]",
 		"print_short": "%s mins after var %s",
@@ -259,7 +259,7 @@ func Condition_PrintFail(condition: int, values: Array) -> String:
 					text_items.append(str(100.0 - values[i]))
 				TYPE_INT:
 					text_items.append(str(values[i]))
-				TYPE_REAL:
+				TYPE_FLOAT:
 					text_items.append(ShowFloat(values[i]))
 				TYPE_WEEKDAY:
 					var wday = values[i]
@@ -307,8 +307,8 @@ const EffectData = {
 	EffectTypes.SetVariable: {
 		"num_args": 2,
 		"default": ["",0.0],
-		"data_types": [TYPE_STRING, TYPE_REAL],
-		"print_types": [TYPE_STRING, TYPE_REAL],
+		"data_types": [TYPE_STRING, TYPE_FLOAT],
+		"print_types": [TYPE_STRING, TYPE_FLOAT],
 		"description": "Set Variable",
 		"print_text": "Set the variable %s to the value %s",
 		"print_short": "Set %s = %s",
@@ -317,8 +317,8 @@ const EffectData = {
 	EffectTypes.AddVariable: {
 		"num_args": 2,
 		"default": ["",0.0],
-		"data_types": [TYPE_STRING, TYPE_REAL],
-		"print_types": [TYPE_STRING, TYPE_REAL],
+		"data_types": [TYPE_STRING, TYPE_FLOAT],
+		"print_types": [TYPE_STRING, TYPE_FLOAT],
 		"description": "Add Value to Variable",
 		"print_text": "Add to the variable %s a value of %s",
 		"print_short": "To %s, add %s",
@@ -327,8 +327,8 @@ const EffectData = {
 	EffectTypes.RandomizeVariable: {
 		"num_args": 3,
 		"default": ["",0.0, 1.0],
-		"data_types": [TYPE_STRING, TYPE_REAL, TYPE_REAL],
-		"print_types": [TYPE_STRING, TYPE_REAL, TYPE_REAL],
+		"data_types": [TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT],
+		"print_types": [TYPE_STRING, TYPE_FLOAT, TYPE_FLOAT],
 		"description": "Randomizes Variable",
 		"print_text": "Set the variable %s to a random value between %s and %s",
 		"print_short": "Set %s = rand(%s, %s)",
@@ -347,8 +347,8 @@ const EffectData = {
 	EffectTypes.SpendMinutes: {
 		"num_args": 1,
 		"default": [0],
-		"data_types": [TYPE_REAL],
-		"print_types": [TYPE_REAL],
+		"data_types": [TYPE_FLOAT],
+		"print_types": [TYPE_FLOAT],
 		"description": "Advance Minutes in In-Game Time",
 		"print_text": "Add %s minutes to current in-game time",
 		"print_short": "Spend %s minutes",
@@ -357,8 +357,8 @@ const EffectData = {
 	EffectTypes.SpendDays: {
 		"num_args": 1,
 		"default": [0],
-		"data_types": [TYPE_REAL],
-		"print_types": [TYPE_REAL],
+		"data_types": [TYPE_FLOAT],
+		"print_types": [TYPE_FLOAT],
 		"description": "Advance Days in In-Game Time",
 		"print_text": "Add %s days to current in-game time",
 		"print_short": "Spend %s day(s)",
@@ -405,7 +405,7 @@ const EffectData = {
 		"description": "Custom Effect",
 		"print_text": "Custom effect [color=yellow]%s[/color] (data: %s)",
 		"print_short": "%s (%s)",
-		"help": "Calls a custom effect (implemented in user code).\n\nA custom ID is passed to the callback (to be used as effect type, e.g. \"give_item\", \"teleport_player\", \"game_over\", or anything representable with a single string), as well as a list of strings separated here by line breaks (to be used as general purpose fixed data, e.g. item id, room id, etc). The list of strings will be passed to the callback as Array of Strings."
+		"help": "Calls a custom effect (implemented in user code).\n\nA custom ID is passed to the callback (to be used as effect type, e.g. \"give_item\", \"teleport_player\", \"game_over\", or anything representable with a single string), as well as a list of strings separated here by line breaks (to be used as general purpose fixed data, e.g. item id, room id, etc). The list of strings will be passed to the callback as Array of Strings.\n\nThe callback is whatever is connected to the \"activate_custom_effect\" signal in the MadTalk node. If more than one method is connected, only the first one is used."
 	}
 }
 
@@ -418,7 +418,7 @@ func Effect_PrintShort(effect: int, values: Array) -> String:
 				text_items.append(str(100.0 - values[i]))
 			TYPE_INT:
 				text_items.append(str(values[i]))
-			TYPE_REAL:
+			TYPE_FLOAT:
 				text_items.append(ShowFloat(values[i]))
 			TYPE_WEEKDAY:
 				var wday = values[i]

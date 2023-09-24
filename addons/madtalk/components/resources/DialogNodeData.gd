@@ -1,4 +1,4 @@
-tool
+@tool
 extends Resource
 class_name DialogNodeData
 
@@ -6,12 +6,12 @@ class_name DialogNodeData
 # and does not include sub-items
 # It is used to define sequence ID and option buttons
 
-export(int) var sequence_id = 0
-export(Vector2) var position = Vector2(0,0)
-export(String) var comment = ""
+@export var sequence_id: int = 0
+@export var position: Vector2 = Vector2(0,0)
+@export var comment: String = ""
 
-export(Array, Resource) var items = []
-export(Array, Resource) var options = []
+@export var items = [] # (Array, Resource)
+@export var options = [] # (Array, Resource)
 
-export(int) var continue_sequence_id = -1
-export(int) var continue_port_index = -1
+@export var continue_sequence_id: int = -1
+@export var continue_port_index: int = -1

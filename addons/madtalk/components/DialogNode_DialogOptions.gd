@@ -1,18 +1,19 @@
-tool
-extends WindowDialog
+@tool
+extends Window
 
 signal saved(source_dialog)
 
 
 var button_template = preload("res://addons/madtalk/components/DialogNodeOptionsButton.tscn")
 
-onready var buttonlist = get_node("Panel/ScrollContainer/VBox")
+@onready var buttonlist = get_node("Panel/ScrollContainer/VBox")
 
 var data_resource # holds reference to the node data
 
 func _ready() -> void:
+	pass
 	# Hides the close button
-	get_close_button().hide()
+	#get_close_button().hide()
 
 func open(data: DialogNodeData) -> void:
 	data_resource = data
@@ -30,7 +31,7 @@ func open(data: DialogNodeData) -> void:
 	
 	
 func add_item(item_data) -> void:
-	var new_btn = button_template.instance()
+	var new_btn = button_template.instantiate()
 	buttonlist.add_child(new_btn)
 	new_btn.connected_id = item_data.connected_to_id
 	new_btn.get_node("Panel/ButtonTextEdit").text = item_data.text
@@ -46,9 +47,9 @@ func add_item(item_data) -> void:
 		new_btn.select_operator("=")
 		
 	
-	new_btn.get_node("Panel/BtnUp").connect("pressed", self, "_on_Button_BtnUp", [new_btn])
-	new_btn.get_node("Panel/BtnDown").connect("pressed", self, "_on_Button_BtnDown", [new_btn])
-	new_btn.get_node("Panel/BtnRemove").connect("pressed", self, "_on_Button_BtnRemove", [new_btn])
+	new_btn.get_node("Panel/BtnUp").connect("pressed", Callable(self, "_on_Button_BtnUp").bind(new_btn))
+	new_btn.get_node("Panel/BtnDown").connect("pressed", Callable(self, "_on_Button_BtnDown").bind(new_btn))
+	new_btn.get_node("Panel/BtnRemove").connect("pressed", Callable(self, "_on_Button_BtnRemove").bind(new_btn))
 
 	
 

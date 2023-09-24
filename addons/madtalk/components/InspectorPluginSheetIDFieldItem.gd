@@ -6,7 +6,7 @@ signal sheet_selected(sheet_id)
 var search_box_template = preload("res://addons/madtalk/components/DialogSearchSheet.tscn")
 var search_item_template = preload("res://addons/madtalk/components/DialogSearchSheetItem.tscn")
 
-var property_editor_object = preload("res://addons/madtalk/components/DialogSearchInspectorSheetIDField.tscn").instance()
+var property_editor_object = preload("res://addons/madtalk/components/DialogSearchInspectorSheetIDField.tscn").instantiate()
 
 var dialog_data : Resource = preload("res://madtalk/madtalk_data.tres")
 
@@ -16,8 +16,8 @@ func _init():
 	add_child(property_editor_object)
 	# To remember focus when selected back:
 	add_focusable(property_editor_object.get_node("ValueLineEdit"))
-	property_editor_object.get_node("ValueLineEdit").connect("text_changed", self, "_on_text_changed")
-	property_editor_object.get_node("BtnSearch").connect("pressed", self, "_on_search_requested")
+	property_editor_object.get_node("ValueLineEdit").connect("text_changed", Callable(self, "_on_text_changed"))
+	property_editor_object.get_node("BtnSearch").connect("pressed", Callable(self, "_on_search_requested"))
 
 
 func _on_text_changed(text):
@@ -38,7 +38,7 @@ func _on_search_requested():
 	new_search_box.popup_centered()
 	search(text, new_search_box)
 
-	var result = yield(self, "sheet_selected")
+	var result = await self.sheet_selected
 	if result and (result is String):
 		updating = true
 		property_editor_object.get_node("ValueLineEdit").set_text(result)
@@ -46,10 +46,10 @@ func _on_search_requested():
 		updating = false
 
 func set_search_window(text):
-	var new_search_box = search_box_template.instance()
+	var new_search_box = search_box_template.instantiate()
 	add_child(new_search_box)
-	new_search_box.get_node("Panel/BottomBar/BtnCancel").connect("pressed", self, "_on_BtnCancel_pressed", [new_search_box])
-	new_search_box.get_node("Panel/SearchEdit").connect("text_changed", self, "search", [new_search_box])
+	new_search_box.get_node("Panel/BottomBar/BtnCancel").connect("pressed", Callable(self, "_on_BtnCancel_pressed").bind(new_search_box))
+	new_search_box.get_node("Panel/SearchEdit").connect("text_changed", Callable(self, "search").bind(new_search_box))
 
 	new_search_box.get_node("Panel/SearchEdit").text = text
 	
@@ -63,12 +63,12 @@ func add_item(sheet_id, window_object):
 	if not window_object:
 		return
 		
-	var new_item = search_item_template.instance()
+	var new_item = search_item_template.instantiate()
 	window_object.get_node("Panel/SearchResultsPanel/Scroll/VBoxResults").add_child(new_item)
 	
 	new_item.get_node("SheetIDLabel").text = sheet_id
 	new_item.get_node("DescLabel").text = dialog_data.sheets[sheet_id].sheet_description
-	new_item.get_node("BtnPick").connect("pressed", self, "_on_SheetItem_pick", [sheet_id, window_object])
+	new_item.get_node("BtnPick").connect("pressed", Callable(self, "_on_SheetItem_pick").bind(sheet_id, window_object))
 
 
 func _on_SheetItem_pick(sheet_id, window_object):

@@ -1,8 +1,8 @@
-tool
+@tool
 extends Control
 class_name DialogNodeItem_option
 
-export(String) var text = "" setget text_set
+@export var text: String = "": set = text_set
 
 func text_set(value: String) -> void:
 	text = value

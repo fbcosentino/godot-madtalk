@@ -1,4 +1,4 @@
-tool
+@tool
 extends Resource
 class_name DialogData
 
@@ -24,9 +24,9 @@ class_name DialogData
 # versions. This is necessary since conditions and effects are based on
 # enums (and therefore int's) and adding new items might potentially break
 # existing designs
-export(float) var version = 1.0
+@export var version: float = 1.0
 
 # Dictionary keys are strings
 # Dictionary values are DialogSheetData resource
-export(Dictionary) var sheets = {}
+@export var sheets: Dictionary = {}
 

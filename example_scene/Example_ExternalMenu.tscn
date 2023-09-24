@@ -1,16 +1,16 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://cd2wmgfnnp6qq"]
 
-[ext_resource path="res://madtalk/CharacterData.gd" type="Script" id=1]
-[ext_resource path="res://example_scene/images/francesco.png" type="Texture" id=2]
-[ext_resource path="res://example_scene/images/maria.png" type="Texture" id=3]
-[ext_resource path="res://example_scene/sfx/click.wav" type="AudioStream" id=4]
-[ext_resource path="res://madtalk/madtalk_runtime.gd" type="Script" id=5]
-[ext_resource path="res://addons/madtalk/fonts/FreeSans.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://addons/madtalk/fonts/FreeSansBoldOblique.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://addons/madtalk/fonts/FreeSansOblique.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://addons/madtalk/fonts/FreeSansBold.ttf" type="DynamicFontData" id=9]
+[ext_resource type="Script" path="res://madtalk/CharacterData.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dmj1j5r0psdlj" path="res://example_scene/images/francesco.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cem864t6xt4t6" path="res://example_scene/images/maria.png" id="3"]
+[ext_resource type="AudioStream" uid="uid://dr553b0ej26vk" path="res://example_scene/sfx/click.wav" id="4"]
+[ext_resource type="Script" path="res://madtalk/madtalk_runtime.gd" id="5"]
+[ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="6"]
+[ext_resource type="FontFile" uid="uid://b0p0wjgy1i2k2" path="res://addons/madtalk/fonts/FreeSansBoldOblique.ttf" id="7"]
+[ext_resource type="FontFile" uid="uid://y87jh0omiuc5" path="res://addons/madtalk/fonts/FreeSansOblique.ttf" id="8"]
+[ext_resource type="FontFile" uid="uid://c8t8f2e12iwo6" path="res://addons/madtalk/fonts/FreeSansBold.ttf" id="9"]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id="4"]
 script/source = "extends Control
 
 # If using a typing sound as .wav file, remember to set it to loop and reimport
@@ -23,8 +23,8 @@ var icons = {
 	\"yellow\": preload(\"res://example_scene/images/can_yellow.png\"),
 }
 
-onready var vending_machine = $VendingMachine
-onready var vending_machine_itemlist = $VendingMachine/ScrollContainer/ItemList
+@onready var vending_machine = $VendingMachine
+@onready var vending_machine_itemlist = $VendingMachine/ScrollContainer/ItemList
 
 func _ready():
 	# In case you forget to hide manually in the scene tree before saving
@@ -46,7 +46,7 @@ func _unhandled_key_input(event):
 	# How the user tells the dialog to continue is up to you
 	# it can be a key press, a mouse click, touch event, etc
 	# All you have to do is call dialog_acknowledge() 
-	if (event.pressed) and (not event.echo) and (event.scancode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
+	if (event.pressed) and (not event.echo) and (event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
 		$MadTalk.dialog_acknowledge()
 
 
@@ -84,69 +84,73 @@ func _on_ItemList_item_activated(index):
 	
 	# First we hide the external menu
 	vending_machine.hide()
-	vending_machine_itemlist.unselect_all() # Just to be safe
+	vending_machine_itemlist.deselect_all() # Just to be safe
 	
 	# Now the magic: we just inform MadTalk we are selecting an item
 	# from the menu. That's it. MadTalk takes care of the rest
 	$MadTalk.select_menu_option(index)
 "
 
-[sub_resource type="Resource" id=2]
-script = ExtResource( 1 )
+[sub_resource type="Resource" id="2"]
+script = ExtResource("1")
 id = "foo"
 name = "Maria"
-avatar = ExtResource( 3 )
-variants = {
-}
+avatar = ExtResource("3")
+variants = {}
 
-[sub_resource type="Resource" id=3]
-script = ExtResource( 1 )
+[sub_resource type="Resource" id="3"]
+script = ExtResource("1")
 id = "bar"
 name = "Francesco"
-avatar = ExtResource( 2 )
-variants = {
-}
+avatar = ExtResource("2")
+variants = {}
 
-[sub_resource type="DynamicFont" id=5]
-size = 20
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = -4
-extra_spacing_bottom = -4
-font_data = ExtResource( 7 )
+[sub_resource type="FontFile" id="8"]
+fallbacks = Array[Font]([ExtResource("6")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="DynamicFont" id=6]
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = -4
-extra_spacing_bottom = -4
-font_data = ExtResource( 8 )
+[sub_resource type="FontFile" id="7"]
+fallbacks = Array[Font]([ExtResource("9")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="DynamicFont" id=7]
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = -4
-extra_spacing_bottom = -4
-font_data = ExtResource( 9 )
+[sub_resource type="FontFile" id="6"]
+fallbacks = Array[Font]([ExtResource("8")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="DynamicFont" id=8]
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = -4
-extra_spacing_bottom = -4
-font_data = ExtResource( 6 )
+[sub_resource type="FontFile" id="5"]
+fallbacks = Array[Font]([ExtResource("7")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [node name="ExternalMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 4 )
-__meta__ = {
-"_edit_lock_": true
-}
+script = SubResource("4")
 
 [node name="MadTalk" type="Node" parent="."]
-script = ExtResource( 5 )
-ListOfCharacters = [ SubResource( 2 ), SubResource( 3 ) ]
+script = ExtResource("5")
+ListOfCharacters = [SubResource("2"), SubResource("3")]
 DialogMainControl = NodePath("../Dialog")
 DialogMessageBox = NodePath("../Dialog/DialogBox")
 DialogMessageLabel = NodePath("../Dialog/DialogBox/LabelMessage")
@@ -155,108 +159,104 @@ DialogSpeakerAvatar = NodePath("../Dialog/DialogBox/Avatar")
 KeyPressAudioStreamPlayer = NodePath("../Dialog/SFXClick")
 
 [node name="Button" type="Button" parent="."]
-margin_left = 17.0
-margin_top = 17.0
-margin_right = 164.0
-margin_bottom = 64.0
+layout_mode = 0
+offset_left = 17.0
+offset_top = 17.0
+offset_right = 164.0
+offset_bottom = 64.0
 focus_mode = 0
-enabled_focus_mode = 0
 text = "Click here to start"
 
 [node name="VendingMachine" type="Panel" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -174.0
-margin_top = -262.0
-margin_right = 109.0
-margin_bottom = 71.0
-__meta__ = {
-"_edit_group_": true
-}
+offset_left = -174.0
+offset_top = -262.0
+offset_right = 109.0
+offset_bottom = 71.0
 
 [node name="Label" type="Label" parent="VendingMachine"]
-margin_top = -19.0
-margin_right = 194.0
-margin_bottom = -5.0
+layout_mode = 0
+offset_top = -31.0
+offset_right = 194.0
+offset_bottom = -5.0
 text = "Vending Machine"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VendingMachine"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 45.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ItemList" type="ItemList" parent="VendingMachine/ScrollContainer"]
-margin_right = 328.0
-margin_bottom = 333.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 10
 allow_reselect = true
 max_text_lines = 2
 max_columns = 3
 same_column_width = true
 fixed_column_width = 128
 icon_mode = 0
-fixed_icon_size = Vector2( 128, 64 )
+fixed_icon_size = Vector2i(128, 64)
 
 [node name="Dialog" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="DialogBox" type="Panel" parent="Dialog"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -438.5
-margin_top = -222.0
-margin_right = 438.5
-margin_bottom = -32.0
-__meta__ = {
-"_edit_lock_": true
-}
+offset_left = -438.5
+offset_top = -222.0
+offset_right = 438.5
+offset_bottom = -32.0
 
 [node name="Avatar" type="TextureRect" parent="Dialog/DialogBox"]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 144.0
-margin_bottom = 144.0
-texture = ExtResource( 2 )
-expand = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = 144.0
+texture = ExtResource("2")
+expand_mode = 1
 stretch_mode = 6
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="LabelName" type="Label" parent="Dialog/DialogBox"]
-margin_left = 17.0
-margin_top = 149.0
-margin_right = 144.0
-margin_bottom = 180.0
-align = 1
-autowrap = true
+layout_mode = 0
+offset_left = 17.0
+offset_top = 149.0
+offset_right = 144.0
+offset_bottom = 180.0
 clip_text = true
 
 [node name="LabelMessage" type="RichTextLabel" parent="Dialog/DialogBox"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 168.0
-margin_top = 22.0
-margin_right = -20.0
-margin_bottom = -18.0
-custom_fonts/bold_italics_font = SubResource( 5 )
-custom_fonts/italics_font = SubResource( 6 )
-custom_fonts/bold_font = SubResource( 7 )
-custom_fonts/normal_font = SubResource( 8 )
+offset_left = 168.0
+offset_top = 22.0
+offset_right = -20.0
+offset_bottom = -18.0
+theme_override_fonts/normal_font = SubResource("8")
+theme_override_fonts/bold_font = SubResource("7")
+theme_override_fonts/italics_font = SubResource("6")
+theme_override_fonts/bold_italics_font = SubResource("5")
 bbcode_enabled = true
 
 [node name="SFXClick" type="AudioStreamPlayer" parent="Dialog"]
-stream = ExtResource( 4 )
+stream = ExtResource("4")
 volume_db = -6.0
 
 [connection signal="external_menu_requested" from="MadTalk" to="." method="_on_MadTalk_external_menu_requested"]

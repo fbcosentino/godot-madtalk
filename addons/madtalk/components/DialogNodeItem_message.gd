@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 class_name DialogNodeItem_message
 
@@ -6,20 +6,29 @@ signal remove_requested(requester)
 signal move_up_requested(requester)
 signal move_down_requested(requester)
 
-export(Resource) var data
+@export var data: Resource
 
-onready var popup_menu = get_node("PopupMenu")
-onready var dialog_edit = get_node("DialogEdit")
-onready var edit_speaker_id = get_node("DialogEdit/Panel/SpeakerEdit")
-onready var edit_speaker_var = get_node("DialogEdit/Panel/VariantEdit")
-onready var edit_voiceclip = get_node("DialogEdit/Panel/VoiceEdit")
-onready var edit_message = get_node("DialogEdit/Panel/MessageEdit")
-onready var edit_preview = get_node("DialogEdit/Panel/PreviewBox/PreviewLabel")
-onready var edit_previewtimer = get_node("DialogEdit/Panel/PreviewBox/PreviewTimer")
-onready var edit_previewbg = get_node("DialogEdit/Panel/PreviewBox")
-onready var edit_btn_hide_on_end = get_node("DialogEdit/Panel/BtnHideOnEnd")
+#@onready var popup_menu = get_node("PopupMenu")
+#@onready var dialog_edit = get_node("DialogEdit")
+var edit_speaker_id
+var edit_speaker_var
+var edit_voiceclip
+var edit_message
+var edit_preview
+var edit_previewtimer
+var edit_previewbg
+var edit_btn_hide_on_end
 
-onready var dialog_voiceclip = get_node("VoiceClipDialog")
+#@onready var dialog_voiceclip = get_node("VoiceClipDialog")
+
+var template_VoiceClipDialog: PackedScene = preload("res://addons/madtalk/components/popups/Messages_VoiceClipDialog.tscn")
+var dialog_voiceclip: FileDialog
+
+var template_DialogEdit: PackedScene = preload("res://addons/madtalk/components/popups/Messages_DialogEdit.tscn")
+var dialog_edit: Window
+
+var template_PopupMenu: PackedScene = preload("res://addons/madtalk/components/popups/DialogNodeItem_PopupMenu.tscn")
+var popup_menu: PopupMenu
 
 enum PopupOptions {
 	Edit,
@@ -28,6 +37,7 @@ enum PopupOptions {
 	Remove
 }
 
+@onready var box_height_margins = size.y - get_node("Panel/MessageLabel").size.y
 
 var message_speakervarlabel = null
 var message_speakerlabel = null
@@ -50,12 +60,18 @@ func set_data(new_data):
 	message_hideonendlabel = get_node("HideOnEndLabel")
 	update_from_data()
 
+func update_height():
+	custom_minimum_size.y = min(
+		box_height_margins + message_msglabel.get_content_height(),
+		120
+	)
+
 func update_from_data():
 	if data:
 		message_speakerlabel.text = data.message_speaker_id
 		message_speakervarlabel.text = data.message_speaker_variant
 		message_voicelabel.text = data.message_voice_clip
-		message_msglabel.bbcode_text = data.message_text
+		message_msglabel.text = data.message_text
 		message_hideonendlabel.visible = (data.message_hide_on_end != 0)
 		
 		var variant_title = get_node("SpeakerVarLabel")
@@ -63,25 +79,85 @@ func update_from_data():
 		
 		var panel = get_node("Panel")
 		if data.message_voice_clip != "":
-			panel.margin_top = 40
+			panel.offset_top = 40
 		else:
-			panel.margin_top = 28
+			panel.offset_top = 28
+		
+		update_height()
+
+func create_dialog_edit():
+	if not dialog_edit:
+		dialog_edit = template_DialogEdit.instantiate() as Window
+		add_child(dialog_edit)
+		dialog_edit.get_node("Panel/VoiceEdit/BtnSelectClip").pressed.connect(_on_BtnSelectClip_pressed)
+		dialog_edit.get_node("Panel/MessageEdit").text_changed.connect(_on_DialogEdit_MessageEdit_text_changed)
+		dialog_edit.get_node("Panel/BtnTextColor").color_changed.connect(_on_DialogEdit_BtnTextColor_color_changed)
+		dialog_edit.get_node("Panel/BtnBGColor").color_changed.connect(_on_DialogEdit_BtnBGColor_color_changed)
+		dialog_edit.get_node("Panel/PreviewBox/PreviewTimer").timeout.connect(_on_DialogEdit_PreviewTimer_timeout)
+		dialog_edit.get_node("Panel/BottomBar/BtnSave").pressed.connect(_on_DialogEdit_BtnSave_pressed)
+		dialog_edit.get_node("Panel/BottomBar/BtnCancel").pressed.connect(_on_DialogEdit_BtnCancel_pressed)
+
+		edit_speaker_id = dialog_edit.get_node("Panel/SpeakerEdit")
+		edit_speaker_var = dialog_edit.get_node("Panel/VariantEdit")
+		edit_voiceclip = dialog_edit.get_node("Panel/VoiceEdit")
+		edit_message = dialog_edit.get_node("Panel/MessageEdit")
+		edit_preview = dialog_edit.get_node("Panel/PreviewBox/PreviewLabel")
+		edit_previewtimer = dialog_edit.get_node("Panel/PreviewBox/PreviewTimer")
+		edit_previewbg = dialog_edit.get_node("Panel/PreviewBox")
+		edit_btn_hide_on_end = dialog_edit.get_node("Panel/BtnHideOnEnd")
+
+func dispose_dialog_edit():
+	if dialog_edit:
+		dialog_edit.queue_free()
+		dialog_edit = null
+
+func create_voice_clip_dialog():
+	if not dialog_voiceclip:
+		dialog_voiceclip = template_VoiceClipDialog.instantiate()
+		add_child(dialog_voiceclip)
+		dialog_voiceclip.file_selected.connect(_on_FileDialog_voiceclip_selected)
+
+func dispose_voice_clip_dialog():
+	if dialog_voiceclip:
+		dialog_voiceclip.queue_free()
+		dialog_voiceclip = null
+
+
+func create_popup_menu():
+	if not popup_menu:
+		popup_menu = template_PopupMenu.instantiate() as PopupMenu
+		add_child(popup_menu)
+		popup_menu.id_pressed.connect(_on_PopupMenu_id_pressed)
+
+func dispose_popup_menu():
+	if popup_menu:
+		popup_menu.queue_free()
+		popup_menu = null
+
 
 
 func _on_DialogNodeItem_gui_input(event):
-	if (event is InputEventMouseButton) and (event.pressed) and (event.button_index == BUTTON_RIGHT):
-		var position = get_viewport().get_mouse_position()
-		popup_menu.popup(Rect2(position,Vector2(10,10)))
+	if (event is InputEventMouseButton) and (event.pressed):
+		if (event.button_index == MOUSE_BUTTON_LEFT) and event.double_click:
+			_on_PopupMenu_id_pressed(PopupOptions.Edit)
+			
+		if (event.button_index == MOUSE_BUTTON_RIGHT):
+			var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
+			create_popup_menu()
+			popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
+
 
 
 func _on_PopupMenu_id_pressed(id):
+	dispose_popup_menu() # Handles null gracefully
 	match id:
 		PopupOptions.Edit:
+			create_dialog_edit()
 			edit_speaker_id.text = data.message_speaker_id
 			edit_speaker_var.text = data.message_speaker_variant
 			edit_voiceclip.text = data.message_voice_clip
 			edit_message.text = data.message_text
-			edit_btn_hide_on_end.pressed = (data.message_hide_on_end != 0)
+			edit_btn_hide_on_end.button_pressed = (data.message_hide_on_end != 0)
 			_on_DialogEdit_PreviewTimer_timeout()
 			dialog_edit.popup_centered()
 			
@@ -97,7 +173,7 @@ func _on_PopupMenu_id_pressed(id):
 
 
 func _on_DialogEdit_BtnCancel_pressed():
-	dialog_edit.hide()
+	dispose_dialog_edit()
 
 
 func _on_DialogEdit_BtnSave_pressed():
@@ -105,14 +181,14 @@ func _on_DialogEdit_BtnSave_pressed():
 	data.message_speaker_variant = edit_speaker_var.text
 	data.message_voice_clip = edit_voiceclip.text
 	data.message_text = edit_message.text
-	data.message_hide_on_end = 1 if edit_btn_hide_on_end.pressed else 0
+	data.message_hide_on_end = 1 if edit_btn_hide_on_end.button_pressed else 0
 	update_from_data()
-	dialog_edit.hide()
+	dispose_dialog_edit()
 
 
 
 func _on_DialogEdit_PreviewTimer_timeout():
-	edit_preview.bbcode_text = edit_message.text
+	edit_preview.text = edit_message.text
 
 
 func _on_DialogEdit_MessageEdit_text_changed():
@@ -120,7 +196,7 @@ func _on_DialogEdit_MessageEdit_text_changed():
 
 
 func _on_DialogEdit_BtnTextColor_color_changed(color):
-	edit_preview.set("custom_colors/default_color", color)
+	edit_preview.set("theme_override_colors/default_color", color)
 
 
 func _on_DialogEdit_BtnBGColor_color_changed(color):
@@ -128,8 +204,10 @@ func _on_DialogEdit_BtnBGColor_color_changed(color):
 
 
 func _on_BtnSelectClip_pressed():
+	create_voice_clip_dialog()
 	dialog_voiceclip.popup_centered()
 
 
 func _on_FileDialog_voiceclip_selected(path):
 	edit_voiceclip.text = path
+	dispose_voice_clip_dialog()

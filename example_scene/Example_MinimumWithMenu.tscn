@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuqg3eu58tvfr"]
+
+[ext_resource type="Script" path="res://madtalk/madtalk_runtime.gd" id="1_6gwug"]
+
+[sub_resource type="GDScript" id="GDScript_8be5v"]
+script/source = "extends Node2D
+
+
+
+func _ready():
+	$MadTalk.start_dialog(\"minimum_menu\")
+
+
+func _input(event):
+	if (
+		(event is InputEventKey) and (event.pressed) and (not event.echo) and (event.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER])
+	) or (
+		(event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_LEFT)
+	):
+		$MadTalk.dialog_acknowledge()
+"
+
+[node name="Scene" type="Node2D"]
+script = SubResource("GDScript_8be5v")
+
+[node name="MadTalk" type="Node" parent="."]
+script = ExtResource("1_6gwug")
+DialogMainControl = NodePath("../CanvasLayer/Dialog")
+DialogMessageBox = NodePath("../CanvasLayer/Dialog/MessagePanel")
+DialogMessageLabel = NodePath("../CanvasLayer/Dialog/MessagePanel/MessageRichLabel")
+DialogButtonsMenu = NodePath("../CanvasLayer/Dialog/MenuPanel")
+DialogButtonsContainer = NodePath("../CanvasLayer/Dialog/MenuPanel/ButtonContainer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Dialog" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MessagePanel" type="Panel" parent="CanvasLayer/Dialog"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -152.0
+offset_right = 400.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MessageRichLabel" type="RichTextLabel" parent="CanvasLayer/Dialog/MessagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Lorem ipsum"
+
+[node name="MenuPanel" type="Panel" parent="CanvasLayer/Dialog"]
+visible = false
+layout_mode = 0
+offset_left = 853.0
+offset_top = 321.0
+offset_right = 1016.0
+offset_bottom = 516.0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CanvasLayer/Dialog/MenuPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

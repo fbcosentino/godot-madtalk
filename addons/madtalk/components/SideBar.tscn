@@ -1,43 +1,37 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://c6topqf6spbbw"]
 
-[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/madtalk/components/SideBar.gd" type="Script" id=2]
-[ext_resource path="res://addons/madtalk/components/resources/PanelStyle.tres" type="StyleBox" id=3]
-[ext_resource path="res://addons/madtalk/images/icon_down.png" type="Texture" id=4]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
+[ext_resource type="Script" path="res://addons/madtalk/components/SideBar.gd" id="2"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://c4xg8811uuoq6" path="res://addons/madtalk/images/icon_down.png" id="4"]
 
 [node name="SideBar" type="Panel"]
+clip_contents = true
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -209.0
-margin_top = 31.0
-margin_bottom = 431.0
-rect_clip_content = true
-custom_styles/panel = ExtResource( 3 )
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
+offset_left = -209.0
+offset_top = 31.0
+offset_bottom = 431.0
+theme_override_styles/panel = ExtResource("3")
+script = ExtResource("2")
 
 [node name="TitleLabel" type="Label" parent="."]
-margin_left = 3.0
-margin_right = 177.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 3.0
+offset_right = 177.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
 text = "Options"
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BtnTogglePanel" type="TextureButton" parent="."]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -24.0
-margin_bottom = 24.0
-texture_normal = ExtResource( 4 )
-expand = true
+offset_left = -24.0
+offset_bottom = 24.0
+texture_normal = ExtResource("4")
 stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
 [connection signal="pressed" from="BtnTogglePanel" to="." method="_on_BtnTogglePanel_pressed"]

@@ -1,0 +1,196 @@
+[gd_scene load_steps=9 format=3 uid="uid://xog5yco44i3o"]
+
+[ext_resource type="Script" path="res://madtalk/madtalk_runtime.gd" id="1_2pxo6"]
+[ext_resource type="Texture2D" uid="uid://cem864t6xt4t6" path="res://example_scene/images/maria.png" id="2_dac5e"]
+[ext_resource type="Script" path="res://madtalk/CharacterData.gd" id="3_k5mmc"]
+[ext_resource type="Texture2D" uid="uid://dmj1j5r0psdlj" path="res://example_scene/images/francesco.png" id="4_5tatg"]
+[ext_resource type="AudioStream" uid="uid://dr553b0ej26vk" path="res://example_scene/sfx/click.wav" id="5_ryn23"]
+
+[sub_resource type="GDScript" id="4"]
+script/source = "extends Control
+
+# If using a typing sound as .wav file, remember to set it to loop and reimport
+
+
+@onready var sheet_list = $PanelSheets/ScrollContainer/ItemList
+
+func _ready():
+	# In case you forget to hide manually in the scene tree before saving
+	$Dialog.hide()
+	$Dialog/DialogBox.hide()
+	$Dialog/MenuBox.hide()
+	# You can use animations to handle this, and in that case the animation
+	# RESET track can take care of this
+	
+	# Populate list of sheets
+	for sheet_id in $MadTalk.get_sheet_names():
+		sheet_list.add_item(sheet_id)
+
+
+func _on_SheetID_text_entered(new_text):
+	# Starting a dialog is as simplas as this:
+	# just start_dialog( <sheet name> )
+	$MadTalk.start_dialog(new_text)
+
+
+func _input(event):
+	# How the user tells the dialog to continue is up to you
+	# it can be a key press, a mouse click, touch event, etc
+	# All you have to do is call dialog_acknowledge() 
+	if (
+		(event is InputEventKey) and (event.pressed) and (not event.echo) and (event.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER])
+	) or (
+		(event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_LEFT)
+	):
+		$MadTalk.dialog_acknowledge()
+
+func _on_ItemList_item_activated(index):
+	if index >= 0:
+		var sheet_id = sheet_list.get_item_text(index)
+		sheet_list.deselect_all()
+		
+		$MadTalk.start_dialog(sheet_id)
+"
+
+[sub_resource type="Resource" id="2"]
+script = ExtResource("3_k5mmc")
+id = "foo"
+name = "Maria"
+avatar = ExtResource("2_dac5e")
+variants = {}
+
+[sub_resource type="Resource" id="3"]
+script = ExtResource("3_k5mmc")
+id = "bar"
+name = "Francesco"
+avatar = ExtResource("4_5tatg")
+variants = {}
+
+[node name="Scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("4")
+
+[node name="MadTalk" type="Node" parent="."]
+script = ExtResource("1_2pxo6")
+ListOfCharacters = [SubResource("2"), SubResource("3")]
+DialogMainControl = NodePath("../Dialog")
+DialogMessageBox = NodePath("../Dialog/DialogBox")
+DialogMessageLabel = NodePath("../Dialog/DialogBox/LabelMessage")
+DialogSpeakerLabel = NodePath("../Dialog/DialogBox/LabelName")
+DialogSpeakerAvatar = NodePath("../Dialog/DialogBox/Avatar")
+DialogButtonsMenu = NodePath("../Dialog/MenuBox")
+DialogButtonsContainer = NodePath("../Dialog/MenuBox/MenuContainer")
+KeyPressAudioStreamPlayer = NodePath("../Dialog/SFXClick")
+
+[node name="SheetID" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 268.0
+offset_bottom = 44.0
+placeholder_text = "Type sheet ID and press Enter"
+
+[node name="PanelSheets" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 38.0
+offset_right = 574.0
+offset_bottom = 358.0
+
+[node name="Label" type="Label" parent="PanelSheets"]
+layout_mode = 0
+offset_top = -28.0
+offset_right = 232.0
+offset_bottom = -2.0
+text = "Double click to start the sheet"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelSheets"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ItemList" type="ItemList" parent="PanelSheets/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="Dialog" type="Control" parent="."]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="DialogBox" type="Panel" parent="Dialog"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -438.5
+offset_top = -222.0
+offset_right = 438.5
+offset_bottom = -32.0
+
+[node name="Avatar" type="TextureRect" parent="Dialog/DialogBox"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = 144.0
+texture = ExtResource("4_5tatg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="LabelName" type="Label" parent="Dialog/DialogBox"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 149.0
+offset_right = 144.0
+offset_bottom = 180.0
+clip_text = true
+
+[node name="LabelMessage" type="RichTextLabel" parent="Dialog/DialogBox"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 168.0
+offset_top = 22.0
+offset_right = -20.0
+offset_bottom = -18.0
+bbcode_enabled = true
+
+[node name="MenuBox" type="Panel" parent="Dialog"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 188.0
+offset_top = -455.0
+offset_right = 424.0
+offset_bottom = -195.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MenuContainer" type="VBoxContainer" parent="Dialog/MenuBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SFXClick" type="AudioStreamPlayer" parent="Dialog"]
+stream = ExtResource("5_ryn23")
+volume_db = -6.0
+
+[connection signal="text_submitted" from="SheetID" to="." method="_on_SheetID_text_entered"]
+[connection signal="item_activated" from="PanelSheets/ScrollContainer/ItemList" to="." method="_on_ItemList_item_activated"]

@@ -1,3 +1,4 @@
+@tool
 # MadTalk Godot Plugin by Fernando Cosentino
 # https://github.com/fbcosentino/godot-madtalk
 #
@@ -5,7 +6,6 @@
 # (But if you can be so kind as to mention the original in your Readme in case
 # you base any work on this, I would be very glad :] )
 
-tool
 extends EditorPlugin
 
 # ==============================================================================
@@ -27,10 +27,12 @@ var main_panel
 func _enter_tree():
 	add_inspector_plugin(sheet_id_inspector_editor)
 	
-	main_panel = MadTalkEditor_scene.instance()
+	main_panel = MadTalkEditor_scene.instantiate()
 	
-	get_editor_interface().get_editor_viewport().add_child(main_panel)
-	make_visible(false)
+	get_editor_interface().get_editor_main_screen().add_child(main_panel)
+	_make_visible(false)
+	
+	add_autoload_singleton("MadTalkGlobals", "res://madtalk/MadTalkGlobals.tscn")
 
 
 func _exit_tree():
@@ -38,23 +40,26 @@ func _exit_tree():
 	
 	if main_panel:
 		main_panel.queue_free()
+	
+	remove_autoload_singleton("MadTalkGlobals")
 
-func has_main_screen():
+func _has_main_screen():
 	return true
 
 
-func make_visible(visible):
+func _make_visible(visible):
 	if main_panel:
 		main_panel.visible = visible
+		main_panel.call_deferred("reopen_current_sheet")
 
 
-func get_plugin_name():
+func _get_plugin_name():
 	return "Dialog"
 
 
-func get_plugin_icon():
+func _get_plugin_icon():
 	return viewport_icon#get_editor_interface().get_base_control().get_icon("Node", "EditorIcons")
 
-func save_external_data():
+func _save_external_data():
 	if main_panel:
-		main_panel.save_external_data()
+		main_panel._save_external_data()
