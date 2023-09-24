@@ -46,7 +46,7 @@ condition_value = ""
 [sub_resource type="Resource" id="6"]
 script = ExtResource("5")
 text = "No"
-connected_to_id = 5
+connected_to_id = -1
 is_conditional = false
 condition_variable = ""
 condition_operator = "="
@@ -185,7 +185,7 @@ continue_port_index = 0
 script = ExtResource("2")
 sheet_id = "1_start_here"
 sheet_description = "Demonstration sheet. You can delete this in your game, or repurpose it."
-next_sequence_id = 7
+next_sequence_id = 8
 nodes = [SubResource("2"), SubResource("11"), SubResource("Resource_ixt6j")]
 
 [sub_resource type="Resource" id="Resource_vx7w3"]

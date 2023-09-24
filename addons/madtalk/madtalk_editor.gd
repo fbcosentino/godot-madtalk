@@ -308,7 +308,7 @@ func _on_GraphArea_connection_request(from, from_slot, to, to_slot):
 
 func _on_GraphArea_disconnection_request(from, from_slot, to, to_slot):
 	# Get the required data
-	var from_node = graph_area.get_node(from)
+	var from_node = graph_area.get_node(NodePath(from))
 	var from_data = from_node.get_data_by_port(from_slot)
 	
 	# Make the connection in the underlying data resources

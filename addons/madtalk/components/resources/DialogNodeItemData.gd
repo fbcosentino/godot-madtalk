@@ -23,8 +23,8 @@ var port_index : int = -1
 
 @export var message_speaker_id: String = ""
 @export var message_speaker_variant: String = ""
-@export var message_voice_clip: String = ""
-@export_multiline var message_text := "" # (String, MULTILINE)
+@export var message_voice_clip: String = "" # Default locale
+@export_multiline var message_text := "" # default locale
 @export var message_hide_on_end: int = 0
 
 # ==============================================================================
