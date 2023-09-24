@@ -1,7 +1,7 @@
-tool
+@tool
 extends Control
 
-export(Resource) var dialog_data = preload("res://madtalk/madtalk_data.tres")
+@export var dialog_data: Resource = preload("res://madtalk/madtalk_data.tres")
 var current_sheet = null
 
 # Scene templates
@@ -9,22 +9,22 @@ var DialogNode_template = preload("res://addons/madtalk/components/DialogNode.ts
 var SideBar_SheetItem_template = preload("res://addons/madtalk/components/SideBar_SheetItem.tscn")
 
 # Scene nodes
-onready var graph_area = get_node("GraphArea")
+@onready var graph_area = get_node("GraphArea")
 
 
-onready var sidebar_sheetlist = get_node("SideBar/Content/SheetsScroll/VBox")
-onready var sidebar_current_panel = get_node("SideBar/Content/CurrentPanel")
-onready var SideBar_sheet_id = get_node("SideBar/Content/CurrentPanel/SheetIDLabel")
-onready var SideBar_sheet_desc = get_node("SideBar/Content/CurrentPanel/DescEdit")
-onready var SideBar_search = get_node("SideBar/Content/SearchEdit")
+@onready var sidebar_sheetlist = get_node("SideBar/Content/SheetsScroll/VBox")
+@onready var sidebar_current_panel = get_node("SideBar/Content/CurrentPanel")
+@onready var SideBar_sheet_id = get_node("SideBar/Content/CurrentPanel/SheetIDLabel")
+@onready var SideBar_sheet_desc = get_node("SideBar/Content/CurrentPanel/DescEdit")
+@onready var SideBar_search = get_node("SideBar/Content/SearchEdit")
 
-onready var graph_area_popup = get_node("PopupMenu")
+@onready var graph_area_popup = get_node("PopupMenu")
 
-onready var popup_delete_node = get_node("DialogDeleteNodePopup")
+@onready var popup_delete_node = get_node("DialogDeleteNodePopup")
 
-onready var dialog_sheet_edit = get_node("DialogSheetEdit")
-onready var dialog_sheet_rename_error_popup = get_node("DialogSheetRenameError")
-onready var dialog_sheet_create_popup = get_node("DialogSheetCreated")
+@onready var dialog_sheet_edit = get_node("DialogSheetEdit")
+@onready var dialog_sheet_rename_error_popup = get_node("DialogSheetRenameError")
+@onready var dialog_sheet_create_popup = get_node("DialogSheetCreated")
 
 # Maps sequence ids to graph nodes
 var sequence_map: Dictionary = {}
@@ -34,7 +34,9 @@ var deleting_node = null
 
 
 func _ready() -> void:
-	
+	call_deferred("setup")
+
+func setup():
 	if dialog_data.sheets.size() == 0:
 		create_new_sheet()
 	
@@ -70,22 +72,27 @@ func open_sheet(sheet_id: String) -> void:
 	for sequence_id in sequence_map:
 		sequence_map[sequence_id].update_from_data()
 			
+	graph_area.scroll_offset.y -= 1
 	update_sidebar()
 	rebuild_connections()
+	
+	await get_tree().process_frame
+	graph_area.scroll_offset.y += 1
+	graph_area.queue_redraw()
 	
 
 # Creates the visual representation of a node
 # Does not modify the data structure
 func create_node_instance(node_data: Resource, update_now: bool = true) -> DialogGraphNode:
-	var new_node = DialogNode_template.instance()
+	var new_node = DialogNode_template.instantiate()
 	new_node.name = "DialogNode_ID%d" % node_data.sequence_id
 	graph_area.add_child(new_node)
-	new_node.offset = node_data.position
-	new_node.connect("connections_changed", self, "_on_node_connections_changed")
-	new_node.connect("close_request", self, "_on_node_close_request", [new_node])
-	new_node.data = node_data # Assign the reference, not a copy
-							  # Any changes to this node will reflect back in
-							  # the main Resource
+	new_node.position_offset = node_data.position
+	new_node.connect("connections_changed", Callable(self, "_on_node_connections_changed"))
+	new_node.connect("close_request", Callable(self, "_on_node_close_request").bind(new_node))
+	new_node.data = node_data 	# Assign the reference, not a copy
+								# Any changes to this node will reflect back in
+								# the main Resource
 	new_node.show_close = (node_data.sequence_id != 0)
 	
 	# During sheet building not all nodes are ready so updating connections
@@ -227,18 +234,18 @@ func update_sidebar():
 	var search_term = SideBar_search.text
 	for this_sheet_id in dialog_data.sheets:
 		var new_item_data = dialog_data.sheets[this_sheet_id]
-		# If there is no search, or search shows up in eiter id or description:
-		if (search_term == "") or (search_term.is_subsequence_ofi(this_sheet_id)) or (search_term.is_subsequence_ofi(new_item_data.sheet_description)):
-			var new_item = SideBar_SheetItem_template.instance()
+		# If there is no search, or search shows up in either id or description:
+		if (search_term == "") or (search_term in this_sheet_id) or (search_term in new_item_data.sheet_description):
+			var new_item = SideBar_SheetItem_template.instantiate()
 			sidebar_sheetlist.add_child(new_item)
 			new_item.get_node("Panel/SheetLabel").text = new_item_data.sheet_id
 			new_item.get_node("Panel/DescriptionLabel").text = new_item_data.sheet_description
-			new_item.get_node("Panel/BtnOpen").connect("pressed", self, "_on_SideBar_Item_open", [new_item_data.sheet_id])
+			new_item.get_node("Panel/BtnOpen").connect("pressed", Callable(self, "_on_SideBar_Item_open").bind(new_item_data.sheet_id))
 	
 	
-func save_external_data():
+func _save_external_data():
 	var res_path = dialog_data.resource_path
-	ResourceSaver.save(res_path, dialog_data, 0)
+	ResourceSaver.save(dialog_data, res_path, 0)
 
 # ==============================================================================
 # UI CALLBACKS
@@ -248,11 +255,14 @@ func save_external_data():
 func _on_GraphEdit_gui_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton) and (event.pressed):
 		match event.button_index:
-			BUTTON_LEFT:
+			MOUSE_BUTTON_LEFT:
 				_on_GraphEdit_left_click(event)
 				
-			BUTTON_RIGHT:
+			MOUSE_BUTTON_RIGHT:
 				_on_GraphEdit_right_click(event)
+	#if (event is InputEventMouseMotion):
+	#	print( (graph_area.get_local_mouse_position() + graph_area.scroll_offset)/graph_area.zoom )
+
 
 ## Handles left clicks
 func _on_GraphEdit_left_click(event: InputEvent) -> void:
@@ -269,14 +279,16 @@ func _on_GraphEdit_right_click(event: InputEvent) -> void:
 	# graph_position is in node local coordinates
 	var graph_position = event.position + graph_area.scroll_offset
 
-	graph_area_popup.popup(Rect2(event.position + graph_area.rect_global_position, Vector2(10,10)))
+	var cursor_position =  Vector2(get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position())
+	graph_area_popup.popup(Rect2(cursor_position, Vector2(10,10)))
+
 
 
 func _on_GraphArea_connection_request(from, from_slot, to, to_slot):
 	# Get the required data
-	var from_node = graph_area.get_node(from)
+	var from_node = graph_area.get_node(NodePath(from))
 	var from_data = from_node.get_data_by_port(from_slot)
-	var to_node = graph_area.get_node(to)
+	var to_node = graph_area.get_node(NodePath(to))
 	# to_slot is always 0 in this application
 	var to_sequence_id = to_node.data.sequence_id
 	
@@ -328,7 +340,10 @@ func _on_GraphArea_PopupMenu_id_pressed(id) -> void:
 			
 			# graph_area_popup.rect_position is screen coordinate, not taking scroll into account
 			# graph_position is in node local coordinates
-			var graph_position = graph_area_popup.rect_position + graph_area.scroll_offset
+			#var cursor_position =  Vector2(graph_area_popup.position)
+			#var graph_position = Vector2(cursor_position) + Vector2(graph_area.scroll_offset)
+			#var graph_position = Vector2(graph_area_popup.position) + Vector2(graph_area.scroll_offset)
+			var graph_position = Vector2((graph_area.get_local_mouse_position() + graph_area.scroll_offset)/graph_area.zoom)
 
 			create_new_node(graph_position - Vector2(100,10), false)
 			open_sheet(current_sheet)
@@ -432,7 +447,7 @@ func _on_BtnNewSheet_pressed() -> void:
 
 func _on_BtnSaveDB_pressed():
 	var res_path = dialog_data.resource_path
-	ResourceSaver.save(res_path, dialog_data, 0)
+	ResourceSaver.save(dialog_data, res_path, 0)
 
 
 

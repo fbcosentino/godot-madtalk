@@ -1,81 +1,81 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://cc8hueicocet2"]
 
-[ext_resource path="res://addons/madtalk/fonts/FreeSans_smal.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/madtalk/fonts/FreeSans_tiny.tres" type="DynamicFont" id=2]
-[ext_resource path="res://addons/madtalk/components/resources/ButtonStyle.tres" type="StyleBox" id=3]
-[ext_resource path="res://addons/madtalk/components/resources/SheetItemStyle.tres" type="StyleBox" id=4]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="3"]
+[ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="3_atm42"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/SheetItemStyle.tres" id="4"]
+
+[sub_resource type="FontVariation" id="FontVariation_1s3xs"]
+base_font = ExtResource("3_atm42")
+spacing_top = -4
+spacing_bottom = -4
 
 [node name="SheetItem" type="Control"]
-margin_right = 200.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 0, 48 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 48.0
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
 size_flags_horizontal = 3
-custom_styles/panel = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false,
-"_editor_description_": ""
-}
+theme_override_styles/panel = ExtResource("4")
 
 [node name="BGTitleLine" type="ColorRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-margin_left = 4.0
-margin_top = 14.0
-margin_right = -4.0
-margin_bottom = 16.0
-color = Color( 1, 1, 1, 0.12549 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 4.0
+offset_top = 17.0
+offset_right = -4.0
+offset_bottom = 19.0
+grow_horizontal = 2
+color = Color(1, 1, 1, 0.12549)
 
 [node name="SheetLabel" type="Label" parent="Panel"]
-margin_left = 4.0
-margin_top = 2.0
-margin_right = 51.0
-margin_bottom = 16.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 51.0
+offset_bottom = 21.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 10
 text = "sheet_id"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DescriptionLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 21.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0.580392, 0.580392, 0.580392, 1 )
-text = "Short sheet description
-"
-autowrap = true
+offset_left = 4.0
+offset_top = 20.0
+offset_right = -3.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.580392, 0.580392, 0.580392, 1)
+theme_override_fonts/font = SubResource("FontVariation_1s3xs")
+theme_override_font_sizes/font_size = 9
+text = "Short sheet description"
+autowrap_mode = 2
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BtnOpen" type="Button" parent="Panel"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -44.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = 22.0
-custom_styles/normal = ExtResource( 3 )
-custom_fonts/font = ExtResource( 1 )
+offset_left = -44.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 22.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = ExtResource("3")
 text = "Open"
-__meta__ = {
-"_edit_use_anchors_": false
-}

@@ -1,4 +1,4 @@
-tool
+@tool
 extends Control
 class_name DialogNodeItem_condition
 
@@ -8,20 +8,20 @@ signal move_down_requested(requester)
 
 
 
-export(Resource) var data
+@export var data: Resource
 
 
-onready var popup_menu = get_node("PopupMenu")
+@onready var popup_menu = get_node("PopupMenu")
 enum PopupOptions {
 	Edit,
 	MoveUp,
 	MoveDown,
 	Remove
 }
-onready var dialog_edit = get_node("DialogEdit")
-onready var edit_condition_type = get_node("DialogEdit/Panel/BtnConditionType")
-onready var edit_specificlist = get_node("DialogEdit/Panel/SpecificFields")
-onready var edit_btntip = get_node("DialogEdit/Panel/BtnTip")
+@onready var dialog_edit = get_node("DialogEdit")
+@onready var edit_condition_type = get_node("DialogEdit/Panel/BtnConditionType")
+@onready var edit_specificlist = get_node("DialogEdit/Panel/SpecificFields")
+@onready var edit_btntip = get_node("DialogEdit/Panel/BtnTip")
 
 # names of the nodes holding the controls in edit box
 const edit_specificlist_items = [
@@ -38,7 +38,7 @@ const edit_specificlist_items = [
 	"Custom"
 ]
 
-onready var condition_conditionlabel = get_node("ConditionLabel")
+@onready var condition_conditionlabel = get_node("ConditionLabel")
 
 func _ready():
 	for item in edit_specificlist.get_children():
@@ -54,13 +54,12 @@ func update_from_data():
 	if data:
 		var mtdefs = MTDefs.new()
 		condition_conditionlabel.text = mtdefs.Condition_PrintFail(data.condition_type, data.condition_values)
-		#mtdefs.free()
 
 
 func _on_DialogNodeItem_condition_gui_input(event):
-	if (event is InputEventMouseButton) and (event.pressed) and (event.button_index == BUTTON_RIGHT):
-		var position = get_viewport().get_mouse_position()
-		popup_menu.popup(Rect2(position,Vector2(10,10)))
+	if (event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_RIGHT):
+		var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
+		popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
 
 func _on_PopupMenu_id_pressed(id):
 	match id:
@@ -152,7 +151,7 @@ func _on_DialogEdit_BtnSave_pressed():
 		match data_type:
 			TYPE_INT:
 				data.condition_values[i] = int(value)
-			TYPE_REAL:
+			TYPE_FLOAT:
 				data.condition_values[i] = float(value)
 			TYPE_STRING:
 				data.condition_values[i] = value

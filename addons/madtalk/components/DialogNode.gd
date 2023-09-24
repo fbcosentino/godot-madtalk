@@ -1,4 +1,4 @@
-tool
+@tool
 extends GraphNode
 class_name DialogGraphNode
 
@@ -6,7 +6,7 @@ signal connections_changed
 
 # data is a live reference to the underlying data this GraphNode refers to
 # changing properties in this script will affect the original data
-export(Resource) var data
+@export var data: Resource
 
 var DialogOptions_template = preload("res://addons/madtalk/components/DialogNode_DialogOptions.tscn")
 
@@ -15,16 +15,16 @@ var DialogNodeItem_condition_template = preload("res://addons/madtalk/components
 var DialogNodeItem_effect_template = preload("res://addons/madtalk/components/DialogNodeItem_effect.tscn")
 var DialogNodeItem_option_template = preload("res://addons/madtalk/components/DialogNodeItem_option.tscn")
 
-onready var topbar = get_node("TopBar")
-onready var add_menu = get_node("TopBar/AddMenu")
-onready var dialog_remove = get_node("TopBar/DialogRemove")
+@onready var topbar = get_node("TopBar")
+@onready var add_menu = get_node("TopBar/AddMenu")
+@onready var dialog_remove = get_node("TopBar/DialogRemove")
 
-const COLOR_COND = Color(1.0, 0.5, 0.0, 1.0)
-const COLOR_OPT = Color(0.0, 1.0, 1.0, 1.0)
-const COLOR_CONT = Color(1.0, 1.0, 1.0, 1.0)
+const COLOR_COND := Color(1.0, 0.5, 0.0, 1.0)
+const COLOR_OPT := Color(0.0, 1.0, 1.0, 1.0)
+const COLOR_CONT := Color(1.0, 1.0, 1.0, 1.0)
 
 # Stores a port_index -> data resource map
-var port_data_map = {}
+var port_data_map := {}
 
 func _ready():
 	if data:
@@ -33,12 +33,12 @@ func _ready():
 func clear():
 	var itemlist = get_children()
 	# Index 0 is always topbar, we ignore
-	itemlist.remove(0)
+	itemlist.remove_at(0)
 	for item in itemlist:
 		item.hide()
 		item.queue_free()
-	rect_min_size.y = 1
-	rect_size.y = 1
+	custom_minimum_size.y = 1
+	size.y = 1
 	# Clears the port_index -> data resource map
 	port_data_map.clear()
 	
@@ -69,7 +69,7 @@ func update_from_data():
 			DialogNodeItemData.ItemTypes.Message:
 				item.port_index = -1
 				
-				new_item = DialogNodeItem_message_template.instance()
+				new_item = DialogNodeItem_message_template.instantiate()
 				clear_slot(i)
 				
 			DialogNodeItemData.ItemTypes.Condition:
@@ -77,12 +77,12 @@ func update_from_data():
 				port_data_map[output_i] = item
 				output_i += 1
 				
-				new_item = DialogNodeItem_condition_template.instance()
+				new_item = DialogNodeItem_condition_template.instantiate()
 				clear_slot(i)
 				set_slot(i,      # index
 					false,       # bool enable_left 
 					0,           # int type_left
-					Color.black, # Color color_left
+					Color.BLACK, # Color color_left
 					true,        # bool enable_right
 					0,           # int type_right
 					COLOR_COND   # Color color_right
@@ -92,16 +92,16 @@ func update_from_data():
 			DialogNodeItemData.ItemTypes.Effect:
 				item.port_index = -1
 
-				new_item = DialogNodeItem_effect_template.instance()
+				new_item = DialogNodeItem_effect_template.instantiate()
 				clear_slot(i)
 
 		if new_item:
 			add_child(new_item)
-			new_item.connect("remove_requested",self,"_on_Item_remove_requested")
-			new_item.connect("move_up_requested",self,"_on_move_up_requested")
-			new_item.connect("move_down_requested",self,"_on_move_down_requested")
+			new_item.connect("remove_requested", Callable(self, "_on_Item_remove_requested"))
+			new_item.connect("move_up_requested", Callable(self, "_on_move_up_requested"))
+			new_item.connect("move_down_requested", Callable(self, "_on_move_down_requested"))
 			new_item.set_data(item)
-			final_size += new_item.rect_min_size.y
+			final_size += new_item.custom_minimum_size.y
 		
 		i += 1
 	
@@ -117,20 +117,20 @@ func update_from_data():
 			port_data_map[output_i] = option
 			output_i += 1
 			
-			var new_opt = DialogNodeItem_option_template.instance()
+			var new_opt = DialogNodeItem_option_template.instantiate()
 			add_child(new_opt)
 			new_opt.text = option.text
 			new_opt.set_conditional(option.is_conditional)
 			set_slot(i,      # index
 				false,       # bool enable_left 
 				0,           # int type_left
-				Color.black, # Color color_left
+				Color.BLACK, # Color color_left
 				true,        # bool enable_right
 				0,           # int type_right
 				COLOR_OPT   # Color color_right
 				#, Texture custom_left=null, Texture custom_right=null 
 			)
-			final_size += new_opt.rect_min_size.y
+			final_size += new_opt.custom_minimum_size.y
 			
 			i += 1
 	
@@ -139,43 +139,44 @@ func update_from_data():
 		data.continue_port_index = output_i
 		output_i += 1
 		
-		var new_opt = DialogNodeItem_option_template.instance()
+		var new_opt = DialogNodeItem_option_template.instantiate()
 		add_child(new_opt)
 		new_opt.text = "(Continue)"
 		set_slot(i,      # index
 			false,       # bool enable_left 
 			0,           # int type_left
-			Color.black, # Color color_left
+			Color.BLACK, # Color color_left
 			true,        # bool enable_right
 			0,           # int type_right
 			COLOR_CONT   # Color color_right
 			#, Texture custom_left=null, Texture custom_right=null 
 		)
-		final_size += new_opt.rect_min_size.y
+		final_size += new_opt.custom_minimum_size.y
 		
 		i += 1
 		
 	# === UPDATING SIZE
-	# We yield one frame to allow all resizing methods to be called properly
-	# before we apply the final size to the node
-	yield(get_tree(),"idle_frame")
-	# This works fine when the MadTalk editor is exported in a project 
-	# (such as in-game dialog editting)
-	rect_size.y = final_size
+	if is_inside_tree() and get_tree():
+		# We yield one frame to allow all resizing methods to be called properly
+		# before we apply the final size to the node
+		await get_tree().process_frame
+		# This works fine when the MadTalk editor is exported in a project 
+		# (such as in-game dialog editting)
+		size.y = final_size
+		
+		# However, if the MadTalk editor is running as a plugin in the Godot Editor
+		# (and only in this situation), waiting just one frame is not enough, and
+		# the node resizing suffers from random-like errors. If you ever find out
+		# the reason, please don't hesitate to send a PR.
+		# Currently we wait a second frame and then fix the size manually again
+		# A visual glitch can be seen for one frame
+		await get_tree().process_frame
 	
-	# However, if the MadTalk editor is running as a plugin in the Godot Editor
-	# (and only in this situation), waiting just one frame is not enough, and
-	# the node resizing suffers from random-like errors. If you ever find out
-	# the reason, please don't hesitate to send a PR.
-	# Currently we wait a second frame and then fix the size manually again
-	# A visual glitch can be seen for one frame
-	yield(get_tree(),"idle_frame")
+		final_size = 0
+		for item in get_children():
+			final_size += item.size.y
 	
-	final_size = 0
-	for item in get_children():
-		final_size += item.rect_size.y
-	
-	rect_size.y = final_size
+		size.y = final_size
 		
 # Given an output port index, returns the corresponding data resource
 # return value can be either DialogNodeItemData or DialogNodeOptionData
@@ -201,7 +202,8 @@ enum AddMenuItems {
 }
 	
 func _on_BtnAdd_pressed():
-	add_menu.popup(Rect2(get_viewport().get_mouse_position(), Vector2(1,1)))
+	var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
+	add_menu.popup(Rect2(cursor_position, Vector2(1,1)))
 	
 func _on_AddMenu_id_pressed(id):
 	match id:
@@ -237,12 +239,12 @@ func _on_AddMenu_id_pressed(id):
 # OPTION LIST
 
 func _on_BtnOptions_pressed():
-	var dialog_opt = DialogOptions_template.instance()
+	var dialog_opt = DialogOptions_template.instantiate()
 	
 	# has to be added to topbar and not to self, since all children
 	# added to self will be considered a connection in the node
 	topbar.add_child(dialog_opt)
-	dialog_opt.connect("saved", self, "_on_DialogOptions_saved")
+	dialog_opt.connect("saved", Callable(self, "_on_DialogOptions_saved"))
 	
 	dialog_opt.open(data)
 	
@@ -259,7 +261,7 @@ func _on_move_up_requested(requester):
 	var cur_index = data.items.find(requester.data)
 	if cur_index > 0:
 		var item_data = data.items[cur_index]
-		data.items.remove(cur_index)
+		data.items.remove_at(cur_index)
 		data.items.insert(cur_index-1, item_data)
 	update_from_data()
 	emit_signal("connections_changed")
@@ -268,7 +270,7 @@ func _on_move_down_requested(requester):
 	var cur_index = data.items.find(requester.data)
 	if cur_index < (data.items.size()-1):
 		var item_data = data.items[cur_index]
-		data.items.remove(cur_index)
+		data.items.remove_at(cur_index)
 		data.items.insert(cur_index+1, item_data)
 	update_from_data()
 	emit_signal("connections_changed")

@@ -11,12 +11,12 @@ var time = 0
 var gametime_offset = 0
 var gametime_year = 1
 
-onready var gametime = epoch_to_game_time(time)
+@onready var gametime = epoch_to_game_time(time)
 
 func set_variable(var_name: String, var_value) -> void:
 	variables[var_name] = var_value
 	
-func get_variable(var_name: String, default = 0):
+func get_variable(var_name: String, default = 0.0):
 	if var_name in variables:
 		return variables[var_name]
 	else:
@@ -43,7 +43,7 @@ func set_game_year(year: int) -> void:
 		"minute": 0,
 		"second": 0
 	}
-	gametime_offset = OS.get_unix_time_from_datetime(dt)
+	gametime_offset = Time.get_unix_time_from_datetime_dict(dt)
 	gametime = epoch_to_game_time(time)
 
 ##
@@ -66,7 +66,7 @@ func epoch_to_game_time(epoch_time: int) -> Dictionary:
 	#  "date":    String day/month in format DD/MM
 	#  "date_inv": String day/month in format MM/DD
 	
-	var dt = OS.get_datetime_from_unix_time(gametime_offset + epoch_time)
+	var dt = Time.get_datetime_dict_from_unix_time(gametime_offset + epoch_time)
 	dt["year"] -= gametime_year-1 # year - 1, so starts at year 1
 	dt["time"] = "%02d:%02d" % [dt["hour"], dt["minute"]]
 	dt["date"] = "%02d/%02d" % [dt["day"], dt["month"]]
@@ -78,7 +78,7 @@ func epoch_to_game_time(epoch_time: int) -> Dictionary:
 # Converts day, month, year to unix epoch time
 func game_time_to_epoch(p_gametime: Dictionary) -> int:
 	p_gametime["year"] += gametime_year-1 # Year 1 is base,
-	return OS.get_unix_time_from_datetime(p_gametime) - gametime_offset
+	return Time.get_unix_time_from_datetime_dict(p_gametime) - gametime_offset
 
 func update_gametime_dict():
 	gametime = epoch_to_game_time(time)
@@ -96,7 +96,7 @@ func date_to_int(day: int, month: int, year: int) -> int:
 func time_to_float(hour: int, minute: int) -> float:
 	return float(hour) + float(minute)/60.0
 
-func time_to_string(var epoch_time: int, simplified: bool = true) -> String:
+func time_to_string(epoch_time: int, simplified: bool = true) -> String:
 	# Date time dictionary has the format:
 	# {
 	#   "year": ...,
@@ -126,7 +126,8 @@ func time_to_string(var epoch_time: int, simplified: bool = true) -> String:
 	
 
 func split_time(value: String) -> Array:
-	var nums_psa = str(value).split(':')
+	# TODO: this is not very efficient code. To be rewritten to run faster
+	var nums_psa = Array(str(value).split(':'))
 	while nums_psa.size() < 2:
 		nums_psa.append(0)
 	var nums = [int(nums_psa[0]), int(nums_psa[1])]
@@ -137,7 +138,8 @@ func split_time(value: String) -> Array:
 	return [nums[0], nums[1]]
 
 func split_date(value: String) -> Array:
-	var nums_psa = str(value).split('/')
+	# TODO: this is not very efficient code. To be rewritten to run faster
+	var nums_psa = Array(str(value).split('/'))
 	while nums_psa.size() < 2:
 		nums_psa.append(1)
 	var nums = [int(nums_psa[0]), int(nums_psa[1])]
@@ -238,7 +240,7 @@ func import_game_data(data: Dictionary) -> void:
 	for variable_name in data["variables"]:
 		if variable_name is String:
 			var value = data["variables"][variable_name]
-			if typeof(value) in [TYPE_INT, TYPE_REAL, TYPE_STRING]:
+			if typeof(value) in [TYPE_INT, TYPE_FLOAT, TYPE_STRING]:
 				# All numeric values can be safely assumed float (as per JSON)
 				# since all methods using them do proper casting
 				variables[variable_name] = value

@@ -1,4 +1,4 @@
-tool
+@tool
 extends Resource
 class_name DialogSheetData
 
@@ -16,7 +16,7 @@ class_name DialogSheetData
 #    |    |- DialogNodeItemData         -> e.g. effect to buy item
 #    |    ...
 
-export(String) var sheet_id = ""
-export(String) var sheet_description = ""
-export(int) var next_sequence_id = 0
-export(Array, Resource) var nodes = [] # "nodes" as in dialog node, not Godot Node
+@export var sheet_id: String = ""
+@export var sheet_description: String = ""
+@export var next_sequence_id: int = 0
+@export var nodes: Array = [] # "nodes" as in dialog node, not Godot Node # (Array, Resource)

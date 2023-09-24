@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name MessageCodeParser
 
 const tag_if_start = "{{if "
@@ -45,7 +45,7 @@ func process(source_text: String, variables: Dictionary) -> Array:
 				
 	# Find pause points
 	var text_segments = result.split("<pause>")
-	if (not text_segments is PoolStringArray) or (text_segments.size() <= 1):
+	if (not text_segments is PackedStringArray) or (text_segments.size() <= 1):
 		return [result, [1.0]] # 1.0 means one text with 100% of characters
 	
 	
@@ -56,13 +56,13 @@ func process(source_text: String, variables: Dictionary) -> Array:
 	# have to be added anyhere
 	var bbcode_parser = RichTextLabel.new()
 	bbcode_parser.bbcode_enabled = true
-	bbcode_parser.bbcode_text = ""
+	bbcode_parser.text = ""
 	var charcount_per_segment = []
 	
 	result = ""
 	for item in text_segments:
 		result += item
-		bbcode_parser.bbcode_text += item
+		bbcode_parser.text += item
 		var characters_up_to_here = bbcode_parser.text.length() #get_total_character_count()
 
 		charcount_per_segment.append(characters_up_to_here)
@@ -93,7 +93,7 @@ func parse(source_text: String, variables: Dictionary) -> Array:
 	var tag_pos = s_tmp.find("{{if")
 	while tag_pos > -1:
 		var text_before = s_tmp.left(tag_pos)
-		var text_after = s_tmp.right(tag_pos + tag_if_start_len)
+		var text_after = s_tmp.substr(tag_pos + tag_if_start_len)
 		
 		var tag_endpos = text_after.find(tag_if_end)
 		
@@ -103,7 +103,7 @@ func parse(source_text: String, variables: Dictionary) -> Array:
 			break
 			
 		var text_cond = text_after.left(tag_endpos)
-		text_after = text_after.right(tag_endpos + tag_if_end_len)
+		text_after = text_after.substr(tag_endpos + tag_if_end_len)
 		
 		# Now we have:
 		# text_before -> text before the start tag
@@ -112,7 +112,7 @@ func parse(source_text: String, variables: Dictionary) -> Array:
 		# both tags are not included anywhere
 		
 		
-		result.append(_parse_condition(text_before, variables))
+		result.append(_replace_variables(text_before, variables))
 		result.append(_parse_condition(text_cond, variables))
 		
 		s_tmp = text_after
@@ -132,7 +132,7 @@ func _parse_condition(text: String, variables: Dictionary):
 		return text
 		
 	var text_before = text.left(sep_pos)
-	var text_after = text.right(sep_pos + cond_sep_len)
+	var text_after = text.substr(sep_pos + cond_sep_len)
 	
 	
 	var cond_terms = text_before
@@ -145,7 +145,7 @@ func _parse_condition(text: String, variables: Dictionary):
 				break
 				
 			var value = cond_terms[1]
-			if value.is_valid_integer():
+			if value.is_valid_int():
 				value = value.to_int()
 			elif value.is_valid_float():
 				value = value.to_float()

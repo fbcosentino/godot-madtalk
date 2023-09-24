@@ -51,39 +51,39 @@ signal dialog_aborted
 
 # Array containing the character data, one record per character
 # All items in this array must be of type MTCharacterData
-export(Array, Resource) var ListOfCharacters = []
+@export var ListOfCharacters := [] # (Array, Resource)
 
 # This is the main control overlay used to show all dialog activity under
 # MadTalk responsibility. Usually a Control with "Full Rect" layout and mouse
 # filter set to "Stop", but other scenarios are possible at your discretion.
-export(NodePath) var DialogMainControl
-onready var dialog_maincontrol = get_node_or_null(DialogMainControl)
+@export var DialogMainControl: NodePath
+@onready var dialog_maincontrol: Control = get_node_or_null(DialogMainControl)
 
 # The Control-descendant holding all the objects in the text box
 # but not the menu. Menu must be able to become visible when this is hidden
 # In most simple cases this can be the label itself
-export(NodePath) var DialogMessageBox
-onready var dialog_messagebox = get_node_or_null(DialogMessageBox)
+@export var DialogMessageBox: NodePath
+@onready var dialog_messagebox: Control = get_node_or_null(DialogMessageBox)
 
 # The Label or RichTextLabel used to display dialog messages
-export(NodePath) var DialogMessageLabel
-onready var dialog_messagelabel = get_node_or_null(DialogMessageLabel)
+@export var DialogMessageLabel: NodePath
+@onready var dialog_messagelabel: Control = get_node_or_null(DialogMessageLabel)
 
 # The Label or RichTextLabel used to display the speaker name
-export(NodePath) var DialogSpeakerLabel
-onready var dialog_speakerlabel = get_node_or_null(DialogSpeakerLabel)
+@export var DialogSpeakerLabel: NodePath
+@onready var dialog_speakerlabel = get_node_or_null(DialogSpeakerLabel)
 
 # The TextureRect for showing avatars
-export(NodePath) var DialogSpeakerAvatar
-onready var dialog_speakeravatar = get_node_or_null(DialogSpeakerAvatar)
+@export var DialogSpeakerAvatar: NodePath
+@onready var dialog_speakeravatar = get_node_or_null(DialogSpeakerAvatar)
 
 # The Control-descendant holding the entire button menu, including containers,
 # decorations, etc. Hiding this should be enough to leave no trace of the
 # menu on screen
 # Having a menu in the game is entirely optional and you can leave menu-related
 # items unassigned if you don't use menus in the dialog system
-export(NodePath) var DialogButtonsMenu
-onready var dialog_menu = get_node_or_null(DialogButtonsMenu)
+@export var DialogButtonsMenu: NodePath
+@onready var dialog_menu = get_node_or_null(DialogButtonsMenu)
 
 # The container (usually VBoxContainer) which will hold the button instances
 # directly. There must be nothing inside this node, this is the lowest
@@ -92,27 +92,27 @@ onready var dialog_menu = get_node_or_null(DialogButtonsMenu)
 # If this node is not assigned, menus can still be used externally via signals
 # If this is not assigned and menu is also not handled externally, menu options
 # will not work
-export(NodePath) var DialogButtonsContainer
-onready var dialog_buttons_container = get_node_or_null(DialogButtonsContainer)
+@export var DialogButtonsContainer: NodePath
+@onready var dialog_buttons_container = get_node_or_null(DialogButtonsContainer)
 
 # The PackedScene file containing the button template used to build the menu.
 # Must have a signal without ambiguity for direct connection which is emitted
 # only when the option is selected. Signal must have no arguments.
 # Many actions sharing a same signal having different values for an argument
 # (e.g. InputEvent) is not supported.
-export(PackedScene) var DialogButtonSceneFile = null
+@export var DialogButtonSceneFile: PackedScene = null
 
 # Signal name emitted by DialogButtonSceneFile when the option is confirmed
-export(String) var DialogButtonTextProperty = "text"
+@export var DialogButtonTextProperty: String = "text"
 
 # Signal name emitted by DialogButtonSceneFile when the option is confirmed
-export(String) var DialogButtonSignalName = "pressed"
+@export var DialogButtonSignalName: String = "button_pressed"
 
 # AnimationPlayer object used for fade-in and fade-out transition animations
 # if not given, animations will simply be disabled and only show() and hide() 
 # will be used instead
-export(NodePath) var DialogAnimationPlayer
-onready var dialog_anims = get_node_or_null(DialogAnimationPlayer)
+@export var DialogAnimationPlayer: NodePath
+@onready var dialog_anims = get_node_or_null(DialogAnimationPlayer)
 
 # Below are animation names taken from the AnimationPlayer specified above.
 # Make sure the fade out animations have valid information in the last frame
@@ -121,40 +121,40 @@ onready var dialog_anims = get_node_or_null(DialogAnimationPlayer)
 # enough to reset the tracks to their faded-out states
 
 # Animation for dialog fade in - displays the DialogMainControl node entirely
-export(String) var TransitionAnimationName_DialogFadeIn = ""
+@export var TransitionAnimationName_DialogFadeIn: String = ""
 # Animation for dialog fade out - hides the DialogMainControl node entirely
-export(String) var TransitionAnimationName_DialogFadeOut = ""
+@export var TransitionAnimationName_DialogFadeOut: String = ""
 # Animation for message box fade in - displays the DialogMessageBox node
-export(String) var TransitionAnimationName_MessageBoxFadeIn = ""
+@export var TransitionAnimationName_MessageBoxFadeIn: String = ""
 # Animation for message box fade out - hides the DialogMessageBox node
-export(String) var TransitionAnimationName_MessageBoxFadeOut = ""
+@export var TransitionAnimationName_MessageBoxFadeOut: String = ""
 # Animation for menu fade in - displays the DialogButtonsMenu node entirely
-export(String) var TransitionAnimationName_MenuFadeIn = ""
+@export var TransitionAnimationName_MenuFadeIn: String = ""
 # Animation for menu fade out - hides the DialogButtonsMenu node entirely
-export(String) var TransitionAnimationName_MenuFadeOut = ""
+@export var TransitionAnimationName_MenuFadeOut: String = ""
 # Animation for message showing up - e.g. characters gradually being typed
-export(String) var TransitionAnimationName_TextShow = ""
+@export var TransitionAnimationName_TextShow: String = ""
 # Animation for message disappearing
-export(String) var TransitionAnimationName_TextHide = ""
+@export var TransitionAnimationName_TextHide: String = ""
 
 
 # Automatically animate text tweening the Label's percent_visible property
-export(bool) var AnimateText = true
-export(float) var AnimatedTextMilisecondPerCharacter = 50.0
+@export var AnimateText: bool = true
+@export var AnimatedTextMilisecondPerCharacter: float = 50.0
 
 # AnimationPlayer used to play effect animations
-export(NodePath) var EffectsAnimationPlayer
-onready var effects_anims = get_node_or_null(EffectsAnimationPlayer)
+@export var EffectsAnimationPlayer: NodePath
+@onready var effects_anims = get_node_or_null(EffectsAnimationPlayer)
 
 # Year base is used to offset the calendar, datetime objects are referenced
 # to year 0001, and developer can shift that to any year of conveniente to
 # match dates to weekdays and leap years
-export(int) var YearOfReference = 1970
+@export var YearOfReference: int = 1970
 
-export(NodePath) var KeyPressAudioStreamPlayer
-onready var sfx_key_press = get_node_or_null(KeyPressAudioStreamPlayer)
+@export var KeyPressAudioStreamPlayer: NodePath
+@onready var sfx_key_press = get_node_or_null(KeyPressAudioStreamPlayer)
 
-export(bool) var EnableDebugOutput = false
+@export var EnableDebugOutput: bool = false
 
 # ==============================================================================
 
@@ -293,7 +293,7 @@ func _ready():
 			if not dialog_anims.has_animation(TransitionAnimationName_TextHide):
 				TransitionAnimationName_TextHide = ""
 				
-			dialog_anims.connect("animation_finished", self, "_on_animation_finished")
+			dialog_anims.connect("animation_finished", Callable(self, "_on_animation_finished"))
 			
 			# Move animations to their respective faded-out states
 			# or hide dialog main control and menu
@@ -322,17 +322,18 @@ func _ready():
 		dialog_data = DialogData.new()
 		debug_print("Dialog data invalid, using a blank one instead")
 		
-	if AnimateText:
-		animated_text_tween = Tween.new()
-		add_child(animated_text_tween)
-		animated_text_tween.owner = self
-		animated_text_tween.connect("tween_all_completed", self, "_on_animated_text_tween_completed")
+	#if AnimateText:
+	#	animated_text_tween = get_tree().create_tween()
+	#	#add_child(animated_text_tween)
+	#	
+	#	animated_text_tween.owner = self
+	#	animated_text_tween.connect("tween_all_completed", Callable(self, "_on_animated_text_tween_completed"))
 
 		if dialog_messagelabel:
 			dialog_messagelabel.percent_visible = 0
 	
 	MadTalkGlobals.is_during_dialog = false
-	yield(get_tree(), "idle_frame")
+	await get_tree().process_frame
 	emit_signal("time_updated", MadTalkGlobals.gametime)
 		
 
@@ -382,39 +383,33 @@ func _retrieve_item_data(sequence_data, item_index: int = 0) -> Resource:
 
 
 func _anim_dialog_main_visible(show: bool = true) -> void:
-	# Must be coroutine - must have a `yield` in every possible path
-	
 	if show:
 		# Show main dialog interface if not yet visible
 		if not dialog_maincontrol_active:
 			dialog_maincontrol_active = true
 			if TransitionAnimationName_DialogFadeIn != "":
 				dialog_anims.play(TransitionAnimationName_DialogFadeIn)
-				yield(dialog_anims, "animation_finished")
+				await dialog_anims.animation_finished
 			else:
 				if dialog_maincontrol:
 					dialog_maincontrol.show()
-				yield(get_tree(), "idle_frame")
-		else:
-			yield(get_tree(), "idle_frame")
+
+
 	
 	else:
 		# Hide dialog box
 		if dialog_maincontrol_active:
 			if TransitionAnimationName_DialogFadeOut != "":
 				dialog_anims.play(TransitionAnimationName_DialogFadeOut)
-				yield(dialog_anims, "animation_finished")
+				await dialog_anims.animation_finished
 			else:
 				if dialog_maincontrol:
 					dialog_maincontrol.hide()
-				yield(get_tree(), "idle_frame")
 			
 			dialog_maincontrol_active = false
-		else:
-			yield(get_tree(), "idle_frame")
+
 
 func _anim_dialog_messagebox_visible(show: bool = true) -> void:
-	# Must be coroutine - must have a `yield` in every possible path
 	
 	if show:
 		# Show message box
@@ -422,33 +417,27 @@ func _anim_dialog_messagebox_visible(show: bool = true) -> void:
 			dialog_messagebox_active = true
 			if TransitionAnimationName_MessageBoxFadeIn != "":
 				dialog_anims.play(TransitionAnimationName_MessageBoxFadeIn)
-				yield(dialog_anims, "animation_finished")
+				await dialog_anims.animation_finished
 			else:
 				if dialog_messagebox:
 					dialog_messagebox.show()
-				yield(get_tree(), "idle_frame")
-		else:
-			yield(get_tree(), "idle_frame")
+
 	
 	else:
 		# Hide message box
 		if dialog_messagebox_active:
 			if TransitionAnimationName_MessageBoxFadeOut != "":
 				dialog_anims.play(TransitionAnimationName_MessageBoxFadeOut)
-				yield(dialog_anims, "animation_finished")
+				await dialog_anims.animation_finished
 			else:
 				if dialog_messagebox:
 					dialog_messagebox.hide()
-				yield(get_tree(), "idle_frame")
 			
 			dialog_messagebox_active = false
-		else:
-			yield(get_tree(), "idle_frame")
+
 
 
 func _anim_dialog_text_visible(show: bool = true, percent_visible_range: Array= [0.0, 1.0], skip_animation: bool = false) -> void:
-	# Must be coroutine - must have a `yield` in every possible path
-
 	if show:
 		# Display animation always plays even if text is already visible
 		dialog_messagelabel_active = true
@@ -457,26 +446,25 @@ func _anim_dialog_text_visible(show: bool = true, percent_visible_range: Array= 
 				dialog_anims.play(TransitionAnimationName_TextShow)
 				# If AnimateText is used, AnimationPlayer is not expected to
 				# handle text progression, so we wait the normal way
-				yield(dialog_anims, "animation_finished")
-			else:
-				yield(get_tree(), "idle_frame")
+				await dialog_anims.animation_finished
 		
 			if not skip_animation:
 
 				if dialog_messagelabel:
 					dialog_on_text_progress = true
-					dialog_messagelabel.percent_visible = percent_visible_range[0]
+					dialog_messagelabel.visible_ratio = percent_visible_range[0]
 					# Tween text progression
-					animated_text_tween.remove_all()
-					animated_text_tween.interpolate_property(
-						dialog_messagelabel, "percent_visible", 
-						percent_visible_range[0], percent_visible_range[1], 
-						AnimatedTextMilisecondPerCharacter * dialog_messagelabel.text.length() * 0.001, 
-						Tween.TRANS_LINEAR)
-					animated_text_tween.start()
+					if animated_text_tween:
+						animated_text_tween.kill()
+					animated_text_tween = create_tween()
+					animated_text_tween.tween_property(dialog_messagelabel, "visible_ratio", percent_visible_range[1], 
+						AnimatedTextMilisecondPerCharacter * dialog_messagelabel.text.length() * 0.001
+					).set_trans(Tween.TRANS_LINEAR)
+					animated_text_tween.tween_callback(_on_animated_text_tween_completed)
+
 					if sfx_key_press:
 						sfx_key_press.play()
-					yield(self, "text_display_completed") # both user interaction or animation_finished are routed here
+					await self.text_display_completed # both user interaction or animation_finished are routed here
 					if sfx_key_press:
 						sfx_key_press.stop()
 					dialog_on_text_progress = false
@@ -491,66 +479,55 @@ func _anim_dialog_text_visible(show: bool = true, percent_visible_range: Array= 
 				if not skip_animation:
 					dialog_on_text_progress = true
 					dialog_anims.play(TransitionAnimationName_TextShow)
-					yield(self, "text_display_completed") # both user interaction or animation_finished are routed here
+					await self.text_display_completed # both user interaction or animation_finished are routed here
 					dialog_on_text_progress = false
 				else:
 					dialog_anims.assigned_animation = TransitionAnimationName_TextShow
 					dialog_anims.seek(0)
 					dialog_anims.advance(dialog_anims.current_animation_length)
-			else:
-				yield(get_tree(), "idle_frame")
 			
 		
 	else:
 		if dialog_messagelabel_active:
 			if TransitionAnimationName_TextHide != "":
 				dialog_anims.play(TransitionAnimationName_TextHide)
-				yield(dialog_anims, "animation_finished")
-			dialog_messagelabel.percent_visible = 0
-			yield(get_tree(), "idle_frame")
+				await dialog_anims.animation_finished
+			dialog_messagelabel.visible_ratio = 0
+			await get_tree().process_frame
 			dialog_messagelabel_active = false
-		
-		else:
-			yield(get_tree(), "idle_frame")
 
 
 func _anim_dialog_menu_visible(show: bool = true) -> void:
-	# Must be coroutine - must have a `yield` in every possible path
-
 	if show:
 		# Menu is always regenerated when shown
 		# So animation is also always played
 		dialog_menu_active = true
 		if TransitionAnimationName_MenuFadeIn != "":
 			dialog_anims.play(TransitionAnimationName_MenuFadeIn)
-			yield(dialog_anims, "animation_finished")
+			await dialog_anims.animation_finished
 		else:
 			if dialog_menu:
 				dialog_menu.show()
-			yield(get_tree(), "idle_frame")
 		
 	else:
 		if dialog_menu_active:
 			if TransitionAnimationName_MenuFadeOut != "":
 				dialog_anims.play(TransitionAnimationName_MenuFadeOut)
-				yield(dialog_anims, "animation_finished")
+				await dialog_anims.animation_finished
 			else:
 				if dialog_menu:
 					dialog_menu.hide()
-				yield(get_tree(), "idle_frame")
 			
 			dialog_menu_active = false
-		else:
-			yield(get_tree(), "idle_frame")
 
 
 func _assemble_button(id: int, text: String, parent_node: Node) -> Node:
-	var new_btn = DialogButtonSceneFile.instance() if DialogButtonSceneFile else Button.new()
+	var new_btn = DialogButtonSceneFile.instantiate() if DialogButtonSceneFile else Button.new()
 	
 	parent_node.add_child(new_btn)
 	new_btn.set(DialogButtonTextProperty, text)
 	# _on_menu_button_pressed() is used to multiplex all button signals into one
-	new_btn.connect(DialogButtonSignalName, self, "_on_menu_button_pressed", [id])
+	new_btn.connect(DialogButtonSignalName, Callable(self, "_on_menu_button_pressed").bind(id))
 	
 	return new_btn
 	
@@ -632,27 +609,25 @@ func start_dialog(sheet_name: String, sequence_id : int = 0) -> void:
 	# This is useful when player repeats a level from a checkpoint, you still
 	# need the effects, but not the text, so skip still calls the method below
 	if (not is_abort_requested):
-		var result = run_dialog_sequence(sheet_name, sequence_id)
-		if result is GDScriptFunctionState:
-			result = yield(result, "completed")
+		await run_dialog_sequence(sheet_name, sequence_id)
 
 	MadTalkGlobals.is_during_cinematic = true
 	
 	# Hide menu if needed
 	if dialog_menu_active:
-		yield(_anim_dialog_menu_visible(false), "completed")
+		await _anim_dialog_menu_visible(false)
 
 	# Hide text if needed
 	if dialog_messagelabel_active:
-		yield(_anim_dialog_text_visible(false), "completed")
+		await _anim_dialog_text_visible(false)
 		
 	# hide message box if needed
 	if dialog_messagebox_active:
-		yield(_anim_dialog_messagebox_visible(false), "completed")
+		await _anim_dialog_messagebox_visible(false)
 	
 	# Hide dialog if needed
 	if dialog_maincontrol_active:
-		yield(_anim_dialog_main_visible(false), "completed")
+		await _anim_dialog_main_visible(false)
 	
 	MadTalkGlobals.is_during_cinematic = false
 	
@@ -672,19 +647,17 @@ func start_dialog(sheet_name: String, sequence_id : int = 0) -> void:
 func run_dialog_sequence(sheet_name: String, sequence_id : int = 0) -> void:
 	# Asking to run an invalid dialog fails silently
 	if not sheet_name in dialog_data.sheets:
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
 		debug_print("Sheet \"%s\" not found" % sheet_name)
 		return
 	
 	# Make sure we have the node mapped
 	if _prepare_sheet_sequence_map(sheet_name, sequence_id) == FAILED:
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
 		debug_print("Mapping sheet \"%s\", sequence %s failed" % [sheet_name, str(sequence_id)])
 		return
 		
-	var result = run_dialog_item(sheet_name, sequence_id)
-	if result is GDScriptFunctionState:
-		result = yield(result, "completed")
+	await run_dialog_item(sheet_name, sequence_id)
 	
 	emit_signal("dialog_sequence_processed", sheet_name, sequence_id)
 	
@@ -722,11 +695,11 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					MadTalkGlobals.is_during_cinematic = true
 
 					# If text still on screen, hide text
-					yield(_anim_dialog_text_visible(false), "completed")
+					await _anim_dialog_text_visible(false)
 						
 					# if speaker has changed, we hide dialog to show again
 					if (dialog_item.message_speaker_id != last_speaker_id) or (dialog_item.message_speaker_variant != last_speaker_variant):
-						yield(_anim_dialog_messagebox_visible(false), "completed")
+						await _anim_dialog_messagebox_visible(false)
 						emit_signal("speaker_changed", last_speaker_id, last_speaker_variant, dialog_item.message_speaker_id, dialog_item.message_speaker_variant)
 					
 					MadTalkGlobals.is_during_cinematic = false
@@ -738,7 +711,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					
 					if dialog_speakerlabel:
 						if (dialog_speakerlabel is RichTextLabel) and (dialog_speakerlabel.bbcode_enabled):
-							dialog_speakerlabel.bbcode_text = speaker_name
+							dialog_speakerlabel.text = speaker_name
 						else:
 							dialog_speakerlabel.text = speaker_name
 					
@@ -754,7 +727,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 
 					if dialog_messagelabel:
 						if (dialog_messagelabel is RichTextLabel) and (dialog_messagelabel.bbcode_enabled):
-							dialog_messagelabel.bbcode_text = dialog_message_text
+							dialog_messagelabel.text = dialog_message_text
 						else:
 							dialog_messagelabel.text = dialog_message_text
 							
@@ -763,7 +736,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 							# are we using a valid variant?
 							var char_variants = character_data[dialog_item.message_speaker_id].variants
 							if (dialog_item.message_speaker_variant != "") and (dialog_item.message_speaker_variant in char_variants) \
-									and (char_variants[dialog_item.message_speaker_variant] is Texture):
+									and (char_variants[dialog_item.message_speaker_variant] is Texture2D):
 								dialog_speakeravatar.texture = char_variants[dialog_item.message_speaker_variant]
 							# Otherwise use default avatar
 							else:
@@ -784,10 +757,10 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						)
 					
 						# Show main dialog interface if not yet visible
-						yield(_anim_dialog_main_visible(true), "completed")
+						await _anim_dialog_main_visible(true)
 						
 						# Show message box if not visible yet
-						yield(_anim_dialog_messagebox_visible(true), "completed")
+						await _anim_dialog_messagebox_visible(true)
 						
 						# Request voice clip to be played
 						# Signal is emitted even when clip path is blank, so the
@@ -810,24 +783,24 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 								break
 							
 							# Show text
-							yield(_anim_dialog_text_visible(true, 
+							await _anim_dialog_text_visible(true, 
 								[previous_percent_visible, percent_visible]
-							), "completed") # Handles animation skip internally
+							) # Handles animation skip internally
 
 							if dialog_messagelabel:
-								dialog_messagelabel.percent_visible = percent_visible
+								dialog_messagelabel.visible_ratio = percent_visible
 							previous_percent_visible = percent_visible
 							
 							# Confirmation to dismiss the message
 							if (not is_skip_requested) and  (not is_abort_requested):
-								yield(self, "dialog_acknowledged")
+								await self.dialog_acknowledged
 						
 						
 					if (dialog_item.message_hide_on_end != 0) or is_skip_requested:
 						# We hide this message box as explicitly requested
 						MadTalkGlobals.is_during_cinematic = true
-						yield(_anim_dialog_text_visible(false), "completed")
-						yield(_anim_dialog_messagebox_visible(false), "completed")
+						await _anim_dialog_text_visible(false)
+						await _anim_dialog_messagebox_visible(false)
 						MadTalkGlobals.is_during_cinematic = false
 					
 					# Else: we do not hide the message straight away as next step
@@ -845,9 +818,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					# dialog_item.connected_to_id  : int = -1
 					
 					# Test the condition
-					var result = evaluate_condition(dialog_item.condition_type, dialog_item.condition_values)
-					if result is GDScriptFunctionState:
-						result = yield(result, "completed")
+					var result = await evaluate_condition(dialog_item.condition_type, dialog_item.condition_values)
 					
 					if not result:
 						# Condition failed, we have to branch out of this sequence
@@ -856,7 +827,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						# If something is connected, we jump
 						# If nothing is connected, this simply means aboting
 						if dialog_item.connected_to_id > -1:
-							yield(run_dialog_sequence(sheet_name, dialog_item.connected_to_id), "completed")
+							await run_dialog_sequence(sheet_name, dialog_item.connected_to_id)
 				
 				
 				
@@ -873,7 +844,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						# Jump to sheet if valid, aborting dialog otherwise
 						should_run_next_item = false
 						if new_sheet_name in dialog_data.sheets:
-							yield(run_dialog_sequence(new_sheet_name, new_sequence_id), "completed")
+							await run_dialog_sequence(new_sheet_name, new_sequence_id)
 							
 					# Animation and custom effects are also exception since 
 					# involves pausing the sequence until it finishes
@@ -885,7 +856,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						):
 							effects_anims.play(anim_name)
 							MadTalkGlobals.is_during_cinematic = true
-							yield(effects_anims, "animation_finished")
+							await effects_anims.animation_finished
 							MadTalkGlobals.is_during_cinematic = false
 							
 					elif dialog_item.effect_type == MTDefs.EffectTypes.Custom:
@@ -894,9 +865,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 							var custom_data_array = MadTalkGlobals.split_string_autodetect_rn(dialog_item.effect_values[1])
 							
 							#emit_signal("activate_custom_effect", custom_id, custom_data_array)
-							var result = custom_effect_object.call(custom_effect_method, custom_id, custom_data_array)
-							if result is GDScriptFunctionState:
-								result = yield(result, "completed")
+							await custom_effect_object.call(custom_effect_method, custom_id, custom_data_array)
 						
 					else:
 						# All other effects have global scope and are
@@ -913,7 +882,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 			# invalid index will be properly handled in following call
 			# causing the sequence to be gracefully concluded (see below)
 			if should_run_next_item:
-				yield(run_dialog_item(sheet_name, sequence_id, item_index + 1), "completed")
+				await run_dialog_item(sheet_name, sequence_id, item_index + 1)
 		
 		
 		else: # All items processed
@@ -958,17 +927,17 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						)
 					
 						# Show main dialog interface if not yet visible
-						yield(_anim_dialog_main_visible(true), "completed")
+						await _anim_dialog_main_visible(true)
 						
 						# Show message box if not visible yet
-						yield(_anim_dialog_messagebox_visible(true), "completed")
+						await _anim_dialog_messagebox_visible(true)
 						
 						# We do not play voice
 						
 						MadTalkGlobals.is_during_cinematic = false
 						
 						# Show text
-						yield(_anim_dialog_text_visible(true, [0, 1], true), "completed") # skips to end
+						await _anim_dialog_text_visible(true, [0, 1], true) # skips to end
 					
 						
 				MadTalkGlobals.is_during_cinematic = true
@@ -977,11 +946,11 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				if dialog_buttons_container:
 					# Make sure menu is not visible
 					if dialog_menu_active:
-						yield(_anim_dialog_menu_visible(false), "completed")
+						await _anim_dialog_menu_visible(false)
 					# Regenerate buttons
 					var __= _assemble_menu(options_to_show)
 					# Show menu
-					yield(_anim_dialog_menu_visible(true), "completed")
+					await _anim_dialog_menu_visible(true)
 				
 				else:
 					emit_signal("external_menu_requested", options_to_show)
@@ -995,18 +964,18 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				
 				# Wait for an option
 				# Selecting an option is mandatory and dialog halts until then
-				var option_id = yield(self, "menu_option_activated")
+				var option_id = await self.menu_option_activated
 				
 				# Hide menu
 				if dialog_buttons_container:
 					MadTalkGlobals.is_during_cinematic = true
-					yield(_anim_dialog_menu_visible(false), "completed")
+					await _anim_dialog_menu_visible(false)
 					MadTalkGlobals.is_during_cinematic = false
 				
 				if option_id > -1:
 					# jumping to another sequence might also be same speaker 
 					# so we don't hide anything yet
-					yield(run_dialog_sequence(sheet_name, option_id), "completed")
+					await run_dialog_sequence(sheet_name, option_id)
 				else:
 					last_speaker_id = ""
 					last_speaker_variant = ""
@@ -1015,7 +984,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 
 			elif sequence_data.continue_sequence_id > -1:
 				# "continue" ID might also be same speaker so we don't hide anything yet
-				yield(run_dialog_sequence(sheet_name, sequence_data.continue_sequence_id), "completed")
+				await run_dialog_sequence(sheet_name, sequence_data.continue_sequence_id)
 				
 			else:
 				last_speaker_id = ""
@@ -1025,8 +994,6 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 	else:
 		debug_print("Invalid sequence \"%s\" in sheet \"%s\"" % [sequence_id, sheet_name])
 	
-
-	yield(get_tree(), "idle_frame") # Forces this to be coroutine in any case
 	
 	
 	
@@ -1125,15 +1092,13 @@ func evaluate_condition(condition_type, condition_values):
 			return (delta_currently_elapsed >= delta_time)
 
 		MTDefs.ConditionTypes.Custom:
-			if (not custom_condition_object) or (custom_condition_method == "") or (not custom_condition_method in custom_condition_object):
+			if (not custom_condition_object) or (custom_condition_method == "") or (not custom_condition_object.has_method(custom_condition_method)):
 				return false
 			
 			var custom_id = condition_values[0]
 			var custom_data_array = MadTalkGlobals.split_string_autodetect_rn(condition_values[1])
 					
-			var result = custom_condition_object.call(custom_condition_method, custom_id, custom_data_array)
-			if result is GDScriptFunctionState:
-				result = yield(result, "completed")
+			var result = await custom_condition_object.call(custom_condition_method, custom_id, custom_data_array)
 			
 			if (result is int) or (result is float):
 				return (result != 0)
@@ -1201,7 +1166,8 @@ func dialog_acknowledge():
 	if dialog_on_text_progress:
 		# This happened during text progression
 		if AnimateText:
-			animated_text_tween.remove_all()
+			if animated_text_tween:
+				animated_text_tween.kill()
 			#dialog_messagelabel.percent_visible = 1.0 # moved to run_dialog_item()
 		
 		else:
@@ -1220,12 +1186,12 @@ func dialog_skip():
 	is_skip_requested = true
 	dialog_acknowledge()
 		
-func change_scene(scene_path: String) -> void:
+func change_scene_to_file(scene_path: String) -> void:
 	# Convenience method giving access to get_tree().change_scene()
 	# as a node method in the scene tree
 	# This exists so you can connect signals from animation tracks in
 	# AnimationPlayer's directly to cause scene changes
-	var __= get_tree().change_scene(scene_path)
+	var __= get_tree().change_scene_to_file(scene_path)
 
 func select_menu_option(index: int):
 	if index < menu_connected_ids.size():

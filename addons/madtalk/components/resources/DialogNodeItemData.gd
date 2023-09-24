@@ -1,4 +1,4 @@
-tool
+@tool
 extends Resource
 class_name DialogNodeItemData
 
@@ -12,30 +12,30 @@ enum ItemTypes {
 }
 
 # Type of item (message, condition or effect)
-export(ItemTypes) var item_type = ItemTypes.Message
+@export var item_type: ItemTypes = ItemTypes.Message
 # To what sequence id this item is connected (only valid for condition)
-export(int) var connected_to_id = -1
+@export var connected_to_id: int = -1
 # Holds the GraphNode port index for this item
 var port_index : int = -1
 
 # ==============================================================================
 # USED BY TYPE: MESSAGE
 
-export(String) var message_speaker_id = ""
-export(String) var message_speaker_variant = ""
-export(String) var message_voice_clip = ""
-export(String, MULTILINE) var message_text = ""
-export(int) var message_hide_on_end = 0
+@export var message_speaker_id: String = ""
+@export var message_speaker_variant: String = ""
+@export var message_voice_clip: String = ""
+@export_multiline var message_text := "" # (String, MULTILINE)
+@export var message_hide_on_end: int = 0
 
 # ==============================================================================
 # USED BY TYPE: CONDITION
 
-export(MTDefs.ConditionTypes) var condition_type = MTDefs.ConditionTypes.Random
-export(Array) var condition_values = []
+@export var condition_type := MTDefs.ConditionTypes.Custom # (MTDefs.ConditionTypes)
+@export var condition_values: Array = []
 
 # ==============================================================================
 # USED BY TYPE: EFFECT
 
-export(MTDefs.EffectTypes) var effect_type = MTDefs.EffectTypes.ChangeSheet
-export(Array) var effect_values = []
+@export var effect_type := MTDefs.EffectTypes.Custom # (MTDefs.EffectTypes)
+@export var effect_values: Array = []
 
