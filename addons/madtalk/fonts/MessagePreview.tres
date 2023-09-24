@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://18mk4r2e01la"]
+
+[ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="1_edbbt"]
+
+[resource]
+base_font = ExtResource("1_edbbt")
+spacing_top = -2
+spacing_bottom = -2
