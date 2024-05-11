@@ -1,8 +1,8 @@
 # MadTalk - A Feature-Rich Dialog System for Godot
+_Empowering mad dialogs since June 2020_ _o/_
 
-_After a 3-year anniversary this plugin is finally getting a decent README lol_
 
-_(This branch is the Godot 4.x version. If you use Godot 3, check the `3.x` branch.)_
+_This branch is the Godot 4.x version **starting at Godot 4.2** (due to changes in GraphNode). If you use Godot 3, check the `3.x` branch. For Godot 4.0 or 4.1, use the `4.1` branch._
 
 &nbsp;
 
