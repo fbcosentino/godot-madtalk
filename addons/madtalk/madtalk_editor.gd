@@ -86,16 +86,22 @@ func reopen_current_sheet():
 # Creates the visual representation of a node
 # Does not modify the data structure
 func create_node_instance(node_data: Resource, update_now: bool = true) -> DialogGraphNode:
-	var new_node = DialogNode_template.instantiate()
+	var new_node: GraphNode = DialogNode_template.instantiate()
 	new_node.name = "DialogNode_ID%d" % node_data.sequence_id
 	graph_area.add_child(new_node)
 	new_node.position_offset = node_data.position
 	new_node.connect("connections_changed", Callable(self, "_on_node_connections_changed"))
-	new_node.connect("close_request", Callable(self, "_on_node_close_request").bind(new_node))
+	#new_node.connect("close_request", Callable(self, "_on_node_close_request").bind(new_node))
 	new_node.data = node_data 	# Assign the reference, not a copy
 								# Any changes to this node will reflect back in
 								# the main Resource
-	new_node.show_close = (node_data.sequence_id != 0)
+	#new_node.show_close = (node_data.sequence_id != 0)
+	if (node_data.sequence_id != 0):
+		var new_close_btn = Button.new()
+		new_close_btn.text = " X "
+		new_close_btn.focus_mode = Control.FOCUS_NONE
+		new_node.get_titlebar_hbox().add_child(new_close_btn)
+		new_close_btn.pressed.connect(_on_node_close_request.bind(new_node))
 	
 	# During sheet building not all nodes are ready so updating connections
 	# will fail. In such a case we skip this task and update all nodes at once

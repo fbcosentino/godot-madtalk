@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://csmaqkwk66cjs"]
+[gd_scene load_steps=12 format=3 uid="uid://csmaqkwk66cjs"]
 
 [ext_resource type="Script" path="res://addons/madtalk/madtalk_editor.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="3"]
@@ -7,7 +7,6 @@
 [ext_resource type="FontFile" uid="uid://bhcws34lw0ak5" path="res://addons/madtalk/fonts/FreeSans_tiny.tres" id="9"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="10"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/SheetItemStyle.tres" id="11"]
-[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/GraphStyle.tres" id="12"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="13"]
 [ext_resource type="Texture2D" uid="uid://c4ne7fiheatjc" path="res://addons/madtalk/images/icon_search.png" id="14"]
 [ext_resource type="PackedScene" uid="uid://cc7b2xbic6kf8" path="res://addons/madtalk/components/MainEditor_DialogSheetEdit.tscn" id="15"]
@@ -39,7 +38,6 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 31.0
-theme_override_styles/bg = ExtResource("12")
 right_disconnects = true
 
 [node name="SideBar" parent="." instance=ExtResource("8")]
@@ -259,18 +257,9 @@ visible = false
 [connection signal="connection_request" from="GraphArea" to="." method="_on_GraphArea_connection_request"]
 [connection signal="disconnection_request" from="GraphArea" to="." method="_on_GraphArea_disconnection_request"]
 [connection signal="gui_input" from="GraphArea" to="." method="_on_GraphEdit_gui_input"]
-[connection signal="dragged" from="GraphArea/DialogNode_ID0" to="GraphArea/DialogNode_ID0" method="_on_DialogNode_dragged" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem" to="GraphArea/DialogNode_ID0/DialogNodeItem" method="_on_DialogNodeItem_gui_input" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID0/@Control@70831" to="GraphArea/DialogNode_ID0/@Control@70831" method="_on_DialogNodeItem_gui_input" flags=18]
-[connection signal="dragged" from="GraphArea/DialogNode_ID1" to="GraphArea/DialogNode_ID1" method="_on_DialogNode_dragged" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID1/DialogNodeItem" to="GraphArea/DialogNode_ID1/DialogNodeItem" method="_on_DialogNodeItem_gui_input" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@70836" to="GraphArea/DialogNode_ID1/@Control@70836" method="_on_DialogNodeItem_gui_input" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@70838" to="GraphArea/DialogNode_ID1/@Control@70838" method="_on_DialogNodeItem_gui_input" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@70839" to="GraphArea/DialogNode_ID1/@Control@70839" method="_on_DialogNodeItem_effect_gui_input" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@70840" to="GraphArea/DialogNode_ID1/@Control@70840" method="_on_DialogNodeItem_condition_gui_input" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@70842" to="GraphArea/DialogNode_ID1/@Control@70842" method="_on_DialogNodeItem_gui_input" flags=18]
-[connection signal="dragged" from="GraphArea/DialogNode_ID6" to="GraphArea/DialogNode_ID6" method="_on_DialogNode_dragged" flags=18]
-[connection signal="gui_input" from="GraphArea/DialogNode_ID6/DialogNodeItem" to="GraphArea/DialogNode_ID6/DialogNodeItem" method="_on_DialogNodeItem_gui_input" flags=18]
+[connection signal="dragged" from="GraphArea/DialogNode_ID0" to="GraphArea/DialogNode_ID0" method="_on_DialogNode_dragged"]
+[connection signal="dragged" from="GraphArea/DialogNode_ID1" to="GraphArea/DialogNode_ID1" method="_on_DialogNode_dragged"]
+[connection signal="dragged" from="GraphArea/DialogNode_ID6" to="GraphArea/DialogNode_ID6" method="_on_DialogNode_dragged"]
 [connection signal="pressed" from="SideBar/Content/CurrentPanel/BtnEditSheet" to="." method="_on_BtnEditSheet_pressed"]
 [connection signal="text_changed" from="SideBar/Content/SearchEdit" to="." method="_on_SideBar_SearchEdit_text_changed"]
 [connection signal="pressed" from="SideBar/Content/BtnNewSheet" to="." method="_on_BtnNewSheet_pressed"]
