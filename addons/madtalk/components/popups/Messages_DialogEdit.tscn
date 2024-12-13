@@ -185,11 +185,10 @@ offset_right = -16.0
 offset_bottom = -198.0
 theme_override_fonts/font = ExtResource("2_yr8qn")
 theme_override_font_sizes/font_size = 12
-shortcut_keys_enabled = false
+caret_blink = true
 highlight_all_occurrences = true
 highlight_current_line = true
 draw_tabs = true
-caret_blink = true
 
 [node name="PreviewLabel" type="Label" parent="Panel"]
 layout_mode = 0
@@ -269,9 +268,9 @@ offset_right = -8.0
 offset_bottom = -7.1091
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("2_yr8qn")
-theme_override_fonts/bold_font = ExtResource("4_w10ta")
 theme_override_fonts/italics_font = ExtResource("5_ypyua")
 theme_override_fonts/bold_italics_font = ExtResource("6_u7epw")
+theme_override_fonts/bold_font = ExtResource("4_w10ta")
 theme_override_styles/normal = ExtResource("7_3pci6")
 bbcode_enabled = true
 
