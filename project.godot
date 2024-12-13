@@ -11,11 +11,11 @@ config_version=5
 [application]
 
 config/name="MadTalk - Godot 4"
-config/features=PackedStringArray("4.1")
+config/features=PackedStringArray("4.3")
 
 [autoload]
 
-MadTalkGlobals="*res://madtalk/MadTalkGlobals.tscn"
+MadTalkGlobals="*res://addons/madtalk/runtime/MadTalkGlobals.tscn"
 
 [editor_plugins]
 
