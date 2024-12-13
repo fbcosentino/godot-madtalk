@@ -175,7 +175,7 @@ class DialogCursor:
 
 # Dialog data - you can customize this if you want, but leaving the default
 # should work just fine
-var dialog_data = preload("res://madtalk/madtalk_data.tres")
+var dialog_data = preload("res://addons/madtalk/runtime/madtalk_data.tres")
 
 
 # For each sheet, the array index for each sequence ID is searched only once

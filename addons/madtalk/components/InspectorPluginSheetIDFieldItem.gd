@@ -8,7 +8,7 @@ var search_item_template = preload("res://addons/madtalk/components/DialogSearch
 
 var property_editor_object = preload("res://addons/madtalk/components/DialogSearchInspectorSheetIDField.tscn").instantiate()
 
-var dialog_data : Resource = preload("res://madtalk/madtalk_data.tres")
+var dialog_data : Resource = preload("res://addons/madtalk/runtime/madtalk_data.tres")
 
 var updating = false
 

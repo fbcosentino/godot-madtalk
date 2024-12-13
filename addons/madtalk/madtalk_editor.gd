@@ -1,7 +1,7 @@
 @tool
 extends Control
 
-@export var dialog_data: Resource = preload("res://madtalk/madtalk_data.tres")
+@export var dialog_data: Resource = preload("res://addons/madtalk/runtime/madtalk_data.tres")
 var current_sheet = null
 
 # Scene templates
@@ -34,9 +34,11 @@ var deleting_node = null
 
 
 func _ready() -> void:
-	call_deferred("setup")
+	pass
+	#call_deferred("setup")
 
 func setup():
+	
 	if dialog_data.sheets.size() == 0:
 		create_new_sheet()
 	
@@ -456,7 +458,3 @@ func _on_BtnNewSheet_pressed() -> void:
 func _on_BtnSaveDB_pressed():
 	var res_path = dialog_data.resource_path
 	ResourceSaver.save(dialog_data, res_path, 0)
-
-
-
-

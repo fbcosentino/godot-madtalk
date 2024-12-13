@@ -61,10 +61,11 @@ func set_data(new_data):
 	update_from_data()
 
 func update_height():
-	custom_minimum_size.y = min(
-		box_height_margins + message_msglabel.get_content_height(),
-		120
-	)
+	if is_inside_tree():
+		custom_minimum_size.y = min(
+			box_height_margins + message_msglabel.get_content_height(),
+			120
+		)
 
 func update_from_data():
 	if data:

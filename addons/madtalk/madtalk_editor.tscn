@@ -38,6 +38,7 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 31.0
+scroll_offset = Vector2(0, -1)
 right_disconnects = true
 
 [node name="SideBar" parent="." instance=ExtResource("8")]
@@ -200,9 +201,9 @@ offset_right = -4.0
 offset_bottom = -4.0
 theme_override_fonts/font = ExtResource("3")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("10")
-theme_override_styles/hover = ExtResource("10")
 theme_override_styles/focus = ExtResource("10")
+theme_override_styles/hover = ExtResource("10")
+theme_override_styles/normal = ExtResource("10")
 text = "Create New Dialog Sheet"
 
 [node name="BtnSaveDB" type="Button" parent="SideBar/Content"]
@@ -216,16 +217,15 @@ offset_top = -24.0
 offset_right = -4.0
 offset_bottom = -4.0
 theme_override_fonts/font = ExtResource("3")
-theme_override_styles/normal = ExtResource("10")
-theme_override_styles/hover = ExtResource("10")
 theme_override_styles/focus = ExtResource("10")
+theme_override_styles/hover = ExtResource("10")
+theme_override_styles/normal = ExtResource("10")
 text = "Save Database"
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 size = Vector2i(141, 100)
 item_count = 1
 item_0/text = "New sequence"
-item_0/id = 0
 
 [node name="DialogDeleteNodePopup" type="ConfirmationDialog" parent="."]
 size = Vector2i(500, 187)
@@ -258,8 +258,17 @@ visible = false
 [connection signal="disconnection_request" from="GraphArea" to="." method="_on_GraphArea_disconnection_request"]
 [connection signal="gui_input" from="GraphArea" to="." method="_on_GraphEdit_gui_input"]
 [connection signal="dragged" from="GraphArea/DialogNode_ID0" to="GraphArea/DialogNode_ID0" method="_on_DialogNode_dragged"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID0/DialogNodeItem" to="GraphArea/DialogNode_ID0/DialogNodeItem" method="_on_DialogNodeItem_gui_input"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID0/@Control@18326" to="GraphArea/DialogNode_ID0/@Control@18326" method="_on_DialogNodeItem_gui_input"]
 [connection signal="dragged" from="GraphArea/DialogNode_ID1" to="GraphArea/DialogNode_ID1" method="_on_DialogNode_dragged"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID1/DialogNodeItem" to="GraphArea/DialogNode_ID1/DialogNodeItem" method="_on_DialogNodeItem_gui_input"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@18331" to="GraphArea/DialogNode_ID1/@Control@18331" method="_on_DialogNodeItem_gui_input"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@18333" to="GraphArea/DialogNode_ID1/@Control@18333" method="_on_DialogNodeItem_gui_input"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@18334" to="GraphArea/DialogNode_ID1/@Control@18334" method="_on_DialogNodeItem_effect_gui_input"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@18335" to="GraphArea/DialogNode_ID1/@Control@18335" method="_on_DialogNodeItem_condition_gui_input"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID1/@Control@18337" to="GraphArea/DialogNode_ID1/@Control@18337" method="_on_DialogNodeItem_gui_input"]
 [connection signal="dragged" from="GraphArea/DialogNode_ID6" to="GraphArea/DialogNode_ID6" method="_on_DialogNode_dragged"]
+[connection signal="gui_input" from="GraphArea/DialogNode_ID6/DialogNodeItem" to="GraphArea/DialogNode_ID6/DialogNodeItem" method="_on_DialogNodeItem_gui_input"]
 [connection signal="pressed" from="SideBar/Content/CurrentPanel/BtnEditSheet" to="." method="_on_BtnEditSheet_pressed"]
 [connection signal="text_changed" from="SideBar/Content/SearchEdit" to="." method="_on_SideBar_SearchEdit_text_changed"]
 [connection signal="pressed" from="SideBar/Content/BtnNewSheet" to="." method="_on_BtnNewSheet_pressed"]

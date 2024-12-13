@@ -198,8 +198,3 @@ func update_DialogEdit_contents(effect):
 			fieldboxes[i].hide()
 	edit_btntip.tip_title = MTDefs.EffectData[effect]["description"] 
 	edit_btntip.tip_text = MTDefs.EffectData[effect]["help"]
-
-
-
-
-

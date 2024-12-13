@@ -23,9 +23,19 @@ var port_index : int = -1
 
 @export var message_speaker_id: String = ""
 @export var message_speaker_variant: String = ""
+
+# For compatibility reasons, default names are associated with the default
+# language - that is, if locale isn't specified.
 @export var message_voice_clip: String = "" # Default locale
-@export_multiline var message_text := "" # default locale
+@export_multiline var message_text := "" # Default locale
+
+# Localised versions go on separate properties
+@export var message_voice_clip_locales: Dictionary = {}
+@export var message_text_locales: Dictionary = {}
+
 @export var message_hide_on_end: int = 0
+
+
 
 # ==============================================================================
 # USED BY TYPE: CONDITION
@@ -38,4 +48,3 @@ var port_index : int = -1
 
 @export var effect_type := MTDefs.EffectTypes.Custom # (MTDefs.EffectTypes)
 @export var effect_values: Array = []
-

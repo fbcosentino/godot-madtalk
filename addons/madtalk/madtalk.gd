@@ -25,14 +25,16 @@ var sheet_id_inspector_editor = preload("res://addons/madtalk/components/Inspect
 var main_panel
 
 func _enter_tree():
+	add_autoload_singleton("MadTalkGlobals", "res://addons/madtalk/runtime/MadTalkGlobals.tscn")
+	
 	add_inspector_plugin(sheet_id_inspector_editor)
 	
 	main_panel = MadTalkEditor_scene.instantiate()
 	
 	get_editor_interface().get_editor_main_screen().add_child(main_panel)
+	main_panel.setup()
 	_make_visible(false)
 	
-	add_autoload_singleton("MadTalkGlobals", "res://madtalk/MadTalkGlobals.tscn")
 
 
 func _exit_tree():

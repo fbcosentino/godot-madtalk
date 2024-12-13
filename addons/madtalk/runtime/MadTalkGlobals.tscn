@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://domdph40m3s8i"]
 
-[ext_resource type="Script" path="res://madtalk/MadTalkGlobals.gd" id="1_tbidr"]
+[ext_resource type="Script" path="res://addons/madtalk/runtime/MadTalkGlobals.gd" id="1_tbidr"]
 
 [node name="MadTalkGlobals" type="Node"]
 script = ExtResource("1_tbidr")

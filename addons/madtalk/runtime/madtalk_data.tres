@@ -1,19 +1,21 @@
 [gd_resource type="Resource" script_class="DialogData" load_steps=63 format=3 uid="uid://dxkjjrap15vxu"]
 
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeData.gd" id="1"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogSheetData.gd" id="2"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogData.gd" id="3"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="4"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeOptionData.gd" id="5"]
+[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogData.gd" id="1_giduu"]
+[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="2_48vp3"]
+[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeOptionData.gd" id="3_dways"]
+[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeData.gd" id="4_f2ijm"]
+[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogSheetData.gd" id="5_vkpn8"]
 
 [sub_resource type="Resource" id="1"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = "foo"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "This is an example sheet. You can rename and use it, or discard and create your own."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -21,13 +23,15 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="4"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Would you like to see more dialog messages?"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 1
 condition_type = 0
 condition_values = []
@@ -35,7 +39,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="5"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "Yes"
 connected_to_id = 1
 is_conditional = false
@@ -44,7 +48,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="6"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "No"
 connected_to_id = -1
 is_conditional = false
@@ -53,7 +57,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="2"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 0
 position = Vector2(-20, 120)
 comment = ""
@@ -63,13 +67,15 @@ continue_sequence_id = -1
 continue_port_index = -1
 
 [sub_resource type="Resource" id="7"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = "bar"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "The speaker IDs are \"foo\" and \"bar\", but the display names are \"Maria\" and \"Francesco\"."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -77,13 +83,15 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="8"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = "bar"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "This is so you can have fancy nice looking display names, but you don't have to type them all the time in the system."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -91,13 +99,15 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="9"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "A blank speaker ID is valid. If there are no characters with blank ID, it's treated as empty name."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -105,13 +115,15 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_m1ifl"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 2
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = ""
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 10
 condition_values = []
@@ -119,13 +131,15 @@ effect_type = 1
 effect_values = ["my_var", 5.0]
 
 [sub_resource type="Resource" id="Resource_68gk6"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 1
 connected_to_id = 6
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = ""
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 2
 condition_values = ["my_var", 6.0]
@@ -133,13 +147,15 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_14hyw"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You will not see this message, because the effect and condition above are such that the dialog will always branch."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 10
 condition_values = []
@@ -147,7 +163,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="11"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 1
 position = Vector2(440, 120)
 comment = ""
@@ -157,7 +173,7 @@ continue_sequence_id = -1
 continue_port_index = 1
 
 [sub_resource type="Resource" id="Resource_jrxya"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
@@ -165,6 +181,8 @@ message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "my_var was set to: <<my_var>>
 Since it's less than 6, you see this message."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 10
 condition_values = []
@@ -172,7 +190,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_ixt6j"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 6
 position = Vector2(860, 200)
 comment = ""
@@ -182,20 +200,22 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="3"]
-script = ExtResource("2")
+script = ExtResource("5_vkpn8")
 sheet_id = "1_start_here"
 sheet_description = "Demonstration sheet. You can delete this in your game, or repurpose it."
 next_sequence_id = 8
 nodes = [SubResource("2"), SubResource("11"), SubResource("Resource_ixt6j")]
 
 [sub_resource type="Resource" id="Resource_vx7w3"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "This example demonstrates the bare minimum nodes you need for the dialog to work."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 10
 condition_values = []
@@ -203,7 +223,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_duvjw"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 0
 position = Vector2(0, 0)
 comment = ""
@@ -213,14 +233,14 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="Resource_sxgqo"]
-script = ExtResource("2")
+script = ExtResource("5_vkpn8")
 sheet_id = "bare_minimum"
 sheet_description = ""
 next_sequence_id = 1
 nodes = [SubResource("Resource_duvjw")]
 
 [sub_resource type="Resource" id="12"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
@@ -229,6 +249,8 @@ message_voice_clip = ""
 message_text = "If you do not assign a node to Dialog Button Container (dialog_buttons_container), automatic menu will not be enabled.
 In this case, if you want menu options, you have to process the menu externally. 
 (You can, however, have dialogs without menus: simply never use menu options.)"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -236,13 +258,15 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="13"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "If you [b][i]do[/i][/b] use menu options in the dialog sheet, and do not assign a node for automatic menus and also do not handle the menu externally, then menus will not work (attempting to show menu options will cause the dialog to get stuck)."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -250,7 +274,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="16"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
@@ -260,6 +284,8 @@ message_text = "Processing the menu externally is easy:
 When the dialog reaches a menu, the [color=#99ff00][b]external_menu_requested([color=#ff9955]menu_options[/color])[/b][/color] signal is called, where [color=#ff9955][b]menu_options[/b][/color] is an Array with the menu options.
 Each item has a [color=#99ffff][b]text[/b][/color] property containing the text for that option, from the dialog sheet.
 So [b][color=#ff9955]menu_options[[color=#ffff00]0[/color]][/color].[color=#99ffff]text[/color][/b] is the text of the first option, etc."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -267,7 +293,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="17"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
@@ -276,6 +302,8 @@ message_voice_clip = ""
 message_text = "The menu will then pause and wait for your code to select one of the options from that array.
 You take the input from the player in any way you like, and then select an option by calling the method [b][color=#9999ff]select_menu_option( [color=#ffff00]index[/color] )[/color][/b] where the argument is the index of the desired option from the [color=#ff9955][b]menu_options[/b][/color] array.
 Selecting an invalid index is simply ignored."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -283,7 +311,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="18"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
@@ -291,6 +319,8 @@ message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Using external menus, the option text can be used as IDs, as CSV lines packing several fields, or any other purpose you like, since building the menu is up to you.
 This way you can have more control and flexibility, while still having all the dialog managed by MadTalk."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -298,7 +328,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="14"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 0
 position = Vector2(0, 0)
 comment = ""
@@ -308,13 +338,15 @@ continue_sequence_id = 1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="19"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Please select an option with double click."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 1
 condition_type = 0
 condition_values = []
@@ -322,7 +354,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="20"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "red,PokaTola"
 connected_to_id = 2
 is_conditional = false
@@ -331,7 +363,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="21"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "red,PokaTola Diet"
 connected_to_id = 3
 is_conditional = false
@@ -340,7 +372,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="22"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "blue,Zepsi"
 connected_to_id = 4
 is_conditional = false
@@ -349,7 +381,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="23"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "blue,Zepsi Zero"
 connected_to_id = 5
 is_conditional = false
@@ -358,7 +390,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="25"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "green,Buaraná Ankartida"
 connected_to_id = 6
 is_conditional = false
@@ -367,7 +399,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="26"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "yellow,Strike"
 connected_to_id = 7
 is_conditional = false
@@ -376,7 +408,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="24"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 1
 position = Vector2(600, 40)
 comment = ""
@@ -386,13 +418,15 @@ continue_sequence_id = -1
 continue_port_index = -1
 
 [sub_resource type="Resource" id="27"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the normal PokaTola"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -400,7 +434,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="28"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 2
 position = Vector2(1280, -320)
 comment = ""
@@ -410,13 +444,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="29"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the Diet PokaTola"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -424,7 +460,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="30"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 3
 position = Vector2(1280, -120)
 comment = ""
@@ -434,13 +470,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="31"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selecteed the normal Zepsi"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -448,7 +486,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="32"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 4
 position = Vector2(1280, 80)
 comment = ""
@@ -458,13 +496,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="33"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the Diet Zepsi"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -472,7 +512,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="34"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 5
 position = Vector2(1280, 280)
 comment = ""
@@ -482,13 +522,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="35"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Good choice! You have selected the Buaraná Ankartida"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -496,7 +538,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="36"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 6
 position = Vector2(1280, 480)
 comment = ""
@@ -506,13 +548,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="37"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the Strike"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -520,7 +564,7 @@ effect_type = 0
 effect_values = []
 
 [sub_resource type="Resource" id="38"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 7
 position = Vector2(1280, 680)
 comment = ""
@@ -530,20 +574,22 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="15"]
-script = ExtResource("2")
+script = ExtResource("5_vkpn8")
 sheet_id = "external_menu"
 sheet_description = ""
 next_sequence_id = 8
 nodes = [SubResource("14"), SubResource("24"), SubResource("28"), SubResource("30"), SubResource("32"), SubResource("34"), SubResource("36"), SubResource("38")]
 
 [sub_resource type="Resource" id="Resource_gfy7a"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You will now be presented with menu options."
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -551,7 +597,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_5plx1"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "Option 1"
 connected_to_id = 1
 is_conditional = false
@@ -560,7 +606,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="Resource_4ierx"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "Second option"
 connected_to_id = 2
 is_conditional = false
@@ -569,7 +615,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="Resource_c0esp"]
-script = ExtResource("5")
+script = ExtResource("3_dways")
 text = "Another cool option"
 connected_to_id = 3
 is_conditional = false
@@ -578,7 +624,7 @@ condition_operator = "="
 condition_value = ""
 
 [sub_resource type="Resource" id="Resource_28bfi"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 0
 position = Vector2(40, 20)
 comment = ""
@@ -588,13 +634,15 @@ continue_sequence_id = -1
 continue_port_index = -1
 
 [sub_resource type="Resource" id="Resource_dyln1"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You selected option 1"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -602,7 +650,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_wn6qm"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 1
 position = Vector2(640, -100)
 comment = ""
@@ -612,13 +660,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="Resource_qsky1"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You selected the second option"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -626,7 +676,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_5vhe7"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 2
 position = Vector2(640, 120)
 comment = ""
@@ -636,13 +686,15 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="Resource_xshh7"]
-script = ExtResource("4")
+script = ExtResource("2_48vp3")
 item_type = 0
 connected_to_id = -1
 message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You selected the cool option"
+message_voice_clip_locales = null
+message_text_locales = null
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -650,7 +702,7 @@ effect_type = 10
 effect_values = []
 
 [sub_resource type="Resource" id="Resource_pnwrx"]
-script = ExtResource("1")
+script = ExtResource("4_f2ijm")
 sequence_id = 3
 position = Vector2(640, 340)
 comment = ""
@@ -660,14 +712,14 @@ continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="Resource_s3y14"]
-script = ExtResource("2")
+script = ExtResource("5_vkpn8")
 sheet_id = "minimum_menu"
 sheet_description = ""
 next_sequence_id = 4
 nodes = [SubResource("Resource_28bfi"), SubResource("Resource_wn6qm"), SubResource("Resource_5vhe7"), SubResource("Resource_pnwrx")]
 
 [resource]
-script = ExtResource("3")
+script = ExtResource("1_giduu")
 version = 1.0
 sheets = {
 "1_start_here": SubResource("3"),

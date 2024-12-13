@@ -29,4 +29,3 @@ class_name DialogData
 # Dictionary keys are strings
 # Dictionary values are DialogSheetData resource
 @export var sheets: Dictionary = {}
-
