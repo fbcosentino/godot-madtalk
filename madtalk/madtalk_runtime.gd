@@ -51,7 +51,7 @@ signal dialog_aborted
 
 # Array containing the character data, one record per character
 # All items in this array must be of type MTCharacterData
-@export var ListOfCharacters := [] # (Array, Resource)
+@export var ListOfCharacters: Array[MTCharacterData] = [] # (Array, Resource)
 
 # This is the main control overlay used to show all dialog activity under
 # MadTalk responsibility. Usually a Control with "Full Rect" layout and mouse
@@ -218,15 +218,13 @@ var last_message_text = ""
 # Stores Tween node for text animation if used
 var animated_text_tween = null
 
-# Holds the target object and method name to be called when
+# Holds the target callable to be called when
 # evaluating custom conditions
-var custom_condition_object = null
-var custom_condition_method = ""
+var custom_condition_callable = null
 
-# Holds the target object and method name to be called when
+# Holds the target callable to be called when
 # activating custom effects
-var custom_effect_object = null
-var custom_effect_method = ""
+var custom_effect_callable = null
 
 # Flags set when a request to abort or skip the dialog are issued
 # The difference between them is: when a dialog is skipped, messages are not
@@ -261,13 +259,11 @@ func bool_as_int(value):
 func _ready():
 	var condition_connection_array = get_signal_connection_list("evaluate_custom_condition")
 	if condition_connection_array.size() > 0:
-		custom_condition_object = condition_connection_array[0]["target"]
-		custom_condition_method = condition_connection_array[0]["method"]
+		custom_condition_callable = condition_connection_array[0]["callable"]
 
 	var effect_connection_array = get_signal_connection_list("activate_custom_effect")
 	if effect_connection_array.size() > 0:
-		custom_effect_object = effect_connection_array[0]["target"]
-		custom_effect_method = effect_connection_array[0]["method"]
+		custom_effect_callable = effect_connection_array[0]["callable"]
 	
 	MadTalkGlobals.set_game_year(YearOfReference)
 	
@@ -860,12 +856,12 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 							MadTalkGlobals.is_during_cinematic = false
 							
 					elif dialog_item.effect_type == MTDefs.EffectTypes.Custom:
-						if custom_effect_object and (custom_effect_method != ""):
+						if custom_effect_callable:
 							var custom_id = dialog_item.effect_values[0]
 							var custom_data_array = MadTalkGlobals.split_string_autodetect_rn(dialog_item.effect_values[1])
 							
 							#emit_signal("activate_custom_effect", custom_id, custom_data_array)
-							await custom_effect_object.call(custom_effect_method, custom_id, custom_data_array)
+							await custom_effect_callable.call(custom_id, custom_data_array)
 						
 					else:
 						# All other effects have global scope and are
@@ -1092,13 +1088,13 @@ func evaluate_condition(condition_type, condition_values):
 			return (delta_currently_elapsed >= delta_time)
 
 		MTDefs.ConditionTypes.Custom:
-			if (not custom_condition_object) or (custom_condition_method == "") or (not custom_condition_object.has_method(custom_condition_method)):
+			if (not custom_condition_callable):
 				return false
 			
 			var custom_id = condition_values[0]
 			var custom_data_array = MadTalkGlobals.split_string_autodetect_rn(condition_values[1])
 					
-			var result = await custom_condition_object.call(custom_condition_method, custom_id, custom_data_array)
+			var result = await custom_condition_callable.call(custom_id, custom_data_array)
 			
 			if (result is int) or (result is float):
 				return (result != 0)
