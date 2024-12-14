@@ -26,6 +26,9 @@ const COLOR_CONT := Color(1.0, 1.0, 1.0, 1.0)
 # Stores a port_index -> data resource map
 var port_data_map := {}
 
+# Stores a reference to the main editor
+var main_editor: Control = null
+
 func _ready():
 	if data:
 		update_from_data()
@@ -96,10 +99,15 @@ func update_from_data():
 				clear_slot(i)
 
 		if new_item:
+			new_item.sequence_node = self
 			add_child(new_item)
-			new_item.connect("remove_requested", Callable(self, "_on_Item_remove_requested"))
-			new_item.connect("move_up_requested", Callable(self, "_on_move_up_requested"))
-			new_item.connect("move_down_requested", Callable(self, "_on_move_down_requested"))
+			new_item.remove_requested.connect(_on_Item_remove_requested)
+			new_item.move_up_requested.connect(_on_move_up_requested)
+			new_item.move_down_requested.connect(_on_move_down_requested)
+			new_item.mouse_entered.connect(main_editor._on_item_mouse_entered.bind(new_item))
+			new_item.mouse_exited.connect(main_editor._on_item_mouse_exited.bind(new_item))
+			new_item.drag_started.connect(main_editor._on_item_drag_started)
+			new_item.drag_ended.connect(main_editor._on_item_drag_ended)
 			new_item.set_data(item)
 			final_size += new_item.custom_minimum_size.y
 		

@@ -32,6 +32,10 @@ var sequence_map: Dictionary = {}
 # Holds the node being deleted when user presses X
 var deleting_node = null
 
+# Holds the item object being dragged
+var dragging_object = null
+var hovering_object = null
+
 
 func _ready() -> void:
 	pass
@@ -90,9 +94,12 @@ func reopen_current_sheet():
 func create_node_instance(node_data: Resource, update_now: bool = true) -> DialogGraphNode:
 	var new_node: GraphNode = DialogNode_template.instantiate()
 	new_node.name = "DialogNode_ID%d" % node_data.sequence_id
+	new_node.main_editor = self
 	graph_area.add_child(new_node)
 	new_node.position_offset = node_data.position
-	new_node.connect("connections_changed", Callable(self, "_on_node_connections_changed"))
+	new_node.connections_changed.connect(_on_node_connections_changed)
+	new_node.mouse_entered.connect(_on_sequence_mouse_entered.bind(new_node))
+	new_node.mouse_exited.connect(_on_sequence_mouse_exited.bind(new_node))
 	#new_node.connect("close_request", Callable(self, "_on_node_close_request").bind(new_node))
 	new_node.data = node_data 	# Assign the reference, not a copy
 								# Any changes to this node will reflect back in
@@ -291,6 +298,106 @@ func _on_GraphEdit_right_click(event: InputEvent) -> void:
 
 	var cursor_position =  Vector2(get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position())
 	graph_area_popup.popup(Rect2(cursor_position, Vector2(10,10)))
+
+
+# When a node item (message, condition, effect) is mouse-hovered
+# Also happens if dragging started on another object
+func _on_item_mouse_entered(obj: Control) -> void:
+	hovering_object = obj
+	if (dragging_object != null) and (dragging_object != obj):
+		obj.modulate.a = 0.7
+		obj.dragdrop_line.show()
+
+# When a node item (message, condition, effect) loses mouse hover
+# Also happens if dragging started on another object
+func _on_item_mouse_exited(obj: Control) -> void:
+	if hovering_object == obj:
+		hovering_object = null
+	if dragging_object != null:
+		obj.modulate.a = 1.0
+		obj.dragdrop_line.hide()
+
+
+func _on_sequence_mouse_entered(obj: Control):
+	hovering_object = obj
+	if dragging_object != null:
+		obj.modulate.a = 0.7
+
+func _on_sequence_mouse_exited(obj: Control):
+	if hovering_object == obj:
+		hovering_object = null
+	if dragging_object != null:
+		obj.modulate.a = 1.0
+
+
+# When the mouse is pressed down on a node item, which counts as 
+# start dragging it.
+func _on_item_drag_started(obj: Control) -> void:
+	dragging_object = obj
+
+
+# When the mouse is released after dragging an item. The obj argument
+# contains the object being dragged, not the one under the cursor
+func _on_item_drag_ended(obj: Control) -> void:
+	if (dragging_object != hovering_object):
+		move_item_by_instance(dragging_object, hovering_object)
+		
+	if hovering_object and is_instance_valid(hovering_object):
+		hovering_object.modulate.a = 1.0
+		if not hovering_object is DialogGraphNode:
+			hovering_object.dragdrop_line.hide()
+	
+	hovering_object = null
+	dragging_object = null
+
+
+func move_item_by_instance(source_inst: Control, dest_inst):
+	if (not source_inst) or (not is_instance_valid(source_inst)):
+		return
+	if (not dest_inst) or (not is_instance_valid(dest_inst)):
+		return
+	
+	var source_seq = source_inst.sequence_node
+	var data_seq_origin = source_seq.data
+	var source_index = data_seq_origin.items.find(source_inst.data)
+	var source_item_data = data_seq_origin.items[source_index]
+	
+	var dest_seq
+	var data_seq_dest
+	var dest_index
+
+	if dest_inst is DialogGraphNode:
+		# Dragging onto a sequence header
+		dest_seq = dest_inst
+		data_seq_dest = dest_seq.data
+		dest_index = data_seq_dest.items.size()
+	
+	else:
+		# Dragging onto another item
+		dest_seq = dest_inst.sequence_node
+		data_seq_dest = dest_seq.data
+		dest_index = data_seq_dest.items.find(dest_inst.data)
+	
+	# There are special cases if the node is being reordered inside the same sequence
+	if (data_seq_origin == data_seq_dest):
+		if (dest_index == (source_index+1)):
+			# If the user dropped on the item immediately below, no operation is needed
+			return
+		
+		elif (dest_index > source_index):
+			# If item is being moved below, removing it first will shift indices
+			# below that point, causing the reinsert to have an unintended
+			# extra offset of 1. So counteract is needed
+			dest_index -= 1
+	
+	data_seq_origin.items.remove_at(source_index)
+	data_seq_dest.items.insert(dest_index, source_item_data)
+	
+	source_seq.update_from_data()
+	dest_seq.update_from_data()
+	
+	await get_tree().create_timer(0.02).timeout
+	call_deferred("rebuild_connections")
 
 
 

@@ -35,4 +35,14 @@ theme_override_font_sizes/font_size = 12
 text = "Effect"
 clip_text = true
 
+[node name="DragDropLine" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+color = Color(1, 0, 0, 1)
+
 [connection signal="gui_input" from="." to="." method="_on_DialogNodeItem_effect_gui_input"]

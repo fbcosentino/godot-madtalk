@@ -5,6 +5,8 @@ class_name DialogNodeItem_effect
 signal remove_requested(requester)
 signal move_up_requested(requester)
 signal move_down_requested(requester)
+signal drag_started(requester)
+signal drag_ended(requester)
 
 
 
@@ -45,6 +47,10 @@ var dialog_edit: Window
 
 var template_PopupMenu: PackedScene = preload("res://addons/madtalk/components/popups/DialogNodeItem_PopupMenu.tscn")
 var popup_menu: PopupMenu
+
+@onready var dragdrop_line := $DragDropLine
+
+var sequence_node = null
 
 func _ready():
 	if data:
@@ -95,14 +101,25 @@ func dispose_popup_menu():
 
 
 func _on_DialogNodeItem_effect_gui_input(event):
-	if (event is InputEventMouseButton) and (event.pressed):
-		if (event.button_index == MOUSE_BUTTON_LEFT) and event.double_click:
-			_on_PopupMenu_id_pressed(PopupOptions.Edit)
-			
-		if (event.button_index == MOUSE_BUTTON_RIGHT):
-			var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
-			create_popup_menu()
-			popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
+	if (event is InputEventMouseButton):
+		if (event.pressed):
+			if (event.button_index == MOUSE_BUTTON_LEFT):
+				if event.double_click:
+					_on_PopupMenu_id_pressed(PopupOptions.Edit)
+				else:
+					drag_started.emit(self)
+				
+			if (event.button_index == MOUSE_BUTTON_RIGHT):
+				var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
+				create_popup_menu()
+				popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
+		else:
+			if (event.button_index == MOUSE_BUTTON_LEFT):
+				drag_ended.emit(self)
+
+
+
+
 
 func _on_PopupMenu_id_pressed(id):
 	dispose_popup_menu()

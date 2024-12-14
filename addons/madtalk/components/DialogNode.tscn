@@ -1,12 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cp6hkrxr23xk6"]
+[gd_scene load_steps=15 format=3 uid="uid://cp6hkrxr23xk6"]
 
 [ext_resource type="Script" path="res://addons/madtalk/components/DialogNode.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://sks6j6y53n1k" path="res://addons/madtalk/components/DialogNodeItem_message.tscn" id="2"]
 [ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://0l1emjk1cyiy" path="res://addons/madtalk/images/icon_options.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://xt0wkyrex027" path="res://addons/madtalk/images/icon_plus.png" id="5"]
-[ext_resource type="StyleBox" uid="uid://dgwdu67tftiqs" path="res://addons/madtalk/components/resources/NodeStyle.tres" id="6"]
-[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans.tres" id="7"]
 [ext_resource type="PackedScene" uid="uid://y6s6jwiawub6" path="res://addons/madtalk/components/DialogNodeItem_option.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://bjmg67jkhsynh" path="res://addons/madtalk/components/DialogNodeItem_condition.tscn" id="9"]
 [ext_resource type="PackedScene" uid="uid://vkj7uamlpxxp" path="res://addons/madtalk/components/DialogNodeItem_effect.tscn" id="10"]
@@ -27,6 +25,8 @@ message_speaker_id = "mr_name"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Hello world"
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = [50]
@@ -39,14 +39,9 @@ offset_top = 130.0
 offset_right = 610.0
 offset_bottom = 370.0
 theme = SubResource("1")
-theme_override_colors/title_color = Color(1, 1, 1, 1)
 theme_override_colors/resizer_color = Color(1, 1, 1, 1)
 theme_override_constants/separation = 0
-theme_override_fonts/title_font = ExtResource("7")
-theme_override_styles/frame = ExtResource("6")
-theme_override_styles/selected_frame = ExtResource("6")
 title = "0"
-show_close = true
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -127,7 +122,6 @@ size = Vector2i(128, 100)
 item_count = 3
 item_0/text = "Message"
 item_0/icon = ExtResource("14")
-item_0/id = 0
 item_1/text = "Condition"
 item_1/icon = ExtResource("12")
 item_1/id = 1
@@ -144,6 +138,7 @@ dialog_text = "
     Are you sure you want to remove this item?    "
 
 [node name="DialogNodeItem_message" parent="." instance=ExtResource("2")]
+custom_minimum_size = Vector2(0, 63)
 layout_mode = 2
 data = SubResource("2")
 

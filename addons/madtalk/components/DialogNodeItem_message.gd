@@ -5,6 +5,8 @@ class_name DialogNodeItem_message
 signal remove_requested(requester)
 signal move_up_requested(requester)
 signal move_down_requested(requester)
+signal drag_started(requester)
+signal drag_ended(requester)
 
 @export var data: Resource
 
@@ -38,6 +40,9 @@ enum PopupOptions {
 }
 
 @onready var box_height_margins = size.y - get_node("Panel/MessageLabel").size.y
+@onready var dragdrop_line := $DragDropLine
+
+var sequence_node = null
 
 var message_speakervarlabel = null
 var message_speakerlabel = null
@@ -138,14 +143,22 @@ func dispose_popup_menu():
 
 
 func _on_DialogNodeItem_gui_input(event):
-	if (event is InputEventMouseButton) and (event.pressed):
-		if (event.button_index == MOUSE_BUTTON_LEFT) and event.double_click:
-			_on_PopupMenu_id_pressed(PopupOptions.Edit)
-			
-		if (event.button_index == MOUSE_BUTTON_RIGHT):
-			var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
-			create_popup_menu()
-			popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
+	if (event is InputEventMouseButton):
+		if (event.pressed):
+			if (event.button_index == MOUSE_BUTTON_LEFT):
+				if event.double_click:
+					_on_PopupMenu_id_pressed(PopupOptions.Edit)
+				else:
+					drag_started.emit(self)
+				
+			if (event.button_index == MOUSE_BUTTON_RIGHT):
+				var cursor_position =  get_viewport().get_mouse_position() if get_viewport().gui_embed_subwindows else DisplayServer.mouse_get_position()
+				create_popup_menu()
+				popup_menu.popup(Rect2(cursor_position,Vector2(10,10)))
+		else:
+			if (event.button_index == MOUSE_BUTTON_LEFT):
+				drag_ended.emit(self)
+
 
 
 
