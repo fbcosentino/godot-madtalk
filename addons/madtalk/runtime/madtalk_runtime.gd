@@ -767,7 +767,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						# Request voice clip to be played
 						# Signal is emitted even when clip path is blank, so the
 						# previous audio can be stopped if this is desired
-						emit_signal("voice_clip_requested", dialog_item.message_speaker_id, dialog_item.message_voice_clip)
+						emit_signal("voice_clip_requested", dialog_item.message_speaker_id, dialog_item.get_localized_voice_clip())
 
 						MadTalkGlobals.is_during_cinematic = false
 						

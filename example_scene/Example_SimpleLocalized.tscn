@@ -30,6 +30,17 @@ func _input(event):
 		(event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_LEFT)
 	):
 		$MadTalk.dialog_acknowledge()
+
+
+func _on_mad_talk_voice_clip_requested(speaker_id: String, clip_path: String) -> void:
+	var voice_player: AudioStreamPlayer = $CanvasLayer/Dialog/VoicePlayer
+	
+	if voice_player.playing:
+		voice_player.stop()
+	
+	if clip_path != \"\": # Because signal is emitted even if clip_path is blank
+		voice_player.stream = load(clip_path)
+		voice_player.play()
 "
 
 [node name="Scene" type="Node2D"]
@@ -106,6 +117,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="VoicePlayer" type="AudioStreamPlayer" parent="CanvasLayer/Dialog"]
+
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_left = 35.0
 offset_top = 16.0
@@ -113,3 +126,5 @@ offset_right = 791.0
 offset_bottom = 234.0
 text = "To test languages different from your system, go to Project Settings (enable advanced settings), then Internationalization -> Locale, and set the desired locale in the field \"Test\"."
 autowrap_mode = 3
+
+[connection signal="voice_clip_requested" from="MadTalk" to="." method="_on_mad_talk_voice_clip_requested"]

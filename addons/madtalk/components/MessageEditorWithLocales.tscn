@@ -24,7 +24,7 @@ anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 29.0
 offset_right = -1.0
-offset_bottom = -1.0
+offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_cqlvq")
@@ -178,7 +178,70 @@ theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = ExtResource("3_fgqru")
 text = "Cancel"
 
+[node name="VoiceEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 85.0
+offset_top = -31.0
+offset_right = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "res://... .../filename.wav"
+
+[node name="BtnSelectClip" type="Button" parent="VoiceEdit"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -15.0
+offset_right = 44.0
+offset_bottom = 16.0
+focus_mode = 0
+text = "..."
+
+[node name="TipVoice" parent="." instance=ExtResource("4_kgpnd")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -27.0
+offset_right = -6.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 0
+tip_title = "Voice Clip"
+tip_text = "The Voice Clip is the path for an audio file (WAV or OGG) which should be played when this message is displayed. Usually it is a voice transcription of the text, but anything can be used (e.g. a robot could have a \"beep bop beep bop\" sound when speaking).
+
+The path is in the resource folder - that is, starts with res:// followed by file location.
+
+Please note the MadTalk plugin will not automatically play the sound. Since different projects will manage audio buses and implement stream players differently, the actual sound playback must be coded separately. MadTalk will emit a signal \"voice_clip_requested\" providing the file path entered here."
+
+[node name="VoiceLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -27.0
+offset_right = 93.0
+offset_bottom = -4.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 12
+text = "Voice Clip"
+
 [connection signal="tab_changed" from="LocaleBar" to="." method="_on_locale_bar_tab_changed"]
 [connection signal="pressed" from="BtnLocaleNew" to="." method="_on_btn_locale_new_pressed"]
 [connection signal="pressed" from="PanelNewLocale/BtnLocaleNewConfirm" to="." method="_on_btn_locale_new_confirm_pressed"]
 [connection signal="pressed" from="PanelNewLocale/BtnLocaleNewCancel" to="." method="_on_btn_locale_new_cancel_pressed"]
+[connection signal="pressed" from="VoiceEdit/BtnSelectClip" to="." method="_on_btn_select_clip_pressed"]

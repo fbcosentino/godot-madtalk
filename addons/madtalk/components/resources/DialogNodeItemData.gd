@@ -48,6 +48,18 @@ func get_localized_text() -> String:
 		return message_text
 
 
+func get_localized_voice_clip() -> String:
+	var locale = MadTalkGlobals.current_locale
+	
+	if locale == "":
+		return message_voice_clip
+	
+	elif (locale in message_voice_clip_locales):
+		return message_voice_clip_locales[locale]
+	
+	else:
+		return message_voice_clip
+
 # ==============================================================================
 # USED BY TYPE: CONDITION
 

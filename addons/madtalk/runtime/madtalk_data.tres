@@ -41,7 +41,7 @@ effect_values = []
 [sub_resource type="Resource" id="5"]
 script = ExtResource("3_dways")
 text = "Yes"
-text_locales = null
+text_locales = {}
 connected_to_id = 8
 is_conditional = false
 condition_variable = ""
@@ -51,7 +51,7 @@ condition_value = ""
 [sub_resource type="Resource" id="6"]
 script = ExtResource("3_dways")
 text = "No"
-text_locales = null
+text_locales = {}
 connected_to_id = -1
 is_conditional = false
 condition_variable = ""
@@ -310,7 +310,7 @@ effect_values = []
 [sub_resource type="Resource" id="20"]
 script = ExtResource("3_dways")
 text = "red,PokaTola"
-text_locales = null
+text_locales = {}
 connected_to_id = 2
 is_conditional = false
 condition_variable = ""
@@ -320,7 +320,7 @@ condition_value = ""
 [sub_resource type="Resource" id="21"]
 script = ExtResource("3_dways")
 text = "red,PokaTola Diet"
-text_locales = null
+text_locales = {}
 connected_to_id = 3
 is_conditional = false
 condition_variable = ""
@@ -330,7 +330,7 @@ condition_value = ""
 [sub_resource type="Resource" id="22"]
 script = ExtResource("3_dways")
 text = "blue,Zepsi"
-text_locales = null
+text_locales = {}
 connected_to_id = 4
 is_conditional = false
 condition_variable = ""
@@ -340,7 +340,7 @@ condition_value = ""
 [sub_resource type="Resource" id="23"]
 script = ExtResource("3_dways")
 text = "blue,Zepsi Zero"
-text_locales = null
+text_locales = {}
 connected_to_id = 5
 is_conditional = false
 condition_variable = ""
@@ -350,7 +350,7 @@ condition_value = ""
 [sub_resource type="Resource" id="25"]
 script = ExtResource("3_dways")
 text = "green,Buaraná Ankartida"
-text_locales = null
+text_locales = {}
 connected_to_id = 6
 is_conditional = false
 condition_variable = ""
@@ -360,7 +360,7 @@ condition_value = ""
 [sub_resource type="Resource" id="26"]
 script = ExtResource("3_dways")
 text = "yellow,Strike"
-text_locales = null
+text_locales = {}
 connected_to_id = 7
 is_conditional = false
 condition_variable = ""
@@ -540,6 +540,114 @@ sheet_description = ""
 next_sequence_id = 8
 nodes = [SubResource("14"), SubResource("24"), SubResource("28"), SubResource("30"), SubResource("32"), SubResource("34"), SubResource("36"), SubResource("38")]
 
+[sub_resource type="Resource" id="Resource_rlxbw"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Hello! Welcome to the localized example!
+Warning: the next message will play an audio clip."
+message_voice_clip_locales = {}
+message_text_locales = {
+"es": "¡Hola! ¡Bienvenido al ejemplo localizado!
+Advertencia: el siguiente mensaje reproducirá un clip de audio.",
+"pt": "Olá! Seja bem vindo ao teste localizado!
+Aviso: a próxima mensagem reproduzirá um clipe de áudio."
+}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_quvr4"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = "res://example_scene/voices/example_localized_en.ogg"
+message_text = "You are now seeing messages in English, because either this is your system language, or because your language is not included in this test."
+message_voice_clip_locales = {
+"es": "res://example_scene/voices/example_localized_es.ogg",
+"pt": "res://example_scene/voices/example_localized_pt.ogg"
+}
+message_text_locales = {
+"es": "Ahora estás viendo los mensajes en español, porque este es el idioma de tu sistema.",
+"pt": "Você está agora vendo mensagens em Português, porque esse é o idioma do seu sistema."
+}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_w6lj3"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Thank you for playing this test!"
+message_voice_clip_locales = {}
+message_text_locales = {
+"es": "¡Gracias por jugar esta prueba!",
+"pt": "Obrigado por jogar esse teste!"
+}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_dlpdt"]
+script = ExtResource("3_dways")
+text = "First option"
+text_locales = {
+"": "First option",
+"es": "Primera opción",
+"pt": "Primeira opção"
+}
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id="Resource_x0nqb"]
+script = ExtResource("3_dways")
+text = "Second option"
+text_locales = {
+"": "Second option",
+"es": "Segunda opción",
+"pt": "Segunda opção"
+}
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id="Resource_ml5yl"]
+script = ExtResource("4_f2ijm")
+sequence_id = 0
+position = Vector2(0, 0)
+comment = ""
+items = [SubResource("Resource_rlxbw"), SubResource("Resource_quvr4"), SubResource("Resource_w6lj3")]
+options = [SubResource("Resource_dlpdt"), SubResource("Resource_x0nqb")]
+continue_sequence_id = -1
+continue_port_index = -1
+
+[sub_resource type="Resource" id="Resource_cvf4j"]
+script = ExtResource("5_vkpn8")
+sheet_id = "localized"
+sheet_description = ""
+next_sequence_id = 2
+nodes = [SubResource("Resource_ml5yl")]
+
 [sub_resource type="Resource" id="Resource_gfy7a"]
 script = ExtResource("2_48vp3")
 item_type = 0
@@ -559,7 +667,7 @@ effect_values = []
 [sub_resource type="Resource" id="Resource_5plx1"]
 script = ExtResource("3_dways")
 text = "Option 1"
-text_locales = null
+text_locales = {}
 connected_to_id = 1
 is_conditional = false
 condition_variable = ""
@@ -569,7 +677,7 @@ condition_value = ""
 [sub_resource type="Resource" id="Resource_4ierx"]
 script = ExtResource("3_dways")
 text = "Second option"
-text_locales = null
+text_locales = {}
 connected_to_id = 2
 is_conditional = false
 condition_variable = ""
@@ -579,7 +687,7 @@ condition_value = ""
 [sub_resource type="Resource" id="Resource_c0esp"]
 script = ExtResource("3_dways")
 text = "Another cool option"
-text_locales = null
+text_locales = {}
 connected_to_id = 3
 is_conditional = false
 condition_variable = ""
@@ -680,108 +788,6 @@ sheet_id = "minimum_menu"
 sheet_description = ""
 next_sequence_id = 4
 nodes = [SubResource("Resource_28bfi"), SubResource("Resource_wn6qm"), SubResource("Resource_5vhe7"), SubResource("Resource_pnwrx")]
-
-[sub_resource type="Resource" id="Resource_rlxbw"]
-script = ExtResource("2_48vp3")
-item_type = 0
-connected_to_id = -1
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = "Hello! Welcome to the localized example!"
-message_voice_clip_locales = {}
-message_text_locales = {
-"es": "¡Hola! ¡Bienvenido al ejemplo localizado!",
-"pt": "Olá! Seja bem vindo ao teste localizado!"
-}
-message_hide_on_end = 0
-condition_type = 10
-condition_values = []
-effect_type = 10
-effect_values = []
-
-[sub_resource type="Resource" id="Resource_quvr4"]
-script = ExtResource("2_48vp3")
-item_type = 0
-connected_to_id = -1
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = "You are now seeing messages in English, because either this is your system language, or because your language is not included in this test."
-message_voice_clip_locales = {}
-message_text_locales = {
-"es": "Ahora estás viendo los mensajes en español, porque este es el idioma de tu sistema.",
-"pt": "Você está agora vendo mensagens em Português, porque esse é o idioma do seu sistema."
-}
-message_hide_on_end = 0
-condition_type = 10
-condition_values = []
-effect_type = 10
-effect_values = []
-
-[sub_resource type="Resource" id="Resource_w6lj3"]
-script = ExtResource("2_48vp3")
-item_type = 0
-connected_to_id = -1
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = "Thank you for playing this test!"
-message_voice_clip_locales = {}
-message_text_locales = {
-"es": "¡Gracias por jugar esta prueba!",
-"pt": "Obrigado por jogar esse teste!"
-}
-message_hide_on_end = 0
-condition_type = 10
-condition_values = []
-effect_type = 10
-effect_values = []
-
-[sub_resource type="Resource" id="Resource_dlpdt"]
-script = ExtResource("3_dways")
-text = "First option"
-text_locales = {
-"": "First option",
-"es": "Primera opción",
-"pt": "Primeira opção"
-}
-connected_to_id = -1
-is_conditional = false
-condition_variable = ""
-condition_operator = "="
-condition_value = ""
-
-[sub_resource type="Resource" id="Resource_x0nqb"]
-script = ExtResource("3_dways")
-text = "Second option"
-text_locales = {
-"": "Second option",
-"es": "Segunda opción",
-"pt": "Segunda opção"
-}
-connected_to_id = -1
-is_conditional = false
-condition_variable = ""
-condition_operator = "="
-condition_value = ""
-
-[sub_resource type="Resource" id="Resource_ml5yl"]
-script = ExtResource("4_f2ijm")
-sequence_id = 0
-position = Vector2(0, 0)
-comment = ""
-items = [SubResource("Resource_rlxbw"), SubResource("Resource_quvr4"), SubResource("Resource_w6lj3")]
-options = [SubResource("Resource_dlpdt"), SubResource("Resource_x0nqb")]
-continue_sequence_id = -1
-continue_port_index = -1
-
-[sub_resource type="Resource" id="Resource_cvf4j"]
-script = ExtResource("5_vkpn8")
-sheet_id = "localized"
-sheet_description = ""
-next_sequence_id = 2
-nodes = [SubResource("Resource_ml5yl")]
 
 [resource]
 script = ExtResource("1_giduu")

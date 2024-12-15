@@ -79,6 +79,10 @@ func update_from_data():
 		message_speakerlabel.text = data.message_speaker_id
 		message_speakervarlabel.text = data.message_speaker_variant
 		message_voicelabel.text = data.message_voice_clip
+		if data.message_voice_clip_locales.size() > 0:
+			message_voicelabel.text += " (" + (",".join(data.message_voice_clip_locales.keys())) + ")"
+		if message_voicelabel.text.length() > 40:
+			message_voicelabel.text = "..." + message_voicelabel.text.right(40)
 		message_msglabel.text = data.message_text
 		message_hideonendlabel.visible = (data.message_hide_on_end != 0)
 		if data.message_text_locales.size() == 0:
@@ -90,7 +94,7 @@ func update_from_data():
 		variant_title.visible = (data.message_speaker_variant != "")
 		
 		var panel = get_node("Panel")
-		if data.message_voice_clip != "":
+		if message_voicelabel.text != "":
 			panel.offset_top = 40
 		else:
 			panel.offset_top = 28
@@ -101,8 +105,8 @@ func create_dialog_edit():
 	if not dialog_edit:
 		dialog_edit = template_DialogEdit.instantiate() as Window
 		add_child(dialog_edit)
-		dialog_edit.get_node("Panel/VoiceEdit/BtnSelectClip").pressed.connect(_on_BtnSelectClip_pressed)
 		dialog_edit.get_node("Panel/MessageEditor").tab_changed.connect(_on_DialogEdit_MessageEdit_text_changed)
+		dialog_edit.get_node("Panel/MessageEditor").voice_clip_dialog_requested.connect(_on_BtnSelectClip_pressed)
 		dialog_edit.get_node("Panel/MessageEditor/MessageEdit").text_changed.connect(_on_DialogEdit_MessageEdit_text_changed)
 		dialog_edit.get_node("Panel/BtnTextColor").color_changed.connect(_on_DialogEdit_BtnTextColor_color_changed)
 		dialog_edit.get_node("Panel/BtnBGColor").color_changed.connect(_on_DialogEdit_BtnBGColor_color_changed)
@@ -176,8 +180,7 @@ func _on_PopupMenu_id_pressed(id):
 			create_dialog_edit()
 			edit_speaker_id.text = data.message_speaker_id
 			edit_speaker_var.text = data.message_speaker_variant
-			edit_voiceclip.text = data.message_voice_clip
-			edit_message_editor.setup(data.message_text, data.message_text_locales)
+			edit_message_editor.setup(data.message_text, data.message_text_locales, data.message_voice_clip, data.message_voice_clip_locales)
 			edit_btn_hide_on_end.button_pressed = (data.message_hide_on_end != 0)
 			_on_DialogEdit_PreviewTimer_timeout()
 			dialog_edit.popup_centered()
@@ -200,10 +203,13 @@ func _on_DialogEdit_BtnCancel_pressed():
 func _on_DialogEdit_BtnSave_pressed():
 	data.message_speaker_id = edit_speaker_id.text
 	data.message_speaker_variant = edit_speaker_var.text
-	data.message_voice_clip = edit_voiceclip.text
+	
 	edit_message_editor.finalize_editor()
 	data.message_text = edit_message_editor.get_default_locale_message()
 	data.message_text_locales = edit_message_editor.get_locale_messages_without_default()
+	data.message_voice_clip = edit_message_editor.get_default_locale_voiceclip()
+	data.message_voice_clip_locales = edit_message_editor.get_locale_voiceclips_without_default()
+	
 	data.message_hide_on_end = 1 if edit_btn_hide_on_end.button_pressed else 0
 	update_from_data()
 	dispose_dialog_edit()
@@ -232,5 +238,5 @@ func _on_BtnSelectClip_pressed():
 
 
 func _on_FileDialog_voiceclip_selected(path):
-	edit_voiceclip.text = path
+	edit_message_editor.set_voice_clip(path)
 	dispose_voice_clip_dialog()
