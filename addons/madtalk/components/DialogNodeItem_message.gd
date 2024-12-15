@@ -15,7 +15,7 @@ signal drag_ended(requester)
 var edit_speaker_id
 var edit_speaker_var
 var edit_voiceclip
-var edit_message
+var edit_message_editor
 var edit_preview
 var edit_previewtimer
 var edit_previewbg
@@ -49,6 +49,7 @@ var message_speakerlabel = null
 var message_voicelabel = null
 var message_msglabel = null
 var message_hideonendlabel = null
+var message_locale_list = null
 
 
 
@@ -63,6 +64,7 @@ func set_data(new_data):
 	message_voicelabel = get_node("VoiceFileLabel")
 	message_msglabel = get_node("Panel/MessageLabel")
 	message_hideonendlabel = get_node("HideOnEndLabel")
+	message_locale_list = get_node("LocalesLabel")
 	update_from_data()
 
 func update_height():
@@ -79,6 +81,10 @@ func update_from_data():
 		message_voicelabel.text = data.message_voice_clip
 		message_msglabel.text = data.message_text
 		message_hideonendlabel.visible = (data.message_hide_on_end != 0)
+		if data.message_text_locales.size() == 0:
+			message_locale_list.text = ""
+		else:
+			message_locale_list.text = ",".join(data.message_text_locales.keys())
 		
 		var variant_title = get_node("SpeakerVarLabel")
 		variant_title.visible = (data.message_speaker_variant != "")
@@ -96,7 +102,8 @@ func create_dialog_edit():
 		dialog_edit = template_DialogEdit.instantiate() as Window
 		add_child(dialog_edit)
 		dialog_edit.get_node("Panel/VoiceEdit/BtnSelectClip").pressed.connect(_on_BtnSelectClip_pressed)
-		dialog_edit.get_node("Panel/MessageEdit").text_changed.connect(_on_DialogEdit_MessageEdit_text_changed)
+		dialog_edit.get_node("Panel/MessageEditor").tab_changed.connect(_on_DialogEdit_MessageEdit_text_changed)
+		dialog_edit.get_node("Panel/MessageEditor/MessageEdit").text_changed.connect(_on_DialogEdit_MessageEdit_text_changed)
 		dialog_edit.get_node("Panel/BtnTextColor").color_changed.connect(_on_DialogEdit_BtnTextColor_color_changed)
 		dialog_edit.get_node("Panel/BtnBGColor").color_changed.connect(_on_DialogEdit_BtnBGColor_color_changed)
 		dialog_edit.get_node("Panel/PreviewBox/PreviewTimer").timeout.connect(_on_DialogEdit_PreviewTimer_timeout)
@@ -106,7 +113,7 @@ func create_dialog_edit():
 		edit_speaker_id = dialog_edit.get_node("Panel/SpeakerEdit")
 		edit_speaker_var = dialog_edit.get_node("Panel/VariantEdit")
 		edit_voiceclip = dialog_edit.get_node("Panel/VoiceEdit")
-		edit_message = dialog_edit.get_node("Panel/MessageEdit")
+		edit_message_editor = dialog_edit.get_node("Panel/MessageEditor")
 		edit_preview = dialog_edit.get_node("Panel/PreviewBox/PreviewLabel")
 		edit_previewtimer = dialog_edit.get_node("Panel/PreviewBox/PreviewTimer")
 		edit_previewbg = dialog_edit.get_node("Panel/PreviewBox")
@@ -170,7 +177,7 @@ func _on_PopupMenu_id_pressed(id):
 			edit_speaker_id.text = data.message_speaker_id
 			edit_speaker_var.text = data.message_speaker_variant
 			edit_voiceclip.text = data.message_voice_clip
-			edit_message.text = data.message_text
+			edit_message_editor.setup(data.message_text, data.message_text_locales)
 			edit_btn_hide_on_end.button_pressed = (data.message_hide_on_end != 0)
 			_on_DialogEdit_PreviewTimer_timeout()
 			dialog_edit.popup_centered()
@@ -194,7 +201,9 @@ func _on_DialogEdit_BtnSave_pressed():
 	data.message_speaker_id = edit_speaker_id.text
 	data.message_speaker_variant = edit_speaker_var.text
 	data.message_voice_clip = edit_voiceclip.text
-	data.message_text = edit_message.text
+	edit_message_editor.finalize_editor()
+	data.message_text = edit_message_editor.get_default_locale_message()
+	data.message_text_locales = edit_message_editor.get_locale_messages_without_default()
 	data.message_hide_on_end = 1 if edit_btn_hide_on_end.button_pressed else 0
 	update_from_data()
 	dispose_dialog_edit()
@@ -202,7 +211,7 @@ func _on_DialogEdit_BtnSave_pressed():
 
 
 func _on_DialogEdit_PreviewTimer_timeout():
-	edit_preview.text = edit_message.text
+	edit_preview.text = edit_message_editor.message_edit.text
 
 
 func _on_DialogEdit_MessageEdit_text_changed():

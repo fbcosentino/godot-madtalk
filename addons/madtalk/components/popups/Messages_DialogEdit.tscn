@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cy4tp1rk7owe8"]
+[gd_scene load_steps=9 format=3 uid="uid://cy4tp1rk7owe8"]
 
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="1_ebfqh"]
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="2_yr8qn"]
 [ext_resource type="PackedScene" uid="uid://dyepkyvo6sodg" path="res://addons/madtalk/components/BtnTip.tscn" id="3_fqggi"]
+[ext_resource type="PackedScene" uid="uid://dc46jny8nbbow" path="res://addons/madtalk/components/MessageEditorWithLocales.tscn" id="4_b66sd"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="4_w10ta"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_italic_small.tres" id="5_ypyua"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bolditalic_small.tres" id="6_u7epw"]
@@ -10,8 +11,7 @@
 
 [node name="DialogEdit" type="Window"]
 initial_position = 2
-size = Vector2i(750, 500)
-visible = false
+size = Vector2i(750, 550)
 exclusive = true
 popup_window = true
 
@@ -175,27 +175,28 @@ theme_override_fonts/font = ExtResource("2_yr8qn")
 theme_override_font_sizes/font_size = 12
 text = "Message (BB Code allowed):"
 
-[node name="MessageEdit" type="TextEdit" parent="Panel"]
+[node name="MessageEditor" parent="Panel" instance=ExtResource("4_b66sd")]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 16.0
-offset_top = 118.0
-offset_right = -16.0
-offset_bottom = -198.0
-theme_override_fonts/font = ExtResource("2_yr8qn")
-theme_override_font_sizes/font_size = 12
-caret_blink = true
-highlight_all_occurrences = true
-highlight_current_line = true
-draw_tabs = true
+offset_top = 120.0
+offset_right = 728.0
+offset_bottom = 350.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="PreviewLabel" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 310.0
-offset_right = 180.0
-offset_bottom = 333.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 22.68
+offset_top = -175.305
+offset_right = 181.68
+offset_bottom = -152.305
+grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_yr8qn")
 theme_override_font_sizes/font_size = 12
 text = "Message Preview"
@@ -207,9 +208,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -441.0
-offset_top = -191.0
+offset_top = -175.305
 offset_right = -377.0
-offset_bottom = -171.0
+offset_bottom = -155.305
 toggle_mode = false
 expand_icon = true
 color = Color(1, 1, 1, 1)
@@ -231,9 +232,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -250.0
-offset_top = -191.0
+offset_top = -175.305
 offset_right = -186.0
-offset_bottom = -171.0
+offset_bottom = -155.305
 toggle_mode = false
 expand_icon = true
 edit_alpha = false
@@ -253,9 +254,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = -167.0
+offset_top = -153.215
 offset_right = -16.0
-offset_bottom = -26.0
+offset_bottom = -32.215
 color = Color(0, 0, 0, 1)
 
 [node name="PreviewLabel" type="RichTextLabel" parent="Panel/PreviewBox"]
@@ -283,7 +284,8 @@ anchors_preset = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -24.0
+offset_top = -33.51
+offset_bottom = -9.51001
 
 [node name="BtnSave" type="Button" parent="Panel/BottomBar"]
 layout_mode = 0

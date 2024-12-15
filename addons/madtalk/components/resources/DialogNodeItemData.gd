@@ -35,6 +35,17 @@ var port_index : int = -1
 
 @export var message_hide_on_end: int = 0
 
+func get_localized_text() -> String:
+	var locale = MadTalkGlobals.current_locale
+	
+	if locale == "":
+		return message_text
+	
+	elif (locale in message_text_locales):
+		return message_text_locales[locale]
+	
+	else:
+		return message_text
 
 
 # ==============================================================================

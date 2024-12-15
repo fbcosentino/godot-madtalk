@@ -11,6 +11,7 @@ var time = 0
 var gametime_offset = 0
 var gametime_year = 1
 
+
 @onready var gametime = epoch_to_game_time(time)
 
 func set_variable(var_name: String, var_value) -> void:
@@ -28,6 +29,39 @@ func get_variable(var_name: String, default = 0.0):
 #	while res.length() < num_digits:
 #		res = "0"+res
 #	return res
+
+
+# ==============================================================================
+# LOCALE
+
+var default_locale := "en"
+var current_locale := ""
+
+
+func set_locale(locale_code: String):
+	current_locale = locale_code
+	if current_locale == default_locale:
+		current_locale = ""
+
+
+func set_default_locale(locale_code: String):
+	default_locale = locale_code
+	if current_locale == default_locale:
+		current_locale = ""
+
+
+func set_locale_automatic(def_locale: String = default_locale):
+	default_locale = def_locale
+	var locale = OS.get_locale_language()
+	set_locale(locale)
+
+
+func set_locale_from_project(def_locale: String = default_locale):
+	default_locale = def_locale
+	var locale = TranslationServer.get_locale()
+	if "_" in locale:
+		locale = locale.left(locale.find("_"))
+	set_locale(locale)
 
 
 # ==============================================================================

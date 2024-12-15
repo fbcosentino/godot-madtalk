@@ -1,0 +1,184 @@
+[gd_scene load_steps=6 format=3 uid="uid://dc46jny8nbbow"]
+
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1_cqlvq"]
+[ext_resource type="Script" path="res://addons/madtalk/components/MessageEditorWithLocales.gd" id="1_ip4nx"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="3_fgqru"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="4_hk2wl"]
+[ext_resource type="PackedScene" uid="uid://dyepkyvo6sodg" path="res://addons/madtalk/components/BtnTip.tscn" id="4_kgpnd"]
+
+[node name="MessageEditorWithLocales" type="ReferenceRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0, 0.616891, 0.582496, 1)
+border_width = 0.0
+script = ExtResource("1_ip4nx")
+
+[node name="MessageEdit" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 29.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 12
+caret_blink = true
+highlight_all_occurrences = true
+highlight_current_line = true
+draw_tabs = true
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 53.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 10
+text = "Locale:"
+
+[node name="LocaleBar" type="TabBar" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 55.0
+offset_top = 4.0
+offset_right = -131.0
+offset_bottom = 29.0
+grow_horizontal = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+current_tab = 0
+tab_count = 1
+tab_0/title = "Default"
+tab_0/tooltip = "Default locale. Will also be used if the user's locale is not in this list."
+
+[node name="BtnLocaleNew" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -125.0
+offset_top = 3.0
+offset_right = -47.0
+offset_bottom = 27.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("3_fgqru")
+text = "New Locale"
+
+[node name="TipLocale" parent="." instance=ExtResource("4_kgpnd")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0627
+offset_top = 2.1479
+offset_right = -8.06274
+offset_bottom = 26.1479
+grow_horizontal = 0
+tip_title = "Message Locale"
+tip_text = "You can optionally specify different messages for internationalization. MadTalk does not use Godot's CSV system for localizing dialog messages because it would be very confusing to edit dialog diagrams seeing message IDs instead of actual text, and also allows exporting and importing dialog text from other formats.
+
+Creating locale versions is optional and is done PER MESSAGE. The default tab should be the main language of your game, and other tabs are alternate (localized) translations. If a specific dialog message doesn't have a version for the locale the player is using, the default one is used. You don't have to create any lists of available locales anywhere. To remove a locale tab from a message, simply erase the text under that tab and save.
+
+Example: if a certain dialog message has locales Default (used e.g. for English), \"es\" (for Spanish) and \"jp\" (for Japanese), and the game is set for Spanish locale, then the text under the \"es\" tab will be used when this message is shown in a dialog. If, instead, the game is set to Portuguese, then the text under the Default tab will be shown, because this particular message doesn't have the \"pt\" version.
+
+This also means if you intended to have a localization but forgot to add a translation to a message somewhere, MadTalk will just use the untranslated text (Default locale tab) for that particular message instead of empty text or crashing the dialog sequence.
+
+To configure which locale MadTalk will use, call the methods below in MadTalkGlobals: set_locale() to set current locale, set_default_locale() to set which locale will use the default tab for messages (default \"en\"), and set_locale_automatic() to set the default and get the current from the system. Getting locale from the system is safe, since if the game doesn't have that language, the default language will be used instead.
+Example 1 - the default tab contains English, the game is now set to Spanish:
+        MadTalkGlobals.set_default_locale(\"en\")
+        MadTalkGlobals.set_locale(\"es\")
+
+Example 2 - getting locale from the system, doesn't change the default locale:
+        MadTalkGlobals.set_locale_automatic()
+
+Example 3 - getting locale from the system, also change the default locale to Esperanto:
+        MadTalkGlobals.set_locale_automatic(\"eo\")
+
+ 
+"
+
+[node name="PanelNewLocale" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -211.0
+offset_top = 5.0
+offset_right = -4.0
+offset_bottom = 100.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("4_hk2wl")
+
+[node name="Label" type="Label" parent="PanelNewLocale"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 2.0
+offset_right = 76.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 12
+text = "Create new locale for this message:"
+
+[node name="LocaleEdit" type="LineEdit" parent="PanelNewLocale"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 93.5
+offset_bottom = 55.0
+theme_override_colors/font_placeholder_color = Color(0.299547, 0.299547, 0.299547, 1)
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "locale (e.g. \"es\")"
+
+[node name="BtnLocaleNewConfirm" type="Button" parent="PanelNewLocale"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = 63.0
+offset_right = -82.0
+offset_bottom = 87.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("3_fgqru")
+text = "Create"
+
+[node name="BtnLocaleNewCancel" type="Button" parent="PanelNewLocale"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -77.0
+offset_top = 63.0
+offset_right = -7.0
+offset_bottom = 87.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1_cqlvq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("3_fgqru")
+text = "Cancel"
+
+[connection signal="tab_changed" from="LocaleBar" to="." method="_on_locale_bar_tab_changed"]
+[connection signal="pressed" from="BtnLocaleNew" to="." method="_on_btn_locale_new_pressed"]
+[connection signal="pressed" from="PanelNewLocale/BtnLocaleNewConfirm" to="." method="_on_btn_locale_new_confirm_pressed"]
+[connection signal="pressed" from="PanelNewLocale/BtnLocaleNewCancel" to="." method="_on_btn_locale_new_cancel_pressed"]

@@ -13,7 +13,7 @@ script = ExtResource("2")
 
 [node name="TipDialog" type="AcceptDialog" parent="."]
 initial_position = 2
-size = Vector2i(500, 200)
+size = Vector2i(650, 200)
 popup_window = true
 dialog_autowrap = true
 

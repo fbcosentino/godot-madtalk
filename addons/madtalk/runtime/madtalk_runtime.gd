@@ -677,6 +677,8 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				DialogNodeItemData.ItemTypes.Message:
 					# dialog_item.message_speaker_id : String
 					# dialog_item.message_text       : String
+					# message_text can use locale, so it is retrieved via
+					#   dialog_item.get_localized_text()
 					
 					# We show the message here, but we don't hide, since the
 					# player might want to re-read the last message when a set
@@ -689,7 +691,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					# wait for confirmation
 					
 					MadTalkGlobals.is_during_cinematic = true
-
+					
 					# If text still on screen, hide text
 					await _anim_dialog_text_visible(false)
 						
@@ -711,7 +713,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						else:
 							dialog_speakerlabel.text = speaker_name
 					
-					var dialog_message_data = msgparser.process(dialog_item.message_text, MadTalkGlobals.variables)
+					var dialog_message_data = msgparser.process(dialog_item.get_localized_text(), MadTalkGlobals.variables)
 					var dialog_message_text = dialog_message_data[0]
 					var dialog_message_anim_pause_percentages = dialog_message_data[1]
 					
@@ -722,10 +724,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					dialog_message_text = dialog_message_text.replace("$wday", MTDefs.WeekdayNamesShort[MadTalkGlobals.gametime["weekday"]] )
 
 					if dialog_messagelabel:
-						if (dialog_messagelabel is RichTextLabel) and (dialog_messagelabel.bbcode_enabled):
-							dialog_messagelabel.text = dialog_message_text
-						else:
-							dialog_messagelabel.text = dialog_message_text
+						dialog_messagelabel.text = dialog_message_text
 							
 					if dialog_speakeravatar:
 						if (dialog_item.message_speaker_id in character_data):

@@ -63,6 +63,20 @@ theme_override_fonts/font = ExtResource("3")
 theme_override_font_sizes/font_size = 9
 text = "Message"
 
+[node name="LocalesLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 63.0
+offset_right = -6.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0.192157, 0.223529, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 9
+text = "de,en,es,jp,pt,ru"
+horizontal_alignment = 2
+
 [node name="SpeakerLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 12.0
