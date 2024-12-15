@@ -34,7 +34,7 @@ highlight_all_occurrences = true
 highlight_current_line = true
 draw_tabs = true
 
-[node name="Label" type="Label" parent="."]
+[node name="LabelLocale" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 0
 offset_left = 14.0

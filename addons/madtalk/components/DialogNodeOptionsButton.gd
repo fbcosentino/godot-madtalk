@@ -2,6 +2,7 @@
 extends Control
 
 var connected_id = -1
+var item_data = null # Reference, not a copy
 
 @onready var cond_panel = get_node("Condition")
 @onready var cond_op_button = get_node("Condition/ButtonOperation")

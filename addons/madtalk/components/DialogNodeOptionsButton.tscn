@@ -39,8 +39,8 @@ offset_bottom = 31.0
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = ExtResource("3")
 theme_override_styles/focus = ExtResource("3")
+theme_override_styles/normal = ExtResource("3")
 placeholder_text = "Type button text here"
 
 [node name="BtnUp" type="TextureButton" parent="Panel"]
@@ -99,8 +99,8 @@ offset_bottom = 25.0
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 11
-theme_override_styles/normal = ExtResource("3")
 theme_override_styles/focus = ExtResource("3")
+theme_override_styles/normal = ExtResource("3")
 placeholder_text = "Type variable name here"
 
 [node name="ButtonOperation" type="OptionButton" parent="Condition"]
@@ -116,7 +116,6 @@ theme_override_fonts/font = ExtResource("8")
 flat = true
 item_count = 6
 popup/item_0/text = "="
-popup/item_0/id = 0
 popup/item_1/text = "!="
 popup/item_1/id = 1
 popup/item_2/text = ">"
@@ -139,8 +138,8 @@ offset_bottom = 25.0
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 11
-theme_override_styles/normal = ExtResource("3")
 theme_override_styles/focus = ExtResource("3")
+theme_override_styles/normal = ExtResource("3")
 placeholder_text = "Value or variable name"
 
 [node name="Label" type="Label" parent="Condition"]

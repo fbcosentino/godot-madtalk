@@ -532,6 +532,8 @@ func _assemble_menu(options: Array) -> int:
 	# options = [<list of DialogNodeOptionData>]
 	# Fields:
 	#     DialogNodeOptionData.text            : String = ""
+	#     DialogNodeOptionData.text_locales    : Dictionary (locale String: text String)
+	#         read via get_localized_text()
 	#     DialogNodeOptionData.connected_to_id : int    = -1
 
 	if not dialog_buttons_container:
@@ -548,12 +550,14 @@ func _assemble_menu(options: Array) -> int:
 	var count = 0
 	menu_connected_ids.clear()
 	for option_item in options:
-		menu_connected_ids.append(option_item.text)
-		var _new_btn = _assemble_button(option_item.connected_to_id, option_item.text, dialog_buttons_container)
+		var item_text = option_item.get_localized_text() # option_item.text
+		menu_connected_ids.append(item_text)
+		var _new_btn = _assemble_button(option_item.connected_to_id, item_text, dialog_buttons_container)
 		count += 1
 		
 	return count
-	
+
+
 func _check_option_condition(var_name: String, operator: String, given_value: String) -> bool:
 	var result = false
 	var var_value = MadTalkGlobals.get_variable(var_name, 0)
@@ -577,12 +581,15 @@ func _check_option_condition(var_name: String, operator: String, given_value: St
 			result = false
 	
 	return result
-	
+
+
 func set_variable(variable_name: String, value) -> void:
 	MadTalkGlobals.set_variable(variable_name, value)
 
+
 func get_variable(variable_name: String):
 	return MadTalkGlobals.get_variable(variable_name)
+
 
 func start_dialog(sheet_name: String, sequence_id : int = 0) -> void:
 	if MadTalkGlobals.is_during_dialog:

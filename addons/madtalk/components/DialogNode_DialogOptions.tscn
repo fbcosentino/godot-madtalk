@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwa38eqib7e25"]
+[gd_scene load_steps=8 format=3 uid="uid://bwa38eqib7e25"]
 
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
 [ext_resource type="Script" path="res://addons/madtalk/components/DialogNode_DialogOptions.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://xt0wkyrex027" path="res://addons/madtalk/images/icon_plus.png" id="3"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="4_lns1l"]
 [ext_resource type="PackedScene" uid="uid://c5mhhbui1jcfd" path="res://addons/madtalk/components/DialogNodeOptionsButton.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://dyepkyvo6sodg" path="res://addons/madtalk/components/BtnTip.tscn" id="5_jiu2v"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="7_m44w6"]
 
 [node name="DialogOptions" type="Window"]
 initial_position = 2
-size = Vector2i(510, 400)
-visible = false
+size = Vector2i(650, 400)
 transient = true
 exclusive = true
 popup_window = true
@@ -23,40 +25,104 @@ anchor_bottom = 1.0
 layout_mode = 0
 offset_left = 16.0
 offset_top = 11.0
-offset_right = 494.0
-offset_bottom = 89.0
+offset_right = 616.0
+offset_bottom = 91.0
+theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 12
 text = "Options below will be presented as buttons in the end of this dialog sequence.
 
-If option buttons are not desired, just leave this list empty. A dialog sequence without buttons will have a default leaving output. If the default leaving output is not connected,
-the dialog will end."
+If option buttons are not desired, just leave this list empty. A dialog sequence without buttons will have a default leaving output. If the default leaving output is not connected, the dialog will end."
+autowrap_mode = 3
 
 [node name="TitleLabel" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 102.0
+offset_top = 105.55
 offset_right = 57.0
-offset_bottom = 114.0
+offset_bottom = 125.55
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 12
 text = "Buttons"
 
 [node name="BtnAdd" type="TextureButton" parent="Panel"]
-layout_mode = 0
-offset_left = 479.211
-offset_top = 96.6408
-offset_right = 495.211
-offset_bottom = 112.641
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -38.875
+offset_top = 105.55
+offset_right = -22.875
+offset_bottom = 121.55
+grow_horizontal = 0
 texture_normal = ExtResource("3")
+
+[node name="LabelLocale" type="Label" parent="Panel"]
+modulate = Color(1, 1, 1, 0.501961)
+offset_left = 24.13
+offset_top = 136.205
+offset_right = 63.13
+offset_bottom = 159.205
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 10
+text = "Locale:"
+
+[node name="LocaleBar" type="TabBar" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 62.095
+offset_top = 134.045
+offset_right = -123.905
+offset_bottom = 156.045
+grow_horizontal = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+current_tab = 0
+tab_count = 1
+tab_0/title = "Default"
+tab_0/tooltip = "Default locale. Will also be used if the user's locale is not in this list."
+
+[node name="BtnLocaleNew" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -122.0
+offset_top = 133.92
+offset_right = -44.0
+offset_bottom = 155.92
+grow_horizontal = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = ExtResource("4_lns1l")
+text = "New Locale"
+
+[node name="TipLocale" parent="Panel" instance=ExtResource("5_jiu2v")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0627
+offset_top = 130.965
+offset_right = -8.06274
+offset_bottom = 154.965
+grow_horizontal = 0
+tip_title = "Message Locale"
+tip_text = "You can optionally specify different option titles for internationalization. MadTalk does not use Godot's CSV system for localizing dialog messages because it would be very confusing to edit dialog diagrams seeing message IDs instead of actual text, and also allows exporting and importing dialog text from other formats.
+
+Creating locale versions is optional and is done PER ITEM. The default tab should be the main language of your game, and other tabs are alternate (localized) translations. If a specific option title doesn't have a version for the locale the player is using, the default one is used. You don't have to create any lists of available locales anywhere. To remove a locale tab from a message, simply erase the text under all items in that tab and save.
+
+To configure which locale MadTalk will use, see the help message for localizing message items."
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 116.0
-offset_right = -12.0
+offset_left = 11.755
+offset_top = 156.0
+offset_right = -12.245
 offset_bottom = -32.0
 
 [node name="VBox" type="VBoxContainer" parent="Panel/ScrollContainer"]
@@ -67,13 +133,82 @@ size_flags_vertical = 3
 [node name="DialogNodeOptionsButton2" parent="Panel/ScrollContainer/VBox" instance=ExtResource("5")]
 layout_mode = 2
 
+[node name="PanelNewLocale" type="Panel" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -211.0
+offset_top = 133.855
+offset_right = -4.0
+offset_bottom = 228.855
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("7_m44w6")
+
+[node name="Label" type="Label" parent="Panel/PanelNewLocale"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 2.0
+offset_right = 76.0
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
+text = "Create new locale for this menu:"
+
+[node name="LocaleEdit" type="LineEdit" parent="Panel/PanelNewLocale"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 93.5
+offset_bottom = 55.0
+theme_override_colors/font_placeholder_color = Color(0.299547, 0.299547, 0.299547, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 14
+placeholder_text = "locale (e.g. \"es\")"
+
+[node name="BtnLocaleNewConfirm" type="Button" parent="Panel/PanelNewLocale"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = 63.0
+offset_right = -82.0
+offset_bottom = 87.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_lns1l")
+text = "Create"
+
+[node name="BtnLocaleNewCancel" type="Button" parent="Panel/PanelNewLocale"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -77.0
+offset_top = 63.0
+offset_right = -7.0
+offset_bottom = 87.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("4_lns1l")
+text = "Cancel"
+
 [node name="BottomBar" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -24.0
+offset_top = -35.0
+offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -104,5 +239,9 @@ focus_mode = 0
 text = "Cancel"
 
 [connection signal="pressed" from="Panel/BtnAdd" to="." method="_on_BtnAdd_pressed"]
+[connection signal="tab_changed" from="Panel/LocaleBar" to="." method="_on_locale_bar_tab_changed"]
+[connection signal="pressed" from="Panel/BtnLocaleNew" to="." method="_on_btn_locale_new_pressed"]
+[connection signal="pressed" from="Panel/PanelNewLocale/BtnLocaleNewConfirm" to="." method="_on_btn_locale_new_confirm_pressed"]
+[connection signal="pressed" from="Panel/PanelNewLocale/BtnLocaleNewCancel" to="." method="_on_btn_locale_new_cancel_pressed"]
 [connection signal="pressed" from="BottomBar/BtnSave" to="." method="_on_BtnSave_pressed"]
 [connection signal="pressed" from="BottomBar/BtnCancel" to="." method="_on_BtnCancel_pressed"]

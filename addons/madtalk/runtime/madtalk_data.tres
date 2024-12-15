@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogData" load_steps=63 format=3 uid="uid://dxkjjrap15vxu"]
+[gd_resource type="Resource" script_class="DialogData" load_steps=67 format=3 uid="uid://dxkjjrap15vxu"]
 
 [ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogData.gd" id="1_giduu"]
 [ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="2_48vp3"]
@@ -14,8 +14,8 @@ message_speaker_id = "foo"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "This is an example sheet. You can rename and use it, or discard and create your own."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -30,8 +30,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Would you like to see more dialog messages?"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 1
 condition_type = 0
 condition_values = []
@@ -41,7 +41,8 @@ effect_values = []
 [sub_resource type="Resource" id="5"]
 script = ExtResource("3_dways")
 text = "Yes"
-connected_to_id = 1
+text_locales = null
+connected_to_id = 8
 is_conditional = false
 condition_variable = ""
 condition_operator = "="
@@ -50,6 +51,7 @@ condition_value = ""
 [sub_resource type="Resource" id="6"]
 script = ExtResource("3_dways")
 text = "No"
+text_locales = null
 connected_to_id = -1
 is_conditional = false
 condition_variable = ""
@@ -66,6 +68,33 @@ options = [SubResource("5"), SubResource("6")]
 continue_sequence_id = -1
 continue_port_index = -1
 
+[sub_resource type="Resource" id="Resource_jrxya"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "my_var was set to: <<my_var>>
+Since it's less than 6, you see this message."
+message_voice_clip_locales = {}
+message_text_locales = {}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_ixt6j"]
+script = ExtResource("4_f2ijm")
+sequence_id = 6
+position = Vector2(920, 120)
+comment = ""
+items = [SubResource("Resource_jrxya")]
+options = []
+continue_sequence_id = -1
+continue_port_index = 0
+
 [sub_resource type="Resource" id="7"]
 script = ExtResource("2_48vp3")
 item_type = 0
@@ -74,8 +103,8 @@ message_speaker_id = "bar"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "The speaker IDs are \"foo\" and \"bar\", but the display names are \"Maria\" and \"Francesco\"."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -90,8 +119,8 @@ message_speaker_id = "bar"
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "This is so you can have fancy nice looking display names, but you don't have to type them all the time in the system."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -106,105 +135,30 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "A blank speaker ID is valid. If there are no characters with blank ID, it's treated as empty name."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
 effect_type = 0
 effect_values = []
 
-[sub_resource type="Resource" id="Resource_m1ifl"]
-script = ExtResource("2_48vp3")
-item_type = 2
-connected_to_id = -1
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = ""
-message_voice_clip_locales = null
-message_text_locales = null
-message_hide_on_end = 0
-condition_type = 10
-condition_values = []
-effect_type = 1
-effect_values = ["my_var", 5.0]
-
-[sub_resource type="Resource" id="Resource_68gk6"]
-script = ExtResource("2_48vp3")
-item_type = 1
-connected_to_id = 6
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = ""
-message_voice_clip_locales = null
-message_text_locales = null
-message_hide_on_end = 0
-condition_type = 2
-condition_values = ["my_var", 6.0]
-effect_type = 10
-effect_values = []
-
-[sub_resource type="Resource" id="Resource_14hyw"]
-script = ExtResource("2_48vp3")
-item_type = 0
-connected_to_id = -1
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = "You will not see this message, because the effect and condition above are such that the dialog will always branch."
-message_voice_clip_locales = null
-message_text_locales = null
-message_hide_on_end = 0
-condition_type = 10
-condition_values = []
-effect_type = 10
-effect_values = []
-
-[sub_resource type="Resource" id="11"]
+[sub_resource type="Resource" id="Resource_j2kw6"]
 script = ExtResource("4_f2ijm")
-sequence_id = 1
-position = Vector2(440, 120)
+sequence_id = 8
+position = Vector2(460, 60)
 comment = ""
-items = [SubResource("7"), SubResource("8"), SubResource("9"), SubResource("Resource_m1ifl"), SubResource("Resource_68gk6"), SubResource("Resource_14hyw")]
+items = [SubResource("7"), SubResource("8"), SubResource("9")]
 options = []
-continue_sequence_id = -1
-continue_port_index = 1
-
-[sub_resource type="Resource" id="Resource_jrxya"]
-script = ExtResource("2_48vp3")
-item_type = 0
-connected_to_id = -1
-message_speaker_id = ""
-message_speaker_variant = ""
-message_voice_clip = ""
-message_text = "my_var was set to: <<my_var>>
-Since it's less than 6, you see this message."
-message_voice_clip_locales = null
-message_text_locales = null
-message_hide_on_end = 0
-condition_type = 10
-condition_values = []
-effect_type = 10
-effect_values = []
-
-[sub_resource type="Resource" id="Resource_ixt6j"]
-script = ExtResource("4_f2ijm")
-sequence_id = 6
-position = Vector2(860, 200)
-comment = ""
-items = [SubResource("Resource_jrxya")]
-options = []
-continue_sequence_id = -1
+continue_sequence_id = 6
 continue_port_index = 0
 
 [sub_resource type="Resource" id="3"]
 script = ExtResource("5_vkpn8")
 sheet_id = "1_start_here"
 sheet_description = "Demonstration sheet. You can delete this in your game, or repurpose it."
-next_sequence_id = 8
-nodes = [SubResource("2"), SubResource("11"), SubResource("Resource_ixt6j")]
+next_sequence_id = 9
+nodes = [SubResource("2"), SubResource("Resource_ixt6j"), SubResource("Resource_j2kw6")]
 
 [sub_resource type="Resource" id="Resource_vx7w3"]
 script = ExtResource("2_48vp3")
@@ -214,8 +168,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "This example demonstrates the bare minimum nodes you need for the dialog to work."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 10
 condition_values = []
@@ -236,7 +190,7 @@ continue_port_index = 0
 script = ExtResource("5_vkpn8")
 sheet_id = "bare_minimum"
 sheet_description = ""
-next_sequence_id = 1
+next_sequence_id = 2
 nodes = [SubResource("Resource_duvjw")]
 
 [sub_resource type="Resource" id="12"]
@@ -249,8 +203,8 @@ message_voice_clip = ""
 message_text = "If you do not assign a node to Dialog Button Container (dialog_buttons_container), automatic menu will not be enabled.
 In this case, if you want menu options, you have to process the menu externally. 
 (You can, however, have dialogs without menus: simply never use menu options.)"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -265,8 +219,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "If you [b][i]do[/i][/b] use menu options in the dialog sheet, and do not assign a node for automatic menus and also do not handle the menu externally, then menus will not work (attempting to show menu options will cause the dialog to get stuck)."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -284,8 +238,8 @@ message_text = "Processing the menu externally is easy:
 When the dialog reaches a menu, the [color=#99ff00][b]external_menu_requested([color=#ff9955]menu_options[/color])[/b][/color] signal is called, where [color=#ff9955][b]menu_options[/b][/color] is an Array with the menu options.
 Each item has a [color=#99ffff][b]text[/b][/color] property containing the text for that option, from the dialog sheet.
 So [b][color=#ff9955]menu_options[[color=#ffff00]0[/color]][/color].[color=#99ffff]text[/color][/b] is the text of the first option, etc."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -302,8 +256,8 @@ message_voice_clip = ""
 message_text = "The menu will then pause and wait for your code to select one of the options from that array.
 You take the input from the player in any way you like, and then select an option by calling the method [b][color=#9999ff]select_menu_option( [color=#ffff00]index[/color] )[/color][/b] where the argument is the index of the desired option from the [color=#ff9955][b]menu_options[/b][/color] array.
 Selecting an invalid index is simply ignored."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -319,8 +273,8 @@ message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Using external menus, the option text can be used as IDs, as CSV lines packing several fields, or any other purpose you like, since building the menu is up to you.
 This way you can have more control and flexibility, while still having all the dialog managed by MadTalk."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -345,8 +299,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Please select an option with double click."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 1
 condition_type = 0
 condition_values = []
@@ -356,6 +310,7 @@ effect_values = []
 [sub_resource type="Resource" id="20"]
 script = ExtResource("3_dways")
 text = "red,PokaTola"
+text_locales = null
 connected_to_id = 2
 is_conditional = false
 condition_variable = ""
@@ -365,6 +320,7 @@ condition_value = ""
 [sub_resource type="Resource" id="21"]
 script = ExtResource("3_dways")
 text = "red,PokaTola Diet"
+text_locales = null
 connected_to_id = 3
 is_conditional = false
 condition_variable = ""
@@ -374,6 +330,7 @@ condition_value = ""
 [sub_resource type="Resource" id="22"]
 script = ExtResource("3_dways")
 text = "blue,Zepsi"
+text_locales = null
 connected_to_id = 4
 is_conditional = false
 condition_variable = ""
@@ -383,6 +340,7 @@ condition_value = ""
 [sub_resource type="Resource" id="23"]
 script = ExtResource("3_dways")
 text = "blue,Zepsi Zero"
+text_locales = null
 connected_to_id = 5
 is_conditional = false
 condition_variable = ""
@@ -392,6 +350,7 @@ condition_value = ""
 [sub_resource type="Resource" id="25"]
 script = ExtResource("3_dways")
 text = "green,Buaraná Ankartida"
+text_locales = null
 connected_to_id = 6
 is_conditional = false
 condition_variable = ""
@@ -401,6 +360,7 @@ condition_value = ""
 [sub_resource type="Resource" id="26"]
 script = ExtResource("3_dways")
 text = "yellow,Strike"
+text_locales = null
 connected_to_id = 7
 is_conditional = false
 condition_variable = ""
@@ -425,8 +385,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the normal PokaTola"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -451,8 +411,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the Diet PokaTola"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -477,8 +437,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selecteed the normal Zepsi"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -503,8 +463,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the Diet Zepsi"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -529,8 +489,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Good choice! You have selected the Buaraná Ankartida"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -555,8 +515,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You have selected the Strike"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 0
 condition_type = 0
 condition_values = []
@@ -588,8 +548,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You will now be presented with menu options."
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -599,6 +559,7 @@ effect_values = []
 [sub_resource type="Resource" id="Resource_5plx1"]
 script = ExtResource("3_dways")
 text = "Option 1"
+text_locales = null
 connected_to_id = 1
 is_conditional = false
 condition_variable = ""
@@ -608,6 +569,7 @@ condition_value = ""
 [sub_resource type="Resource" id="Resource_4ierx"]
 script = ExtResource("3_dways")
 text = "Second option"
+text_locales = null
 connected_to_id = 2
 is_conditional = false
 condition_variable = ""
@@ -617,6 +579,7 @@ condition_value = ""
 [sub_resource type="Resource" id="Resource_c0esp"]
 script = ExtResource("3_dways")
 text = "Another cool option"
+text_locales = null
 connected_to_id = 3
 is_conditional = false
 condition_variable = ""
@@ -641,8 +604,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You selected option 1"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -667,8 +630,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You selected the second option"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -693,8 +656,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "You selected the cool option"
-message_voice_clip_locales = null
-message_text_locales = null
+message_voice_clip_locales = {}
+message_text_locales = {}
 message_hide_on_end = 1
 condition_type = 10
 condition_values = []
@@ -718,6 +681,108 @@ sheet_description = ""
 next_sequence_id = 4
 nodes = [SubResource("Resource_28bfi"), SubResource("Resource_wn6qm"), SubResource("Resource_5vhe7"), SubResource("Resource_pnwrx")]
 
+[sub_resource type="Resource" id="Resource_rlxbw"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Hello! Welcome to the localized example!"
+message_voice_clip_locales = {}
+message_text_locales = {
+"es": "¡Hola! ¡Bienvenido al ejemplo localizado!",
+"pt": "Olá! Seja bem vindo ao teste localizado!"
+}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_quvr4"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "You are now seeing messages in English, because either this is your system language, or because your language is not included in this test."
+message_voice_clip_locales = {}
+message_text_locales = {
+"es": "Ahora estás viendo los mensajes en español, porque este es el idioma de tu sistema.",
+"pt": "Você está agora vendo mensagens em Português, porque esse é o idioma do seu sistema."
+}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_w6lj3"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "Thank you for playing this test!"
+message_voice_clip_locales = {}
+message_text_locales = {
+"es": "¡Gracias por jugar esta prueba!",
+"pt": "Obrigado por jogar esse teste!"
+}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_dlpdt"]
+script = ExtResource("3_dways")
+text = "First option"
+text_locales = {
+"": "First option",
+"es": "Primera opción",
+"pt": "Primeira opção"
+}
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id="Resource_x0nqb"]
+script = ExtResource("3_dways")
+text = "Second option"
+text_locales = {
+"": "Second option",
+"es": "Segunda opción",
+"pt": "Segunda opção"
+}
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id="Resource_ml5yl"]
+script = ExtResource("4_f2ijm")
+sequence_id = 0
+position = Vector2(0, 0)
+comment = ""
+items = [SubResource("Resource_rlxbw"), SubResource("Resource_quvr4"), SubResource("Resource_w6lj3")]
+options = [SubResource("Resource_dlpdt"), SubResource("Resource_x0nqb")]
+continue_sequence_id = -1
+continue_port_index = -1
+
+[sub_resource type="Resource" id="Resource_cvf4j"]
+script = ExtResource("5_vkpn8")
+sheet_id = "localized"
+sheet_description = ""
+next_sequence_id = 2
+nodes = [SubResource("Resource_ml5yl")]
+
 [resource]
 script = ExtResource("1_giduu")
 version = 1.0
@@ -725,5 +790,6 @@ sheets = {
 "1_start_here": SubResource("3"),
 "bare_minimum": SubResource("Resource_sxgqo"),
 "external_menu": SubResource("15"),
+"localized": SubResource("Resource_cvf4j"),
 "minimum_menu": SubResource("Resource_s3y14")
 }
