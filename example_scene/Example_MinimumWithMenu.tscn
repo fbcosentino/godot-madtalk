@@ -1,7 +1,5 @@
 [gd_scene load_steps=3 format=3 uid="uid://cuqg3eu58tvfr"]
 
-[ext_resource type="Script" path="res://madtalk/madtalk_runtime.gd" id="1_6gwug"]
-
 [sub_resource type="GDScript" id="GDScript_8be5v"]
 script/source = "extends Node2D
 
@@ -20,11 +18,14 @@ func _input(event):
 		$MadTalk.dialog_acknowledge()
 "
 
+[sub_resource type="Resource" id="Resource_30dpm"]
+metadata/__load_path__ = "res://madtalk/madtalk_runtime.gd"
+
 [node name="Scene" type="Node2D"]
 script = SubResource("GDScript_8be5v")
 
 [node name="MadTalk" type="Node" parent="."]
-script = ExtResource("1_6gwug")
+script = SubResource("Resource_30dpm")
 DialogMainControl = NodePath("../CanvasLayer/Dialog")
 DialogMessageBox = NodePath("../CanvasLayer/Dialog/MessagePanel")
 DialogMessageLabel = NodePath("../CanvasLayer/Dialog/MessagePanel/MessageRichLabel")

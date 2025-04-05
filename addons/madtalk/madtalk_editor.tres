@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DialogData" load_steps=2 format=3 uid="uid://dwcr132r2bocb"]
 
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogData.gd" id="4"]
+[ext_resource type="Script" uid="uid://bw2q2eucjkylk" path="res://addons/madtalk/components/resources/DialogData.gd" id="4"]
 
 [resource]
 script = ExtResource("4")

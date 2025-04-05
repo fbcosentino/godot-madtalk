@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://sks6j6y53n1k"]
 
-[ext_resource type="Script" path="res://addons/madtalk/components/DialogNodeItem_message.gd" id="1"]
+[ext_resource type="Script" uid="uid://338g851v1cl" path="res://addons/madtalk/components/DialogNodeItem_message.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dgal43srcee1q" path="res://addons/madtalk/images/panel_bg.png" id="2"]
 [ext_resource type="FontFile" uid="uid://bhcws34lw0ak5" path="res://addons/madtalk/fonts/FreeSans_tiny.tres" id="3"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_italic_small.tres" id="5"]

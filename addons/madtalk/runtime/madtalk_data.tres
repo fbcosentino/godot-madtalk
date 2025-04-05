@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="DialogData" load_steps=67 format=3 uid="uid://dxkjjrap15vxu"]
 
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogData.gd" id="1_giduu"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="2_48vp3"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeOptionData.gd" id="3_dways"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeData.gd" id="4_f2ijm"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogSheetData.gd" id="5_vkpn8"]
+[ext_resource type="Script" uid="uid://bw2q2eucjkylk" path="res://addons/madtalk/components/resources/DialogData.gd" id="1_giduu"]
+[ext_resource type="Script" uid="uid://c2bv5lwcvdmrb" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="2_48vp3"]
+[ext_resource type="Script" uid="uid://bfg2ff7c0tanh" path="res://addons/madtalk/components/resources/DialogNodeOptionData.gd" id="3_dways"]
+[ext_resource type="Script" uid="uid://b2mrnotqjr75d" path="res://addons/madtalk/components/resources/DialogNodeData.gd" id="4_f2ijm"]
+[ext_resource type="Script" uid="uid://butd1fwy4a2hn" path="res://addons/madtalk/components/resources/DialogSheetData.gd" id="5_vkpn8"]
 
 [sub_resource type="Resource" id="1"]
 script = ExtResource("2_48vp3")

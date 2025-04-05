@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="1"]
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="2"]
-[ext_resource type="Script" path="res://addons/madtalk/components/MainEditor_DialogSheetEdit.gd" id="3"]
+[ext_resource type="Script" uid="uid://x2ao4uxl8x3o" path="res://addons/madtalk/components/MainEditor_DialogSheetEdit.gd" id="3"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/InputDarkStyle.tres" id="4"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="5"]
 

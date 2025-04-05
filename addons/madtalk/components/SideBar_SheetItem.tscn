@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cc8hueicocet2"]
 
-[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="3"]
 [ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="3_atm42"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/SheetItemStyle.tres" id="4"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xf1kfjedcgd"]
 
-[ext_resource type="Script" path="res://addons/madtalk/runtime/madtalk_runtime.gd" id="1_yfpdx"]
+[ext_resource type="Script" uid="uid://c6av3xe4m2ujl" path="res://addons/madtalk/runtime/madtalk_runtime.gd" id="1_yfpdx"]
 
 [sub_resource type="GDScript" id="GDScript_53p2i"]
 script/source = "extends Node2D

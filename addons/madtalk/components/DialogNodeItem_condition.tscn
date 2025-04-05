@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://kcw14ykn5tp" path="res://addons/madtalk/images/header_condition.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://b37ib00lc25o1" path="res://addons/madtalk/images/header_condition_arrow.png" id="2"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="3"]
-[ext_resource type="Script" path="res://addons/madtalk/components/DialogNodeItem_condition.gd" id="4"]
+[ext_resource type="Script" uid="uid://bkwtkyyvciuk0" path="res://addons/madtalk/components/DialogNodeItem_condition.gd" id="4"]
 
 [node name="DialogNodeItem_condition" type="Control"]
 custom_minimum_size = Vector2(0, 34)

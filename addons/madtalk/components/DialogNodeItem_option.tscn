@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://3tpmqrmfqg6t" path="res://addons/madtalk/images/header_option.png" id="2"]
-[ext_resource type="Script" path="res://addons/madtalk/components/DialogNodeItem_option.gd" id="3"]
+[ext_resource type="Script" uid="uid://djr5ixsiysemo" path="res://addons/madtalk/components/DialogNodeItem_option.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://7ohtlu4cvfph" path="res://addons/madtalk/images/header_option_condition.png" id="4"]
 
 [node name="DialogNodeItem_option" type="Control"]

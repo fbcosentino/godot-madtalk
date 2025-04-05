@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://cp6hkrxr23xk6"]
 
-[ext_resource type="Script" path="res://addons/madtalk/components/DialogNode.gd" id="1"]
+[ext_resource type="Script" uid="uid://dw017cofkhu8c" path="res://addons/madtalk/components/DialogNode.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://sks6j6y53n1k" path="res://addons/madtalk/components/DialogNodeItem_message.tscn" id="2"]
-[ext_resource type="Script" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="3"]
+[ext_resource type="Script" uid="uid://c2bv5lwcvdmrb" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://0l1emjk1cyiy" path="res://addons/madtalk/images/icon_options.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://xt0wkyrex027" path="res://addons/madtalk/images/icon_plus.png" id="5"]
 [ext_resource type="PackedScene" uid="uid://y6s6jwiawub6" path="res://addons/madtalk/components/DialogNodeItem_option.tscn" id="8"]

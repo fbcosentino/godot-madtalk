@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://csmaqkwk66cjs"]
 
-[ext_resource type="Script" path="res://addons/madtalk/madtalk_editor.gd" id="1"]
+[ext_resource type="Script" uid="uid://b0efsmc8oj74f" path="res://addons/madtalk/madtalk_editor.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="3"]
 [ext_resource type="PackedScene" uid="uid://c6topqf6spbbw" path="res://addons/madtalk/components/SideBar.tscn" id="8"]
 [ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="8_78yji"]
@@ -225,6 +225,7 @@ text = "Save Database"
 size = Vector2i(141, 100)
 item_count = 1
 item_0/text = "New sequence"
+item_0/id = 0
 
 [node name="DialogDeleteNodePopup" type="ConfirmationDialog" parent="."]
 size = Vector2i(500, 187)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dyepkyvo6sodg"]
 
 [ext_resource type="Texture2D" uid="uid://cae7h22m1o7aw" path="res://addons/madtalk/images/icon_question.png" id="1"]
-[ext_resource type="Script" path="res://addons/madtalk/components/BtnTip.gd" id="2"]
+[ext_resource type="Script" uid="uid://degiqbehoikc5" path="res://addons/madtalk/components/BtnTip.gd" id="2"]
 
 [node name="BtnTip" type="Button"]
 offset_right = 28.0

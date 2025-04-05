@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dxgulu8lvnwrr" path="res://addons/madtalk/images/icon_x.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://6iclvaqbm5dl" path="res://addons/madtalk/images/icon_up.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://c4xg8811uuoq6" path="res://addons/madtalk/images/icon_down.png" id="6"]
-[ext_resource type="Script" path="res://addons/madtalk/components/DialogNodeOptionsButton.gd" id="7"]
+[ext_resource type="Script" uid="uid://h51781skrpvi" path="res://addons/madtalk/components/DialogNodeOptionsButton.gd" id="7"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans.tres" id="8"]
 [ext_resource type="Texture2D" uid="uid://cxwd6i3apjou8" path="res://addons/madtalk/images/icon_opt_condition.png" id="9"]
 

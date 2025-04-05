@@ -1,10 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://cd2wmgfnnp6qq"]
+[gd_scene load_steps=15 format=3 uid="uid://cd2wmgfnnp6qq"]
 
-[ext_resource type="Script" path="res://madtalk/CharacterData.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dmj1j5r0psdlj" path="res://example_scene/images/francesco.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://cem864t6xt4t6" path="res://example_scene/images/maria.png" id="3"]
 [ext_resource type="AudioStream" uid="uid://dr553b0ej26vk" path="res://example_scene/sfx/click.wav" id="4"]
-[ext_resource type="Script" path="res://madtalk/madtalk_runtime.gd" id="5"]
 [ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="6"]
 [ext_resource type="FontFile" uid="uid://b0p0wjgy1i2k2" path="res://addons/madtalk/fonts/FreeSansBoldOblique.ttf" id="7"]
 [ext_resource type="FontFile" uid="uid://y87jh0omiuc5" path="res://addons/madtalk/fonts/FreeSansOblique.ttf" id="8"]
@@ -91,19 +88,12 @@ func _on_ItemList_item_activated(index):
 	$MadTalk.select_menu_option(index)
 "
 
+[sub_resource type="Resource" id="Resource_1ktwi"]
+metadata/__load_path__ = "res://madtalk/madtalk_runtime.gd"
+
 [sub_resource type="Resource" id="2"]
-script = ExtResource("1")
-id = "foo"
-name = "Maria"
-avatar = ExtResource("3")
-variants = {}
 
 [sub_resource type="Resource" id="3"]
-script = ExtResource("1")
-id = "bar"
-name = "Francesco"
-avatar = ExtResource("2")
-variants = {}
 
 [sub_resource type="FontFile" id="8"]
 fallbacks = Array[Font]([ExtResource("6")])
@@ -149,7 +139,7 @@ anchor_bottom = 1.0
 script = SubResource("4")
 
 [node name="MadTalk" type="Node" parent="."]
-script = ExtResource("5")
+script = SubResource("Resource_1ktwi")
 ListOfCharacters = [SubResource("2"), SubResource("3")]
 DialogMainControl = NodePath("../Dialog")
 DialogMessageBox = NodePath("../Dialog/DialogBox")
