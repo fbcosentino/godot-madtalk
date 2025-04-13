@@ -34,67 +34,9 @@ func _enter_tree():
 	get_editor_interface().get_editor_main_screen().add_child(main_panel)
 	main_panel.setup()
 	_make_visible(false)
-	
-	var mt_ie := MadTalkImportExport.new()
-	mt_ie.refresh_list_importers()
-	
-	print("Importers:")
-	print(JSON.stringify(mt_ie.importers_list, "    "))
-	
-	print("Exporters:")
-	print(JSON.stringify(mt_ie.exporters_list, "    "))
-	
-	var dialog_data = load("res://addons/madtalk/runtime/madtalk_data.tres")
-	var sheet_data = dialog_data.sheets["localized"]
-	var exporter = load(mt_ie.exporters_list.keys()[0]).new()
-	print(exporter.export(sheet_data))
-	#print(exporter.export(sheet_data, ["pt", "jp"]))
-	
-	var s := """[Sheet: localized]
-	Abc
 
-[Sequence]
-alice(smirk): Well well well
-bob: Water we have here?
 
-[Sequence: Resource_ml5yl]
-<Resource_rlxbw> narrator: -=-=-
-Hello! Welcome to the localized example!
-Warning: the next message will play an audio clip.
--=-=-
-{es}: -=-=-
-¡Hola! ¡Bienvenido al ejemplo localizado!
-Advertencia: el siguiente mensaje reproducirá un clip de audio.
--=-=-
-{pt}: -=-=-
-Olá! Seja bem vindo ao teste localizado!
-Aviso: a próxima mensagem reproduzirá um clipe de áudio.
--=-=-
 
-<Resource_quvr4> narrator(humor): You are now seeing messages in English, because either this is your system language, or because your language is not included in this test.
-{es}: Ahora estás viendo los mensajes en español, porque este es el idioma de tu sistema.
-{pt}: Você está agora vendo mensagens em Português, porque esse é o idioma do seu sistema.
-
-<Resource_w6lj3> : Thank you for playing this test!
-{es}: ¡Gracias por jugar esta prueba!
-{pt}: Obrigado por jogar esse teste!
-
-John: Message said by John!
-Peter: And well, this one is by Peter =]
-{pt}: Esta é do Peter!
-
-[Sequence]
-alice: I don't know what to write here...
-
-bob(bobbing): -=-=-
-		Why not... 
-		a multiline one?
--=-=-
-
-alice: Nah.
-"""
-	var importer = load(mt_ie.importers_list.keys()[0]).new()
-	print( JSON.stringify( importer.import(dialog_data, s) , "    ") )
 
 
 func _exit_tree():

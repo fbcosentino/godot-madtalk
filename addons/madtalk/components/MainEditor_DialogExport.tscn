@@ -69,6 +69,7 @@ theme_override_font_sizes/font_size = 12
 text = "Export Format:"
 
 [node name="CaptionSheets" type="Label" parent="PanelOptions"]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 68.0
 offset_right = 274.0

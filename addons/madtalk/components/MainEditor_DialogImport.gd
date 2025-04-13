@@ -169,12 +169,8 @@ func prepare(text: String, restricted_locales: Array = []):
 	
 	var importer_script = mt_ie.importers_list.keys()[ btn_importer.selected ]
 	var importer = load(importer_script).new()
-	#var sheet_data = dialog_data.sheets[current_sheet_id]
 	
 	var imported_data = importer.import(dialog_data, text)
-	print("\n\n\n###\n\nimported_data = ", JSON.stringify(imported_data, "    "), "\n\n")
-	#prepared_data["sheet_id"] = imported_data["sheet_id"] if "sheet_id" in imported_data else ""
-	#prepared_data["sheet_desc"] = imported_data["sheet_desc"] if "sheet_desc" in imported_data else ""
 	
 	if (not "status" in imported_data) or (imported_data["status"] != importer.ImportResults.OK):
 		print("MadTalk importer error")
@@ -379,8 +375,6 @@ func prepare(text: String, restricted_locales: Array = []):
 	for sheet_id in sheet_ids:
 		if prepared_data["new"][sheet_id].size() == 0:
 			prepared_data["new"].erase(sheet_id)
-	
-	print("prepared_data = ", JSON.stringify(prepared_data, "    "))
 	
 	import_summary.text = generate_summary(restricted_locales)
 
@@ -654,7 +648,7 @@ func _execute_create_message(sheet_id: String, sequence_uid: String, dict: Dicti
 		new_data_item.message_speaker_variant = dict["variant"]
 		
 		if include_default_locale:
-			new_data_item.message_text = dict["mmessage_text"]
+			new_data_item.message_text = dict["message_text"]
 		
 		for locale in dict["locales"]:
 			new_data_item.message_text_locales[locale] = dict["locales"][locale]
@@ -688,7 +682,7 @@ func _execute_modify_message(sheet_id: String, sequence_uid: String, message_uid
 	dialog_item.message_speaker_variant = dict["variant"]
 	
 	if include_default_locale:
-		dialog_item.message_text = dict["mmessage_text"]
+		dialog_item.message_text = dict["message_text"]
 	
 	for locale in dict["locales"]:
 		dialog_item.message_text_locales[locale] = dict["locales"][locale]
@@ -763,3 +757,4 @@ func _on_btn_import_pressed() -> void:
 		restricted_locales.clear()
 	
 	execute(restricted_locales)
+	hide()

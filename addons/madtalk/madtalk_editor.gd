@@ -574,7 +574,8 @@ func _on_BtnSaveDB_pressed():
 
 
 func _on_ImportExport_BtnExport_pressed() -> void:
-	dialog_export.set_current_sheet(current_sheet)
+	dialog_export.set_current_sheet(current_sheet, true)
+	dialog_export.refresh_export_sheet_list()
 	dialog_export.popup_centered()
 
 

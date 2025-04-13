@@ -41,8 +41,11 @@ func setup(data: DialogData, sheet_id: String):
 	panel_sheets.hide()
 	panel_output.hide()
 
-func set_current_sheet(sheet: String):
+func set_current_sheet(sheet: String, reset_export_sheet: bool = false):
 	current_sheet_id = sheet
+	if reset_export_sheet:
+		export_sheets = [current_sheet_id]
+		update_exported_sheets()
 
 func _on_btn_close_pressed() -> void:
 	hide()
