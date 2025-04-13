@@ -25,6 +25,8 @@ var SideBar_SheetItem_template = preload("res://addons/madtalk/components/SideBa
 @onready var dialog_sheet_edit = get_node("DialogSheetEdit")
 @onready var dialog_sheet_rename_error_popup = get_node("DialogSheetRenameError")
 @onready var dialog_sheet_create_popup = get_node("DialogSheetCreated")
+@onready var dialog_export = get_node("DialogExport")
+@onready var dialog_import = get_node("DialogImport")
 
 # Maps sequence ids to graph nodes
 var sequence_map: Dictionary = {}
@@ -42,12 +44,14 @@ func _ready() -> void:
 	#call_deferred("setup")
 
 func setup():
-	
 	if dialog_data.sheets.size() == 0:
 		create_new_sheet()
 	
 	else:
 		open_sheet(dialog_data.sheets.keys()[0])
+	
+	dialog_export.setup(dialog_data, current_sheet)
+	dialog_import.setup(dialog_data, current_sheet)
 	
 # Opens a sheet for the first time, or reopens (updates area content)
 func open_sheet(sheet_id: String) -> void:
@@ -134,6 +138,7 @@ func create_new_node(graph_position: Vector2 = Vector2(0,0), create_visual_insta
 			next_available_id = this_node.sequence_id+1
 
 	var new_data = DialogNodeData.new()
+	new_data.resource_scene_unique_id = Resource.generate_scene_unique_id()
 	new_data.position = graph_position
 	new_data.sequence_id = next_available_id
 	new_data.items = [] # New Array to avoid sharing references
@@ -164,6 +169,7 @@ func create_new_sheet() -> String:
 		
 	# Create the new sheet
 	var new_sheet_data = DialogSheetData.new() # default next_sequence_id=0
+	new_sheet_data.resource_scene_unique_id = Resource.generate_scene_unique_id()
 	new_sheet_data.sheet_id = new_sheet_name
 	new_sheet_data.nodes = [] # Forces a new array to avoid reference sharing
 	dialog_data.sheets[new_sheet_name] = new_sheet_data
@@ -565,3 +571,20 @@ func _on_BtnNewSheet_pressed() -> void:
 func _on_BtnSaveDB_pressed():
 	var res_path = dialog_data.resource_path
 	ResourceSaver.save(dialog_data, res_path, 0)
+
+
+func _on_ImportExport_BtnExport_pressed() -> void:
+	dialog_export.set_current_sheet(current_sheet)
+	dialog_export.popup_centered()
+
+
+func _on_ImportExport_BtnImportSheet_pressed() -> void:
+	dialog_import.set_current_sheet(current_sheet)
+	dialog_import.reset_and_show()
+
+
+func _on_dialog_import_import_executed(destination_sheet: String) -> void:
+	if destination_sheet != "":
+		open_sheet(destination_sheet)
+	else:
+		reopen_current_sheet()

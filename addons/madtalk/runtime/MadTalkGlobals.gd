@@ -210,8 +210,8 @@ func split_string_autodetect_rn(value: String) -> Array:
 		result = value.split("\n")
 		
 	return result
-	
-	
+
+
 func next_time_at_time(time_value: String) -> int:
 	var asked_time = split_time(time_value)
 

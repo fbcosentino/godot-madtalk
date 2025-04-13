@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx148tfhw6ida"]
+
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="1_0agko"]
+[ext_resource type="Script" uid="uid://brqywa4kaelfg" path="res://addons/madtalk/components/ImportBar.gd" id="2_vberv"]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="2_xeiq2"]
+[ext_resource type="Texture2D" uid="uid://c4xg8811uuoq6" path="res://addons/madtalk/images/icon_down.png" id="3_vberv"]
+
+[node name="ImportBar" type="Panel"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -424.0
+offset_top = 16.0
+offset_right = -224.0
+offset_bottom = 216.0
+grow_horizontal = 0
+theme_override_styles/panel = ExtResource("1_0agko")
+script = ExtResource("2_vberv")
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 177.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("2_xeiq2")
+theme_override_font_sizes/font_size = 12
+text = "Import / Export"
+
+[node name="BtnTogglePanel" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_bottom = 24.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_vberv")
+stretch_mode = 3
+
+[connection signal="pressed" from="BtnTogglePanel" to="." method="_on_BtnTogglePanel_pressed"]

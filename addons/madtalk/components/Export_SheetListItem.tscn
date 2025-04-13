@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1a8yn1guaowt"]
+
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/SheetItemStyle.tres" id="1_w11ta"]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="2_oqjov"]
+[ext_resource type="FontFile" uid="uid://bhcws34lw0ak5" path="res://addons/madtalk/fonts/FreeSans_tiny.tres" id="3_rgkct"]
+[ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="4_i0ry5"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="5_en1rw"]
+
+[node name="ExportSheetListItem" type="Panel"]
+custom_minimum_size = Vector2(0, 48)
+theme_override_styles/panel = ExtResource("1_w11ta")
+
+[node name="SheetIDLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 39.0
+offset_top = 10.0
+offset_right = 241.0
+offset_bottom = -10.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.470588, 0.898039, 1, 1)
+theme_override_fonts/font = ExtResource("2_oqjov")
+theme_override_font_sizes/font_size = 12
+text = "sheet_id"
+vertical_alignment = 1
+autowrap_mode = 1
+clip_text = true
+
+[node name="DescLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 250.0
+offset_top = 2.0
+offset_right = -10.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.772549, 0.772549, 0.772549, 1)
+theme_override_fonts/font = ExtResource("3_rgkct")
+theme_override_font_sizes/font_size = 12
+text = "Simple decription text"
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+
+[node name="BtnSelect" type="CheckBox" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -15.0
+offset_right = 28.0
+offset_bottom = 16.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_i0ry5")
+theme_override_styles/normal = ExtResource("5_en1rw")
+flat = true
+icon_alignment = 2

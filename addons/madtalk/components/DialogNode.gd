@@ -217,6 +217,7 @@ func _on_AddMenu_id_pressed(id):
 	match id:
 		AddMenuItems.Message:
 			var new_data_item = DialogNodeItemData.new()
+			new_data_item.resource_scene_unique_id = Resource.generate_scene_unique_id()
 			new_data_item.item_type = DialogNodeItemData.ItemTypes.Message
 			new_data_item.message_speaker_id = ""
 			new_data_item.message_text = ""
@@ -225,6 +226,7 @@ func _on_AddMenu_id_pressed(id):
 
 		AddMenuItems.Condition:
 			var new_data_item = DialogNodeItemData.new()
+			new_data_item.resource_scene_unique_id = Resource.generate_scene_unique_id()
 			new_data_item.item_type = DialogNodeItemData.ItemTypes.Condition
 			new_data_item.condition_type = MTDefs.ConditionTypes.Random
 			new_data_item.condition_values = [50]
@@ -233,6 +235,7 @@ func _on_AddMenu_id_pressed(id):
 
 		AddMenuItems.Effect:
 			var new_data_item = DialogNodeItemData.new()
+			new_data_item.resource_scene_unique_id = Resource.generate_scene_unique_id()
 			new_data_item.item_type = DialogNodeItemData.ItemTypes.Effect
 			new_data_item.effect_type = MTDefs.EffectTypes.ChangeSheet
 			new_data_item.effect_values = ["",0]

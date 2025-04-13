@@ -23,7 +23,7 @@ offset_right = 177.0
 offset_bottom = 20.0
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 12
-text = "Options"
+text = "Dialog Sheets"
 
 [node name="BtnTogglePanel" type="TextureButton" parent="."]
 layout_mode = 0
