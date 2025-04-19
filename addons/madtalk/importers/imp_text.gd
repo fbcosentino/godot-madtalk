@@ -166,7 +166,6 @@ func import(dialog_data: DialogData, input: String) -> Dictionary:
 	var sheet_desc := ""
 	var line = lines.pop_front().strip_edges()
 	
-	print(">>> starting importer")
 	var i = 0
 	while line is String:
 		i += 1
@@ -178,18 +177,14 @@ func import(dialog_data: DialogData, input: String) -> Dictionary:
 		
 		# Beginning of new Sheet ID
 		if (line_clean.begins_with("[Sheet: ")) and (line_clean.ends_with("]")):
-			print("starting new sheet")
 			
 			# First, finish previous sheet_items
 			if sheet_items.size() > 0:
-				print("sheet_items wasnt empty")
 				# Commits previous sheet data to result, and start new one
 				if sheet_id in result["sheets"]:
-					print("sheet exists, appending...")
 					# If sheet is already in result, we merge
 					result["sheets"][sheet_id]["nodes"].append_array(sheet_items)
 				else:
-					print("sheet doesn't exist, adding...")
 					result["sheets"][sheet_id] = {
 						"sheet_id": sheet_id,
 						"sheet_desc": sheet_desc,
@@ -249,7 +244,7 @@ func import(dialog_data: DialogData, input: String) -> Dictionary:
 		
 		
 		if (not ": " in line):
-			#print("Line \"%s\" not relevant, skipping..." % line)
+			# Line not relevant, skipping...
 			line = lines.pop_front()
 			continue
 		

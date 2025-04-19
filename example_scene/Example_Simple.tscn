@@ -1,5 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://xog5yco44i3o"]
+[gd_scene load_steps=9 format=3 uid="uid://xog5yco44i3o"]
 
+[ext_resource type="Script" uid="uid://c6av3xe4m2ujl" path="res://addons/madtalk/runtime/madtalk_runtime.gd" id="1_qs3n3"]
+[ext_resource type="Script" uid="uid://crm8hyh7nn5vb" path="res://addons/madtalk/runtime/CharacterData.gd" id="2_ws8fe"]
+[ext_resource type="Texture2D" uid="uid://cem864t6xt4t6" path="res://example_scene/images/maria.png" id="3_p1jhp"]
 [ext_resource type="Texture2D" uid="uid://dmj1j5r0psdlj" path="res://example_scene/images/francesco.png" id="4_5tatg"]
 [ext_resource type="AudioStream" uid="uid://dr553b0ej26vk" path="res://example_scene/sfx/click.wav" id="5_ryn23"]
 
@@ -49,12 +52,21 @@ func _on_ItemList_item_activated(index):
 		$MadTalk.start_dialog(sheet_id)
 "
 
-[sub_resource type="Resource" id="Resource_tjyac"]
-metadata/__load_path__ = "res://madtalk/madtalk_runtime.gd"
+[sub_resource type="Resource" id="Resource_ulk8d"]
+script = ExtResource("2_ws8fe")
+id = "foo"
+name = "Maria"
+avatar = ExtResource("3_p1jhp")
+variants = {}
+metadata/_custom_type_script = "uid://crm8hyh7nn5vb"
 
-[sub_resource type="Resource" id="2"]
-
-[sub_resource type="Resource" id="3"]
+[sub_resource type="Resource" id="Resource_xfi70"]
+script = ExtResource("2_ws8fe")
+id = "bar"
+name = "Francesco"
+avatar = ExtResource("4_5tatg")
+variants = {}
+metadata/_custom_type_script = "uid://crm8hyh7nn5vb"
 
 [node name="Scene" type="Control"]
 layout_mode = 3
@@ -66,8 +78,8 @@ grow_vertical = 2
 script = SubResource("4")
 
 [node name="MadTalk" type="Node" parent="."]
-script = SubResource("Resource_tjyac")
-ListOfCharacters = [SubResource("2"), SubResource("3")]
+script = ExtResource("1_qs3n3")
+ListOfCharacters = Array[ExtResource("2_ws8fe")]([SubResource("Resource_ulk8d"), SubResource("Resource_xfi70")])
 DialogMainControl = NodePath("../Dialog")
 DialogMessageBox = NodePath("../Dialog/DialogBox")
 DialogMessageLabel = NodePath("../Dialog/DialogBox/LabelMessage")

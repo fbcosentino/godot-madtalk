@@ -11,7 +11,6 @@ var time = 0
 var gametime_offset = 0
 var gametime_year = 1
 
-
 @onready var gametime = epoch_to_game_time(time)
 
 func set_variable(var_name: String, var_value) -> void:

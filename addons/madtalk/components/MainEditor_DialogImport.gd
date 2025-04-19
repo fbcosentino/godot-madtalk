@@ -395,7 +395,7 @@ func reload(restrict_locales: bool = false):
 	else:
 		prepare(input_edit.text)
 	
-	_update_destination_text(0)
+	_update_destination_text(btn_destination.selected)
 
 
 

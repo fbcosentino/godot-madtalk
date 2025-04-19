@@ -62,7 +62,7 @@ func extract_locales() -> Array:
 	return result
 
 
-func export(): #(sheet_id: String):
+func export():
 	if (not dialog_data) or (btn_exporter.selected < 0) or (btn_exporter.selected >= mt_ie.exporters_list.size()):
 		print("MadTalk exporter error")
 		return
