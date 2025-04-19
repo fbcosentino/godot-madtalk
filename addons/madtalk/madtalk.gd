@@ -34,7 +34,9 @@ func _enter_tree():
 	get_editor_interface().get_editor_main_screen().add_child(main_panel)
 	main_panel.setup()
 	_make_visible(false)
-	
+
+
+
 
 
 func _exit_tree():

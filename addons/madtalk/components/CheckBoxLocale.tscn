@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfxq3ddd234s5"]
+
+[ext_resource type="Script" uid="uid://7r6730p3jqi8" path="res://addons/madtalk/components/CheckBoxLocale.gd" id="1_nugbd"]
+
+[node name="CheckBoxLocale" type="CheckBox"]
+theme_override_colors/font_color = Color(0.323181, 0.438824, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.509804, 1, 0, 1)
+theme_override_font_sizes/font_size = 12
+button_pressed = true
+text = "Default locale"
+clip_text = true
+script = ExtResource("1_nugbd")

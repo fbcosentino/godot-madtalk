@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogData" load_steps=67 format=3 uid="uid://dxkjjrap15vxu"]
+[gd_resource type="Resource" script_class="DialogData" load_steps=71 format=3 uid="uid://dxkjjrap15vxu"]
 
 [ext_resource type="Script" uid="uid://bw2q2eucjkylk" path="res://addons/madtalk/components/resources/DialogData.gd" id="1_giduu"]
 [ext_resource type="Script" uid="uid://c2bv5lwcvdmrb" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="2_48vp3"]
@@ -68,6 +68,22 @@ options = [SubResource("5"), SubResource("6")]
 continue_sequence_id = -1
 continue_port_index = -1
 
+[sub_resource type="Resource" id="v4udn"]
+script = ExtResource("2_48vp3")
+item_type = 2
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = ""
+message_voice_clip_locales = {}
+message_text_locales = {}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 1
+effect_values = ["my_var", 5.0]
+
 [sub_resource type="Resource" id="Resource_jrxya"]
 script = ExtResource("2_48vp3")
 item_type = 0
@@ -76,7 +92,8 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "my_var was set to: <<my_var>>
-Since it's less than 6, you see this message."
+{{if my_var < 4: Since it's less than 4, you see this message.}}
+{{if my_var < 6: Since it's less than 6, you see this message.}}"
 message_voice_clip_locales = {}
 message_text_locales = {}
 message_hide_on_end = 0
@@ -90,7 +107,7 @@ script = ExtResource("4_f2ijm")
 sequence_id = 6
 position = Vector2(920, 120)
 comment = ""
-items = [SubResource("Resource_jrxya")]
+items = [SubResource("v4udn"), SubResource("Resource_jrxya")]
 options = []
 continue_sequence_id = -1
 continue_port_index = 0
@@ -658,7 +675,7 @@ message_voice_clip = ""
 message_text = "You will now be presented with menu options."
 message_voice_clip_locales = {}
 message_text_locales = {}
-message_hide_on_end = 1
+message_hide_on_end = 0
 condition_type = 10
 condition_values = []
 effect_type = 10
@@ -714,21 +731,61 @@ message_voice_clip = ""
 message_text = "You selected option 1"
 message_voice_clip_locales = {}
 message_text_locales = {}
-message_hide_on_end = 1
+message_hide_on_end = 0
 condition_type = 10
 condition_values = []
 effect_type = 10
 effect_values = []
 
+[sub_resource type="Resource" id="Resource_v4udn"]
+script = ExtResource("2_48vp3")
+item_type = 0
+connected_to_id = -1
+message_speaker_id = ""
+message_speaker_variant = ""
+message_voice_clip = ""
+message_text = "This option also has another menu. Select your option:"
+message_voice_clip_locales = {}
+message_text_locales = {}
+message_hide_on_end = 0
+condition_type = 10
+condition_values = []
+effect_type = 10
+effect_values = []
+
+[sub_resource type="Resource" id="Resource_kur6e"]
+script = ExtResource("3_dways")
+text = "Yes"
+text_locales = {
+"": "Yes"
+}
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
+[sub_resource type="Resource" id="Resource_gi4cx"]
+script = ExtResource("3_dways")
+text = "Uh... no?"
+text_locales = {
+"": "Uh... no?"
+}
+connected_to_id = -1
+is_conditional = false
+condition_variable = ""
+condition_operator = "="
+condition_value = ""
+
 [sub_resource type="Resource" id="Resource_wn6qm"]
 script = ExtResource("4_f2ijm")
 sequence_id = 1
-position = Vector2(640, -100)
+position = Vector2(640, -240)
 comment = ""
-items = [SubResource("Resource_dyln1")]
-options = []
+items = [SubResource("Resource_dyln1"), SubResource("Resource_v4udn")]
+options = [SubResource("Resource_kur6e"), SubResource("Resource_gi4cx")]
 continue_sequence_id = -1
-continue_port_index = 0
+continue_port_index = -1
 
 [sub_resource type="Resource" id="Resource_qsky1"]
 script = ExtResource("2_48vp3")
@@ -740,7 +797,7 @@ message_voice_clip = ""
 message_text = "You selected the second option"
 message_voice_clip_locales = {}
 message_text_locales = {}
-message_hide_on_end = 1
+message_hide_on_end = 0
 condition_type = 10
 condition_values = []
 effect_type = 10
@@ -766,7 +823,7 @@ message_voice_clip = ""
 message_text = "You selected the cool option"
 message_voice_clip_locales = {}
 message_text_locales = {}
-message_hide_on_end = 1
+message_hide_on_end = 0
 condition_type = 10
 condition_values = []
 effect_type = 10

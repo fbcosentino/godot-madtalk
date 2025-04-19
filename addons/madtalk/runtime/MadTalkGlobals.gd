@@ -11,7 +11,6 @@ var time = 0
 var gametime_offset = 0
 var gametime_year = 1
 
-
 @onready var gametime = epoch_to_game_time(time)
 
 func set_variable(var_name: String, var_value) -> void:
@@ -210,8 +209,8 @@ func split_string_autodetect_rn(value: String) -> Array:
 		result = value.split("\n")
 		
 	return result
-	
-	
+
+
 func next_time_at_time(time_value: String) -> int:
 	var asked_time = split_time(time_value)
 

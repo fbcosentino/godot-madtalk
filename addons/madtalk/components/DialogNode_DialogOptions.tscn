@@ -10,7 +10,7 @@
 
 [node name="DialogOptions" type="Window"]
 initial_position = 2
-size = Vector2i(650, 400)
+size = Vector2i(650, 450)
 transient = true
 exclusive = true
 popup_window = true
@@ -59,6 +59,7 @@ texture_normal = ExtResource("3")
 
 [node name="LabelLocale" type="Label" parent="Panel"]
 modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 0
 offset_left = 24.13
 offset_top = 136.205
 offset_right = 63.13
@@ -117,13 +118,16 @@ Creating locale versions is optional and is done PER ITEM. The default tab shoul
 To configure which locale MadTalk will use, see the help message for localizing message items."
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 11.755
+offset_left = 12.0
 offset_top = 156.0
-offset_right = -12.245
-offset_bottom = -32.0
+offset_right = -12.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="Panel/ScrollContainer"]
 layout_mode = 2

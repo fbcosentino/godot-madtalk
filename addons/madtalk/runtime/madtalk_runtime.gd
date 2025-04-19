@@ -49,68 +49,84 @@ signal dialog_aborted
 # type (doesn't have to descend from Control). It can even be a Spatial in
 # a normal 3D project
 
-# Array containing the character data, one record per character
-# All items in this array must be of type MTCharacterData
+## Array containing the character data, one record per character
+## All items in this array must be of type MTCharacterData
 @export var ListOfCharacters: Array[MTCharacterData] = [] # (Array, Resource)
 
-# This is the main control overlay used to show all dialog activity under
-# MadTalk responsibility. Usually a Control with "Full Rect" layout and mouse
-# filter set to "Stop", but other scenarios are possible at your discretion.
+@export_group("Layout Nodes")
+## This is the main control overlay used to show all dialog activity under
+## MadTalk responsibility. Usually a Control with "Full Rect" layout and mouse
+## filter set to "Stop", but other scenarios are possible at your discretion.
 @export var DialogMainControl: NodePath
 @onready var dialog_maincontrol: Control = get_node_or_null(DialogMainControl)
 
-# The Control-descendant holding all the objects in the text box
-# but not the menu. Menu must be able to become visible when this is hidden
-# In most simple cases this can be the label itself
+## The Control-descendant holding all the objects in the text box
+## but not the menu. Menu must be able to become visible when this is hidden
+## In most simple cases this can be the label itself (or a Panel holding it)
 @export var DialogMessageBox: NodePath
 @onready var dialog_messagebox: Control = get_node_or_null(DialogMessageBox)
 
-# The Label or RichTextLabel used to display dialog messages
+## The RichTextLabel used to display dialog messages
 @export var DialogMessageLabel: NodePath
 @onready var dialog_messagelabel: Control = get_node_or_null(DialogMessageLabel)
 
-# The Label or RichTextLabel used to display the speaker name
+@export_subgroup("Speaker")
+
+## The Label or RichTextLabel used to display the speaker name
 @export var DialogSpeakerLabel: NodePath
 @onready var dialog_speakerlabel = get_node_or_null(DialogSpeakerLabel)
 
-# The TextureRect for showing avatars
+## The TextureRect for showing avatars
 @export var DialogSpeakerAvatar: NodePath
 @onready var dialog_speakeravatar = get_node_or_null(DialogSpeakerAvatar)
 
-# The Control-descendant holding the entire button menu, including containers,
-# decorations, etc. Hiding this should be enough to leave no trace of the
-# menu on screen
-# Having a menu in the game is entirely optional and you can leave menu-related
-# items unassigned if you don't use menus in the dialog system
+@export_subgroup("Menu")
+
+## The Control-descendant holding the entire button menu, including containers,
+## decorations, etc. Hiding this should be enough to leave no trace of the
+## menu on screen
+## Having a menu in the game is entirely optional and you can leave menu-related
+## items unassigned if you don't use menus in the dialog system
 @export var DialogButtonsMenu: NodePath
 @onready var dialog_menu = get_node_or_null(DialogButtonsMenu)
 
-# The container (usually VBoxContainer) which will hold the button instances
-# directly. There must be nothing inside this node, this is the lowest
-# hierarchy node in the customization/decoration branch of the scene tree, and
-# buttons will be created as direct children of this node
-# If this node is not assigned, menus can still be used externally via signals
-# If this is not assigned and menu is also not handled externally, menu options
-# will not work
+## The container (usually VBoxContainer) which will hold the button instances
+## directly. There must be nothing inside this node, this is the lowest
+## hierarchy node in the customization/decoration branch of the scene tree, and
+## buttons will be created as direct children of this node
+## If this node is not assigned, menus can still be used externally via signals
+## If this is not assigned and menu is also not handled externally, menu options
+## will not work
 @export var DialogButtonsContainer: NodePath
 @onready var dialog_buttons_container = get_node_or_null(DialogButtonsContainer)
 
-# The PackedScene file containing the button template used to build the menu.
-# Must have a signal without ambiguity for direct connection which is emitted
-# only when the option is selected. Signal must have no arguments.
-# Many actions sharing a same signal having different values for an argument
-# (e.g. InputEvent) is not supported.
+@export_subgroup("Menu/Custom Button for Menu")
+## (Optional) The PackedScene file containing a button template used to build the menu.
+## You do not need this set to use menus. MadTalk will use the default Button
+## class if this field is left blank.
+## If assigned, must have a signal without ambiguity for direct connection which is emitted
+## only when the option is selected. Signal must have no arguments.
+## Many actions sharing a same signal having different values for an argument
+## (e.g. InputEvent) is not supported.
 @export var DialogButtonSceneFile: PackedScene = null
 
-# Signal name emitted by DialogButtonSceneFile when the option is confirmed
+## If DialogButtonSceneFile is assigned: name of property used to set the text when instancing the node
+## (otherwise, leave as is)
 @export var DialogButtonTextProperty: String = "text"
 
-# Signal name emitted by DialogButtonSceneFile when the option is confirmed
+## If DialogButtonSceneFile is assigned: Signal name emitted when the option is confirmed
+## (otherwise, leave as is)
 @export var DialogButtonSignalName: String = "pressed"
 
-# AnimationPlayer object used for fade-in and fade-out transition animations
-# if not given, animations will simply be disabled and only show() and hide() 
-# will be used instead
+@export_subgroup("")
+
+@export_group("Animations")
+
+@export_subgroup("Custom Fade-in Fade-out Animations")
+
+## AnimationPlayer object used for fade-in and fade-out transition animations
+## if not given, animations will simply be disabled and only show() and hide() 
+## will be used instead
 @export var DialogAnimationPlayer: NodePath
 @onready var dialog_anims = get_node_or_null(DialogAnimationPlayer)
 
@@ -120,41 +136,94 @@ signal dialog_aborted
 # after) the last frame. Applying the updates of only the last frame must be 
 # enough to reset the tracks to their faded-out states
 
-# Animation for dialog fade in - displays the DialogMainControl node entirely
+
+
+## (If DialogAnimationPlayer is assigned:)
+## Animation for dialog fade in - displays the DialogMainControl node entirely
 @export var TransitionAnimationName_DialogFadeIn: String = ""
-# Animation for dialog fade out - hides the DialogMainControl node entirely
+## (If DialogAnimationPlayer is assigned:)
+## Animation for dialog fade out - hides the DialogMainControl node entirely
 @export var TransitionAnimationName_DialogFadeOut: String = ""
-# Animation for message box fade in - displays the DialogMessageBox node
+## (If DialogAnimationPlayer is assigned:)
+## Animation for message box fade in - displays the DialogMessageBox node
 @export var TransitionAnimationName_MessageBoxFadeIn: String = ""
-# Animation for message box fade out - hides the DialogMessageBox node
+## (If DialogAnimationPlayer is assigned:)
+## Animation for message box fade out - hides the DialogMessageBox node
 @export var TransitionAnimationName_MessageBoxFadeOut: String = ""
-# Animation for menu fade in - displays the DialogButtonsMenu node entirely
+## (If DialogAnimationPlayer is assigned:)
+## Animation for menu fade in - displays the DialogButtonsMenu node entirely
 @export var TransitionAnimationName_MenuFadeIn: String = ""
-# Animation for menu fade out - hides the DialogButtonsMenu node entirely
+## (If DialogAnimationPlayer is assigned:)
+## Animation for menu fade out - hides the DialogButtonsMenu node entirely
 @export var TransitionAnimationName_MenuFadeOut: String = ""
-# Animation for message showing up - e.g. characters gradually being typed
+## (If DialogAnimationPlayer is assigned:)
+## Animation for message showing up - e.g. characters gradually being typed
 @export var TransitionAnimationName_TextShow: String = ""
-# Animation for message disappearing
+## (If DialogAnimationPlayer is assigned:)
+## Animation for message disappearing
 @export var TransitionAnimationName_TextHide: String = ""
 
+@export_subgroup("Progressive Text")
 
-# Automatically animate text tweening the Label's percent_visible property
+
+## Automatically animate text tweening the Label's percent_visible property
 @export var AnimateText: bool = true
 @export var AnimatedTextMilisecondPerCharacter: float = 50.0
 
-# AnimationPlayer used to play effect animations
-@export var EffectsAnimationPlayer: NodePath
-@onready var effects_anims = get_node_or_null(EffectsAnimationPlayer)
-
-# Year base is used to offset the calendar, datetime objects are referenced
-# to year 0001, and developer can shift that to any year of conveniente to
-# match dates to weekdays and leap years
-@export var YearOfReference: int = 1970
-
+## The AudioStreamPlayer containing the sound effect to play when text is being
+## shown (example, clicks, key press, beep, etc). If the sound should play
+## repeatedly until text is complete (most common case), set the audio stream
+## to loop in its import options, otherwise it will play only once.
 @export var KeyPressAudioStreamPlayer: NodePath
 @onready var sfx_key_press = get_node_or_null(KeyPressAudioStreamPlayer)
 
+@export_subgroup("Animations Called From Effects")
+
+
+## AnimationPlayer used to play effect animations, when using the effect "Play Animation and Wait"
+@export var EffectsAnimationPlayer: NodePath
+@onready var effects_anims = get_node_or_null(EffectsAnimationPlayer)
+
+@export_subgroup("")
+
+@export_group("Advanced/Message Formatting")
+
+## Text to be inserted before every message (of every speaker). This will be inserted
+## BEFORE any formatting, so you can use all available syntax in it, including BBCode
+## and variable parsing, 
+## e.g.: [b][lb]b[rb][lb]color=yellow[rb]$npc[lb]/color[rb][lb]/b[rb]: [/b]
+@export var TextPrefixForAllMessages := ""
+
+## Text to be appended after every message (of every speaker). Similarly to 
+## Text Prefix For All Messages, this is appended BEFORE formatting, so all syntax
+## is available. If you have BBCode tags left open in the prefix, you should close
+## them here.
+@export var TextSuffixForAllMessages := ""
+
+@export_group("Options")
+
+
+## When a sequence ends in a message item, and the sequence has options for a
+## menu, after showing the message the user has to interact acknowledging the
+## message before the menu is shown. Enabling this option will automatically
+## show the menu with the last message.
+@export var AutoShowMenuOnLastMessage := false
+
+@export_subgroup("In-Game Date-Time")
+
+## (Only relevant if you're using MadTalk to handle in-game date and time.)
+## Year base is used to offset the calendar, datetime objects are referenced
+## to year 0001, and developer can shift that to any year of convenience to
+## match dates to weekdays and leap years. Check docs on github to understand
+## how to use this. Default works fine.
+@export var YearOfReference: int = 1970
+
+@export_subgroup("Debug")
+
 @export var EnableDebugOutput: bool = false
+
+@export_subgroup("")
+@export_group("")
 
 # ==============================================================================
 
@@ -191,7 +260,7 @@ var dialog_data = preload("res://addons/madtalk/runtime/madtalk_data.tres")
 # }
 var sheet_sequence_to_index = {}
 
-# Ditionary mapping character ID to MTCharacterData
+# Dictionary mapping character ID to MTCharacterData
 var character_data = {}
 
 # If for some reason a dialog is fired when another one is still going on, the
@@ -670,7 +739,10 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 
 	var sequence_data : DialogNodeData = _retrieve_sequence_data(sheet_name, sequence_id)
 	var dialog_item : DialogNodeItemData = _retrieve_item_data(sequence_data, item_index)
-	var should_run_next_item = true
+	var should_run_next_item := true
+	
+	var is_last_item: bool = (item_index >= (sequence_data.items.size()-1))
+	var should_auto_progress_message: bool = (is_last_item and AutoShowMenuOnLastMessage and (sequence_data.options.size() > 0))
 	
 	if is_abort_requested:
 		emit_signal("dialog_aborted")
@@ -720,7 +792,10 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						else:
 							dialog_speakerlabel.text = speaker_name
 					
-					var dialog_message_data = msgparser.process(dialog_item.get_localized_text(), MadTalkGlobals.variables)
+					var dialog_message_data = msgparser.process(
+						TextPrefixForAllMessages + dialog_item.get_localized_text() + TextSuffixForAllMessages, 
+						MadTalkGlobals.variables
+					)
 					var dialog_message_text = dialog_message_data[0]
 					var dialog_message_anim_pause_percentages = dialog_message_data[1]
 					
@@ -729,7 +804,11 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					dialog_message_text = dialog_message_text.replace("$date", MadTalkGlobals.gametime["date"])
 					dialog_message_text = dialog_message_text.replace("$weekday", MTDefs.WeekdayNames[MadTalkGlobals.gametime["weekday"]] )
 					dialog_message_text = dialog_message_text.replace("$wday", MTDefs.WeekdayNamesShort[MadTalkGlobals.gametime["weekday"]] )
-
+					
+					# Should be last replacement, to avoid things in speaker nane to be mistaken for formatting
+					dialog_message_text = dialog_message_text.replace("$speaker_id", dialog_item.message_speaker_id )
+					dialog_message_text = dialog_message_text.replace("$speaker_name", speaker_name )
+					
 					if dialog_messagelabel:
 						dialog_messagelabel.text = dialog_message_text
 							
@@ -794,7 +873,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 							previous_percent_visible = percent_visible
 							
 							# Confirmation to dismiss the message
-							if (not is_skip_requested) and  (not is_abort_requested):
+							if (not is_skip_requested) and (not is_abort_requested) and (not should_auto_progress_message):
 								await self.dialog_acknowledged
 						
 						

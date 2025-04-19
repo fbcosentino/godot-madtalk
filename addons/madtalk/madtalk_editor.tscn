@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://csmaqkwk66cjs"]
+[gd_scene load_steps=15 format=3 uid="uid://csmaqkwk66cjs"]
 
 [ext_resource type="Script" uid="uid://b0efsmc8oj74f" path="res://addons/madtalk/madtalk_editor.gd" id="1"]
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="3"]
@@ -6,8 +6,11 @@
 [ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="8_78yji"]
 [ext_resource type="FontFile" uid="uid://bhcws34lw0ak5" path="res://addons/madtalk/fonts/FreeSans_tiny.tres" id="9"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="10"]
+[ext_resource type="PackedScene" uid="uid://cx148tfhw6ida" path="res://addons/madtalk/components/ImportBar.tscn" id="10_f8dcc"]
 [ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/SheetItemStyle.tres" id="11"]
+[ext_resource type="PackedScene" uid="uid://difhfxods7ra3" path="res://addons/madtalk/components/MainEditor_DialogExport.tscn" id="12_bwljl"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="13"]
+[ext_resource type="PackedScene" uid="uid://b22lta4yhfhgu" path="res://addons/madtalk/components/MainEditor_DialogImport.tscn" id="13_35vb6"]
 [ext_resource type="Texture2D" uid="uid://c4ne7fiheatjc" path="res://addons/madtalk/images/icon_search.png" id="14"]
 [ext_resource type="PackedScene" uid="uid://cc7b2xbic6kf8" path="res://addons/madtalk/components/MainEditor_DialogSheetEdit.tscn" id="15"]
 
@@ -45,9 +48,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
 offset_left = -216.0
-offset_top = 16.0
+offset_top = 4.0
 offset_right = -16.0
-offset_bottom = -13.0
+offset_bottom = -25.0
 grow_horizontal = 0
 
 [node name="Content" type="Control" parent="SideBar"]
@@ -221,6 +224,67 @@ theme_override_styles/hover = ExtResource("10")
 theme_override_styles/normal = ExtResource("10")
 text = "Save Database"
 
+[node name="ImportBar" parent="." instance=ExtResource("10_f8dcc")]
+layout_mode = 1
+offset_left = -423.825
+offset_top = 4.0
+offset_right = -223.825
+offset_bottom = 28.0
+SizeOpen = 100
+
+[node name="Content" type="Control" parent="ImportBar"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BtnExport" type="Button" parent="ImportBar/Content"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("10")
+theme_override_styles/hover = ExtResource("10")
+theme_override_styles/normal = ExtResource("10")
+text = "Export Current Sheet..."
+
+[node name="BGLine" type="ColorRect" parent="ImportBar/Content"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 35.0
+offset_right = -4.0
+offset_bottom = 37.0
+grow_horizontal = 2
+color = Color(1, 1, 1, 0.12549)
+
+[node name="BtnImportSheet" type="Button" parent="ImportBar/Content"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 44.0
+offset_right = -4.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("10")
+theme_override_styles/hover = ExtResource("10")
+theme_override_styles/normal = ExtResource("10")
+text = "Import Dialog Data..."
+
 [node name="PopupMenu" type="PopupMenu" parent="."]
 size = Vector2i(141, 100)
 item_count = 1
@@ -254,6 +318,12 @@ dialog_autowrap = true
 [node name="DialogSheetEdit" parent="." instance=ExtResource("15")]
 visible = false
 
+[node name="DialogExport" parent="." instance=ExtResource("12_bwljl")]
+visible = false
+
+[node name="DialogImport" parent="." instance=ExtResource("13_35vb6")]
+visible = false
+
 [connection signal="connection_request" from="GraphArea" to="." method="_on_GraphArea_connection_request"]
 [connection signal="disconnection_request" from="GraphArea" to="." method="_on_GraphArea_disconnection_request"]
 [connection signal="gui_input" from="GraphArea" to="." method="_on_GraphEdit_gui_input"]
@@ -261,8 +331,11 @@ visible = false
 [connection signal="text_changed" from="SideBar/Content/SearchEdit" to="." method="_on_SideBar_SearchEdit_text_changed"]
 [connection signal="pressed" from="SideBar/Content/BtnNewSheet" to="." method="_on_BtnNewSheet_pressed"]
 [connection signal="pressed" from="SideBar/Content/BtnSaveDB" to="." method="_on_BtnSaveDB_pressed"]
+[connection signal="pressed" from="ImportBar/Content/BtnExport" to="." method="_on_ImportExport_BtnExport_pressed"]
+[connection signal="pressed" from="ImportBar/Content/BtnImportSheet" to="." method="_on_ImportExport_BtnImportSheet_pressed"]
 [connection signal="id_pressed" from="PopupMenu" to="." method="_on_GraphArea_PopupMenu_id_pressed"]
 [connection signal="confirmed" from="DialogDeleteNodePopup" to="." method="_on_DialogDeleteNodePopup_confirmed"]
 [connection signal="confirmed" from="DialogSheetRenameError" to="." method="_on_DialogDeleteNodePopup_confirmed"]
 [connection signal="confirmed" from="DialogSheetCreated" to="." method="_on_DialogDeleteNodePopup_confirmed"]
 [connection signal="sheet_saved" from="DialogSheetEdit" to="." method="_on_DialogSheetEdit_sheet_saved"]
+[connection signal="import_executed" from="DialogImport" to="." method="_on_dialog_import_import_executed"]

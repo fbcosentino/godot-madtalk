@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b7ojwbheitven"]
+[gd_scene load_steps=0 format=3 uid="uid://b7ojwbheitven"]
 
 [node name="DialogSearchInspectorSheetIDField" type="Control"]
 custom_minimum_size = Vector2(0, 24)

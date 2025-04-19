@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cd2wmgfnnp6qq"]
+[gd_scene load_steps=12 format=3 uid="uid://cd2wmgfnnp6qq"]
 
-[ext_resource type="Texture2D" uid="uid://dmj1j5r0psdlj" path="res://example_scene/images/francesco.png" id="2"]
+[ext_resource type="Script" uid="uid://c6av3xe4m2ujl" path="res://addons/madtalk/runtime/madtalk_runtime.gd" id="1_35wmf"]
 [ext_resource type="AudioStream" uid="uid://dr553b0ej26vk" path="res://example_scene/sfx/click.wav" id="4"]
 [ext_resource type="FontFile" uid="uid://cgfeudab78x0q" path="res://addons/madtalk/fonts/FreeSans.ttf" id="6"]
 [ext_resource type="FontFile" uid="uid://b0p0wjgy1i2k2" path="res://addons/madtalk/fonts/FreeSansBoldOblique.ttf" id="7"]
@@ -39,11 +39,15 @@ func _on_Button_pressed():
 	$MadTalk.start_dialog(\"external_menu\")
 
 
-func _unhandled_key_input(event):
+func _input(event):
 	# How the user tells the dialog to continue is up to you
 	# it can be a key press, a mouse click, touch event, etc
 	# All you have to do is call dialog_acknowledge() 
-	if (event.pressed) and (not event.echo) and (event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
+	if (
+		(event is InputEventKey) and (event.pressed) and (not event.echo) and (event.keycode in [KEY_SPACE, KEY_ENTER, KEY_KP_ENTER])
+	) or (
+		(event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_LEFT)
+	):
 		$MadTalk.dialog_acknowledge()
 
 
@@ -88,24 +92,8 @@ func _on_ItemList_item_activated(index):
 	$MadTalk.select_menu_option(index)
 "
 
-[sub_resource type="Resource" id="Resource_1ktwi"]
-metadata/__load_path__ = "res://madtalk/madtalk_runtime.gd"
-
-[sub_resource type="Resource" id="2"]
-
-[sub_resource type="Resource" id="3"]
-
 [sub_resource type="FontFile" id="8"]
 fallbacks = Array[Font]([ExtResource("6")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="FontFile" id="7"]
-fallbacks = Array[Font]([ExtResource("9")])
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -131,21 +119,29 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
+[sub_resource type="FontFile" id="7"]
+fallbacks = Array[Font]([ExtResource("9")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
 [node name="ExternalMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = SubResource("4")
 
 [node name="MadTalk" type="Node" parent="."]
-script = SubResource("Resource_1ktwi")
-ListOfCharacters = [SubResource("2"), SubResource("3")]
+script = ExtResource("1_35wmf")
 DialogMainControl = NodePath("../Dialog")
 DialogMessageBox = NodePath("../Dialog/DialogBox")
 DialogMessageLabel = NodePath("../Dialog/DialogBox/LabelMessage")
-DialogSpeakerLabel = NodePath("../Dialog/DialogBox/LabelName")
-DialogSpeakerAvatar = NodePath("../Dialog/DialogBox/Avatar")
 KeyPressAudioStreamPlayer = NodePath("../Dialog/SFXClick")
 
 [node name="Button" type="Button" parent="."]
@@ -213,36 +209,21 @@ offset_top = -222.0
 offset_right = 438.5
 offset_bottom = -32.0
 
-[node name="Avatar" type="TextureRect" parent="Dialog/DialogBox"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 144.0
-offset_bottom = 144.0
-texture = ExtResource("2")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="LabelName" type="Label" parent="Dialog/DialogBox"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 149.0
-offset_right = 144.0
-offset_bottom = 180.0
-clip_text = true
-
 [node name="LabelMessage" type="RichTextLabel" parent="Dialog/DialogBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 168.0
+offset_left = 26.0
 offset_top = 22.0
-offset_right = -20.0
+offset_right = -19.0
 offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/normal_font = SubResource("8")
-theme_override_fonts/bold_font = SubResource("7")
 theme_override_fonts/italics_font = SubResource("6")
 theme_override_fonts/bold_italics_font = SubResource("5")
+theme_override_fonts/bold_font = SubResource("7")
 bbcode_enabled = true
 
 [node name="SFXClick" type="AudioStreamPlayer" parent="Dialog"]

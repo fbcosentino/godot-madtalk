@@ -1,0 +1,315 @@
+[gd_scene load_steps=5 format=3 uid="uid://difhfxods7ra3"]
+
+[ext_resource type="Script" uid="uid://bokaxoyjm2ddg" path="res://addons/madtalk/components/MainEditor_DialogExport.gd" id="1_0m3dk"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/PanelStyle.tres" id="1_gyveq"]
+[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/ButtonStyle.tres" id="2_0m3dk"]
+[ext_resource type="PackedScene" uid="uid://c1a8yn1guaowt" path="res://addons/madtalk/components/Export_SheetListItem.tscn" id="4_4xg1u"]
+
+[node name="DialogExport" type="Window"]
+auto_translate_mode = 1
+title = "Export Dialog Sheet"
+position = Vector2i(0, 36)
+size = Vector2i(700, 500)
+transient = true
+exclusive = true
+popup_window = true
+script = ExtResource("1_0m3dk")
+
+[node name="PanelOptions" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_gyveq")
+
+[node name="BottomBar" type="Control" parent="PanelOptions"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BtnClose" type="Button" parent="PanelOptions/BottomBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.5
+offset_right = 28.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_styles/focus = ExtResource("2_0m3dk")
+theme_override_styles/hover = ExtResource("2_0m3dk")
+theme_override_styles/normal = ExtResource("2_0m3dk")
+text = "Close"
+
+[node name="BtnExporter" type="OptionButton" parent="PanelOptions"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 276.0
+offset_bottom = 52.0
+
+[node name="Label" type="Label" parent="PanelOptions/BtnExporter"]
+layout_mode = 0
+offset_top = -22.0
+offset_right = 87.0
+offset_bottom = -5.0
+theme_override_font_sizes/font_size = 12
+text = "Export Format:"
+
+[node name="CaptionSheets" type="Label" parent="PanelOptions"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 68.0
+offset_right = 274.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 12
+text = "Sheets to export:"
+
+[node name="BtnManageSheets" type="Button" parent="PanelOptions/CaptionSheets"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -11.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 0
+theme_override_styles/focus = ExtResource("2_0m3dk")
+theme_override_styles/hover = ExtResource("2_0m3dk")
+theme_override_styles/normal = ExtResource("2_0m3dk")
+text = "..."
+
+[node name="LabelSheets" type="RichTextLabel" parent="PanelOptions"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 90.0
+offset_right = 276.0
+offset_bottom = 212.0
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "sheet name"
+
+[node name="ExporterDesc" type="RichTextLabel" parent="PanelOptions"]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 24.0
+offset_right = 687.0
+offset_bottom = 435.0
+bbcode_enabled = true
+
+[node name="BtnForceLocales" type="CheckButton" parent="PanelOptions"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 232.0
+offset_right = 281.0
+offset_bottom = 257.0
+theme_override_font_sizes/font_size = 12
+text = "Force Locales"
+
+[node name="LocalesPanel" type="Control" parent="PanelOptions"]
+visible = false
+anchors_preset = 0
+offset_left = 21.0
+offset_top = 263.0
+offset_right = 281.0
+offset_bottom = 455.0
+
+[node name="Label" type="Label" parent="PanelOptions/LocalesPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.617455, 0.617455, 0.617455, 1)
+theme_override_font_sizes/font_size = 10
+text = "Messages will include only and exactly the locales listed below. If there is no content for them yet, a blank line will be included. (This is meant to be sent to translators, so they fill the blank items.)"
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="PanelOptions/LocalesPanel"]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 83.0
+offset_right = 128.0
+offset_bottom = 97.0
+theme_override_colors/font_color = Color(0.617455, 0.617455, 0.617455, 1)
+theme_override_font_sizes/font_size = 10
+text = "Enter one locale per line."
+horizontal_alignment = 1
+
+[node name="LocalesEdit" type="TextEdit" parent="PanelOptions/LocalesPanel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 103.0
+offset_right = 248.0
+offset_bottom = 180.0
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.184314)
+theme_override_font_sizes/font_size = 12
+placeholder_text = "es
+pt
+jp"
+
+[node name="BtnExport" type="Button" parent="PanelOptions"]
+layout_mode = 1
+offset_left = 485.0
+offset_top = 466.0
+offset_right = 685.0
+offset_bottom = 493.0
+focus_mode = 0
+theme_override_styles/focus = ExtResource("2_0m3dk")
+theme_override_styles/hover = ExtResource("2_0m3dk")
+theme_override_styles/normal = ExtResource("2_0m3dk")
+text = "Export"
+
+[node name="PanelSheets" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_gyveq")
+
+[node name="BottomBar" type="Control" parent="PanelSheets"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BtnOk" type="Button" parent="PanelSheets/BottomBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.5
+offset_right = 28.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_styles/focus = ExtResource("2_0m3dk")
+theme_override_styles/hover = ExtResource("2_0m3dk")
+theme_override_styles/normal = ExtResource("2_0m3dk")
+text = "OK"
+
+[node name="Label" type="Label" parent="PanelSheets"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 12.0
+offset_right = 152.0
+offset_bottom = 35.0
+text = "Sheets to export:"
+
+[node name="SheetScroll" type="ScrollContainer" parent="PanelSheets"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 53.0
+offset_right = 678.0
+offset_bottom = 443.0
+
+[node name="VBox" type="VBoxContainer" parent="PanelSheets/SheetScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ExportSheetListItem" parent="PanelSheets/SheetScroll/VBox" instance=ExtResource("4_4xg1u")]
+layout_mode = 2
+
+[node name="PanelOutput" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_gyveq")
+
+[node name="BottomBar" type="Control" parent="PanelOutput"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BtnBack" type="Button" parent="PanelOutput/BottomBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -13.5
+offset_right = 28.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_styles/focus = ExtResource("2_0m3dk")
+theme_override_styles/hover = ExtResource("2_0m3dk")
+theme_override_styles/normal = ExtResource("2_0m3dk")
+text = "Back"
+
+[node name="OutputEdit" type="TextEdit" parent="PanelOutput"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 34.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+editable = false
+emoji_menu_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+draw_tabs = true
+draw_spaces = true
+
+[node name="Label" type="Label" parent="PanelOutput"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 136.0
+offset_bottom = 27.0
+text = "Exported output:"
+
+[connection signal="pressed" from="PanelOptions/BottomBar/BtnClose" to="." method="_on_btn_close_pressed"]
+[connection signal="item_selected" from="PanelOptions/BtnExporter" to="." method="_on_btn_exporter_item_selected"]
+[connection signal="pressed" from="PanelOptions/CaptionSheets/BtnManageSheets" to="." method="_on_btn_manage_sheets_pressed"]
+[connection signal="toggled" from="PanelOptions/BtnForceLocales" to="." method="_on_btn_force_locales_toggled"]
+[connection signal="pressed" from="PanelOptions/BtnExport" to="." method="_on_btn_export_pressed"]
+[connection signal="pressed" from="PanelSheets/BottomBar/BtnOk" to="." method="_on_sheets_to_export_btn_ok_pressed"]
+[connection signal="pressed" from="PanelOutput/BottomBar/BtnBack" to="." method="_on_btn_back_pressed"]

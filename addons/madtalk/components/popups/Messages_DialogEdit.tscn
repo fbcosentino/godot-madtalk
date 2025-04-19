@@ -91,75 +91,30 @@ tip_text = "The avatar variant is a string identifying an alternate texture ID f
 
 This is used mainly for emotions, so different images can be used for \"angry\", \"happy\", \"sad\", etc, but since the IDs and their interpretations are up to you, they can be anything - e.g. different clothes, different background scenarios, etc."
 
-[node name="VoiceLabel" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 23.0
-offset_top = 50.0
-offset_right = 92.0
-offset_bottom = 73.0
-theme_override_fonts/font = ExtResource("2_yr8qn")
-theme_override_font_sizes/font_size = 12
-text = "Voice Clip"
-
-[node name="VoiceEdit" type="LineEdit" parent="Panel"]
-layout_mode = 0
-anchor_right = 1.0
-offset_left = 92.0
-offset_top = 45.0
-offset_right = -100.0
-offset_bottom = 76.0
-theme_override_fonts/font = ExtResource("2_yr8qn")
-theme_override_font_sizes/font_size = 14
-placeholder_text = "res://... .../filename.wav"
-
-[node name="BtnSelectClip" type="Button" parent="Panel/VoiceEdit"]
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -15.0
-offset_right = 44.0
-offset_bottom = 16.0
-focus_mode = 0
-text = "..."
-
-[node name="TipVoice" parent="Panel" instance=ExtResource("3_fqggi")]
-layout_mode = 0
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -52.0627
-offset_top = 44.1479
-offset_right = -24.0627
-offset_bottom = 66.1479
-tip_title = "Voice Clip"
-tip_text = "The Voice Clip is the path for an audio file (WAV or OGG) which should be played when this message is displayed. Usually it is a voice transcription of the text, but anything can be used (e.g. a robot could have a \"beep bop beep bop\" sound when speaking).
-
-The path is in the resource folder - that is, starts with res:// followed by file location.
-
-Please note the MadTalk plugin will not automatically play the sound. Since different projects will manage audio buses and implement stream players differently, the actual sound playback must be coded separately. MadTalk will emit a signal \"voice_clip_requested\" providing the file path entered here."
-
 [node name="BtnHideOnEnd" type="CheckButton" parent="Panel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -346.0
-offset_top = 73.0
+offset_top = 49.0
 offset_right = -55.0
-offset_bottom = 113.0
+offset_bottom = 89.0
+grow_horizontal = 0
 theme_override_fonts/font = ExtResource("2_yr8qn")
 theme_override_font_sizes/font_size = 12
 text = "Force hiding message before next item"
 
 [node name="TipHideOnEnd" parent="Panel" instance=ExtResource("3_fqggi")]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -52.0627
-offset_top = 82.1479
+offset_top = 58.1479
 offset_right = -24.0627
-offset_bottom = 104.148
+offset_bottom = 82.1479
+grow_horizontal = 0
 tip_title = "Hide Before Next Item"
 tip_text = "During a dialog session, messages usually stay on screen when the next item is not another message - including menus, animations and custom effects. This is to allow the player to review the last message before selecting an option, and to allow narration over cutscenes. Text messages are replaced when next item is another message, and hidden in the very end of the dialog session.
 
@@ -168,9 +123,9 @@ Selecting this option forces the message box to hide when processing the next it
 [node name="MessageLabel" type="Label" parent="Panel"]
 layout_mode = 0
 offset_left = 23.0
-offset_top = 97.0
+offset_top = 73.0
 offset_right = 182.0
-offset_bottom = 111.0
+offset_bottom = 93.0
 theme_override_fonts/font = ExtResource("2_yr8qn")
 theme_override_font_sizes/font_size = 12
 text = "Message (BB Code allowed):"
@@ -181,8 +136,8 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 16.0
-offset_top = 120.0
-offset_right = 728.0
+offset_top = 97.0
+offset_right = 734.0
 offset_bottom = 350.0
 grow_horizontal = 1
 grow_vertical = 1

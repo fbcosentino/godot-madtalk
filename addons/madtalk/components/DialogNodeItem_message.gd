@@ -116,7 +116,7 @@ func create_dialog_edit():
 
 		edit_speaker_id = dialog_edit.get_node("Panel/SpeakerEdit")
 		edit_speaker_var = dialog_edit.get_node("Panel/VariantEdit")
-		edit_voiceclip = dialog_edit.get_node("Panel/VoiceEdit")
+		#edit_voiceclip = dialog_edit.get_node("Panel/VoiceEdit")
 		edit_message_editor = dialog_edit.get_node("Panel/MessageEditor")
 		edit_preview = dialog_edit.get_node("Panel/PreviewBox/PreviewLabel")
 		edit_previewtimer = dialog_edit.get_node("Panel/PreviewBox/PreviewTimer")

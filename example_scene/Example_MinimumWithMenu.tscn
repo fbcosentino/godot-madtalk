@@ -1,5 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cuqg3eu58tvfr"]
 
+[ext_resource type="Script" uid="uid://c6av3xe4m2ujl" path="res://addons/madtalk/runtime/madtalk_runtime.gd" id="1_vf3rf"]
+
 [sub_resource type="GDScript" id="GDScript_8be5v"]
 script/source = "extends Node2D
 
@@ -18,19 +20,17 @@ func _input(event):
 		$MadTalk.dialog_acknowledge()
 "
 
-[sub_resource type="Resource" id="Resource_30dpm"]
-metadata/__load_path__ = "res://madtalk/madtalk_runtime.gd"
-
 [node name="Scene" type="Node2D"]
 script = SubResource("GDScript_8be5v")
 
 [node name="MadTalk" type="Node" parent="."]
-script = SubResource("Resource_30dpm")
+script = ExtResource("1_vf3rf")
 DialogMainControl = NodePath("../CanvasLayer/Dialog")
 DialogMessageBox = NodePath("../CanvasLayer/Dialog/MessagePanel")
 DialogMessageLabel = NodePath("../CanvasLayer/Dialog/MessagePanel/MessageRichLabel")
 DialogButtonsMenu = NodePath("../CanvasLayer/Dialog/MenuPanel")
 DialogButtonsContainer = NodePath("../CanvasLayer/Dialog/MenuPanel/ButtonContainer")
+AutoShowMenuOnLastMessage = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -67,6 +67,7 @@ offset_right = -20.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+bbcode_enabled = true
 text = "Lorem ipsum"
 
 [node name="MenuPanel" type="Panel" parent="CanvasLayer/Dialog"]
