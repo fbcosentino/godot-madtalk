@@ -787,10 +787,7 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 							else dialog_item.message_speaker_id
 					
 					if dialog_speakerlabel:
-						if (dialog_speakerlabel is RichTextLabel) and (dialog_speakerlabel.bbcode_enabled):
-							dialog_speakerlabel.text = speaker_name
-						else:
-							dialog_speakerlabel.text = speaker_name
+						dialog_speakerlabel.text = speaker_name
 					
 					var dialog_message_data = msgparser.process(
 						TextPrefixForAllMessages + dialog_item.get_localized_text() + TextSuffixForAllMessages, 

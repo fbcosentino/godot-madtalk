@@ -6,7 +6,7 @@
 
 You need four steps:
 
-  * Obviously, install the plugin and activate it. You need the `res://addons/madtalk` folder (which contains the editor plugin) _and_ the `res://madtalk` folder (which contains the runtime interpreter and dialog data, which are part of your exported game) 
+  * Obviously, install the plugin and activate it. You only need the `res://addons/madtalk` folder
   * Create a set of `Control` nodes to show the dialog messages (examples further below)
   * Put a `Node` in the scene holding the runtime script, set the values you want and tell it which `Control` nodes to use (the ones you created above)
   * Add at least two function calls somewhere in your code called in the node mentioned above: `start_dialog("sheet id")` to fire a dialog sheet, and `dialog_acknowledge()` to progress the dialog (usually pressing space, enter, clicking mouse, etc)
@@ -21,10 +21,16 @@ Each scene which shows dialog must have a node with the MadTalk runtime. That is
 
 Why is this node not a singleton? Because you might want to have different settings for different scenes. E.g. you might have a scene in your game which is _The Beach Episode_ where the character avatars show sunglasses and swimsuits, UI nodes have a different layout, a separate set of animations, etc. The [example project](https://madparrot.itch.io/madtalk-example-project) shows an extreme case of this, as the game has four scenes: a text game, a visual novel, a top down 2D RPG, and a 3D first person. All share the same dialog sheets, NPC IDs, etc, while being visually and mechanically completely different games. This is done on purpose to showcase the independence between the plugin and the game style.
 
-Add a `Node` to your scene (in this readme it will be named `MadTalk`) and attach the `res://madtalk/madtalk_runtime.gd` script to it.
+Add a `Node` to your scene (in this readme it will be named `MadTalk`) and attach the `res://addons/madtalk/runtime/madtalk_runtime.gd` script to it.
 
 This will give you _a lot_ of options. Don't worry, you can ignore most of that. For a minimal setup you need to worry about only three - the bare minimum control nodes.
 
+
+**Note:** _The runtime node was reorganized and the properties are now inside neat groups, so you only see the categories you expand._
+
+![](img_14.png)
+
+_The documentation below still has screenshots from an older version without grouping - but the fields are the same, and work the same way._
 
 ![](madtalk_node.png)
 
@@ -108,7 +114,7 @@ After you create any of them, you can right click the item to edit, reorder it i
 
 ![](editor_02.png)
 
-(Reordering by drag-n-drop is a planned feature.)
+You can also reorder (or move the item to a different sequence) by dragging it to the new place.
 
 In the menu options icon, you can set the menu options for this sequence. If you don't have any, the menu will be replaced by a default "Continue" output, which you can connect to any other sequence to continue the dialog. If you set options, MadTalk will work the menu for you in the end of this sequence, and branch accordingly. The sequence will show one output for each of the options, for you to connect to other sequences in this sheet.
 
@@ -186,6 +192,40 @@ You can have a separate `AnimationPlayer` node (maybe called something like `Eff
 
 
 You can, of course, play any animation from anywhere (waiting for completion or not, up to you) manually, invoked from the dialog sheets using custom effects (shown later on). But using the `Effects Animation Player` property involves no coding at all.
+
+
+&nbsp;
+
+### Message Formatting
+
+You can optionally set a prefix in `TextPrefixForAllMessages` and/or a suffix in `TextSuffixForAllMessages`. As the names imply, this will be text placed around all your messages, from all sheets, all speakers and variants. Only use this for things which are universal to your message logic.
+
+You can use any code formatting from the messages (more on this later on _Dialog Variables_) inside the prefix and suffix as well - and that's why it's a powerful feature.
+
+Example, assume you have:
+  * A speaker ID `la` (with character data mapping to name `Lalala`)
+  * `TextPrefixForAllMessages` set to: `[b][color=red]$speaker_name:[/color][/b] [i]` (notice it's using a `$speaker_name` code)
+  * `TextSuffixForAllMessages` set to: `[/i]` (every BB Code you open in the prefix you have to close in the suffix)
+
+Then, this message item:
+
+![](img_15.png)
+
+Will have the text rendered as:
+
+![](img_16.png)
+
+This is useful in text-only games where you want the dialog to look like a book dialog line, or a mobile phone messaging app, without having to type the speaker formatting all the time.
+
+(If you want the dialog messages to _persist_ into a text log, instead of content being replaced on every message, you can use the `message_text_shown` signal to append text to the log instead of assigning a label to the `DialogMessageLabel` property. See signals below.)
+
+&nbsp;
+
+### Auto Show Menu On Last Message
+
+Every text message requires interaction (acknowledgement) from the user before moving to next item, and that includes any menus. So the user sees the message, acknowledges it, then the menu appears.
+
+Enabling this checkbox, the menu will show automatically as soon as the text from the last message item becomes fully visible.
 
 
 &nbsp;
@@ -271,6 +311,18 @@ You can't enter if it isn't.
 I consider improving this using GDScript evaluation for the conditions (or something similar), but it's low priority now. It's easier and more debug friendly to make separate sequences for those messages and use branching.
 
 There are also some special variables used in substitution: `$time`, `$date`, `$date_inv`, `$weekday` and `wday`. You don't use the `<<>>` sintax for them, you just type them normally. They correspond to the fields from the in-game time dictionary, and meaning for them is explained further below in the section about signals.
+
+You can also use `$speaker_id`, `$speaker_name` and `$variant` if you want to insert into the text the speaker ID, the corresponding speaker name (from the character data), or the variant, from the message item. 
+
+While normally you only want your players to read the speaker _name_, the speaker ID or specially the variant can be useful in combination with message prefix/suffix. As example, imagine your dialog is happening via phone messaging, and you have the files:
+```
+res://images/icon_phone.png
+res://images/icon_phoneold.png
+res://images/icon_phonenew.png
+```
+
+You can set `TextPrefixForAllMessages` as `[img]res://images/icon_phone$variant.png[/img]` and in that case, if you don't provide a variant, the message will start with the `icon_phone.png` icon, but you can provide `old` or `new` as variants to cause the other two images to be used as icon instead. (If the variant is not found in the character data, it will not change the avatar.)
+
 
 &nbsp;
 
@@ -505,63 +557,82 @@ If the player doesn't interact and the text is shown to the end naturally via an
 
 ----
 
-## Important Tip
+&nbsp;
 
-If you have long streams of messages without menus or branching, don't make them a single, long sequence. Break them down into several shorter sequences. This mainly for two reasons:
+### Import and Export
 
-* It's more performance-friendly. When sequences run the entire sequence is read, and traversing the items is an Array lookup. The shorter the Array, the better. Also the recursive call method will be replaced soon, which means previous already traversed sequences can be unloaded while the next one runs.
+You can export dialog sheets to external formats, and import them back (currently a text format is implemented, more coming in the future).
 
-* Most importantly, _it will not drive you crazy_. New items are added to the bottom of the stack. If you divide a 30 items sequence into 5 sequences of 6 items, and you decide to add an effect at the beginning, you add to the first one and move it up 6 times. If you have a single sequence, you will have to move it up 30 times!
+This is great not only to convert from other software, but also to send your dialog for translators, so they can "fill the blanks" with the new language and you can import it all back into MadTalk - the translated messages will land correctly into their respective message items.
+
+In the case of the text format, it is a proprietary MadTalk syntax designed so you can write your dialog in a text editor (like a book) and MadTalk will create the sequences automatically for you.
+
+As example, you can write the format below into Notepad, copy and paste into MadTalk. The plugin will build everything for you - either creating a new sheet or adding into the currently selected one - then creating a new sequence with 4 message items, and another new sequence with 2 items.
+
+```
+[Sequence]
+alice: Hey Bob! How are you?
+bob: I'm great! Not having any headaches at all lately.
+alice: Nice! Good to know the unobtanium medicine is working!
+narrator: (That was the last time Alice saw Bob alive.
+
+[Sequence]
+alice: I miss my friend so much...
+alice: Anyways, time to go.
+```
+
+When you export existing data, codes are added so MadTalk knows what to do with them when you import back. Below is an example to be sent to a EN -> PT translator, automatically generated by exporting a sheet. Notice you're in control of which locale code format to use, like "en", "en-GB", "english", "my_little_string", or whatever you want (this is independent from Godot's locale list).
+
+```
+
+<p7b7y> player(curious): Hi there!
+{pt}: Olá! E aí?
+
+<5t1r3> innkeeper(happy): Allow me to introduce you to our cook, Peter!
+{pt}: 
+
+<2g6t7> peter(happy): Oh, hi there, [b]<<player_name>>[/b]!
+{pt}: 
+
+[Sequence: g28q7]
+
+<n8wo2> innkeeper(suspicious): Hey! It seems you already met Peter!
+{pt}: Oi! Parece que você já conhece o Pedro!
+
+[Sequence: 7kkex]
+
+<k2ilm> : -=-=-
+[i](The inn kitchen only operates during business hours.
+Please come back between [b][color=blue]08:00[/color][/b] and [b][color=blue]17:00[/color][/b].)[/i]
+-=-=-
+{pt}: 
+
+``` 
+
+Nothing is saved to files. For best flexibility (and to not clutter your ` res://` or ` user://`), the importer/exporter expects you to copy-paste the text, from the exporter, or into the importer.
+
+
+
+----
+
+## Tips
+
+  * If you want to save file size exporting the game, you don't need to include the whole plugin. The running game only needs the `res://addons/madtalk/runtime/` folder (hence the name and organization). You can place export rules to avoid the rest.
+
+  * If you have long streams of messages without menus or branching, instead of having them as a single, long sequence, break them down into several shorter sequences. It will have better performance (and is easier to follow on screen).
 
 ![](tip_01.png)
 
 
-----
-
-&nbsp;
-
-## Planned Features
-
-  * Invoking lip animation via signals (WIP)
-  * Change the recursive call system to something else to take it easier on the call stack
-  * Locale for text messages
-  * Moving sequence items via dragging
-
 &nbsp;
 
 ----
 
 &nbsp;
 
-## History and Fun Facts
+## Fun Facts
 
-I'm writing the below because this plugin has some emotional value to me.
+  * This is the _second_ version of this dialog system. The first version (early 2020) was originally part of a game, and looked awful ([Main editor](old_01.png), [Sequence editor](old_02.png)) - but had the same logic.
 
-  * Early 2020 - Started working on the dialog system as soon as pandemic started, initially as part of an adventure game (abandoned). Finished first version before mid year
-  
-  * Mid 2020 - Decision to decouple the system from the game (which allows the game to rest in peace) and make it as a publicly available framework - was still using JSON for dialog storage then, I didn't know how to write editor plugins so the dialog editor was a Godot application I had to run and save the dialog data to a file
-  
-  * Somewhere 2020 - Learned how to make dialog plugins and work with resources. Kissed the JSON system good bye and revamped everything to use resources and built-in dialog editor (the message/condition/effect system was kept per the original)
-  
-  * Nov 2020 - [pulawskig](http://pulawskig.itch.io) made the game _Lovely Story_ for the [Godot Wild Jam #27](https://itch.io/jam/godot-wild-jam-27/rate/825625) and we discussed the dialog tools used. I decided MadTalk deserved more visibility and crushed development as if there was no tomorrow to polish the editor plugin interface with nice images and buttons, to propose presenting it in a talk in the upcoming [GodotCon Jan 2021](https://godotengine.org/article/online-godotcon-2021-schedule/)
-  
-  * Dec 2020 - I have ADHD, and my hyperfocus suddenly decided to turn off and I could not work on it anymore. The only thing left to do at the time before proposing was _one single bug_, which in retrospect sounds infuriating
-  
-  * Entirety of 2021 and 2022 - Absolutely nothing. I missed GodotCon, I didn't have a public repo, and the longer it passed that way the worse I felt, and the worse I felt the more difficult it was to pick it up again. I mean, just to say it wasn't "nothing", somewhere in 2021 I _did_ try to pick it up again, created a repo to put on github (but repo was empty), created the [example project](https://madparrot.itch.io/madtalk-example-project) in Sept 2021, but then I lost my job, moved to a different city, my HDD died before I could put anything on github, taking it all down to the bottom of the ocean. The bitbucket repo I had was still before the revamp and coupled to the abandoned game and wasn't an option. The only reason why this still exists is because the good soul of [JohnGabrielUK](https://github.com/johngabrieluk) happened to have the most recent version of the plugin added to a game for which he gave me repo access, and I could recover it from there
-  
-  * Jan 2023 - The ADHD gods smiled at me again and I suddenly felt _I could do this_. Interestingly enough, it was January 1st, the default first day of in-game time, when I finally added the second, revamped version of MadTalk to github. Yeeyy. The only problem was I didn't write any readme, so people would find this repo and have no interest in it whatsoever
-  
-  * Fall 2023 (now as I type) - There is a new GodotCon around (Nov 2023). I considered proposing to present this, but I'm still sore I couldn't finish it in 2021. Then Unity made controversial announcements causing an influx of developers into Godot, who would be searching for nice stuff in Godot asset store. This fuelled me to finally make this readme (which is the longest I ever wrote) to finally put this plugin into the asset store. The only new feature added after all this time was the voice clip, which was added for the [Warthunder Type H](https://madparrot.itch.io/warthunderth-gwj36) game, and the external menu, added for a WIP game. Everything else (including UI polish) is as of today pretty much the version made aiming the GodotCon Jan 2021. Hopefully it will be easier to work on it further on, as people can see it and give feedback
-  
-&nbsp;
-
-&nbsp;
-
-
-And in case you're curious to see the first version (the early 2020 one, coupled to the game and I needed to run the editor and save the JSON file):
-
-[Main editor](old_01.png)
-
-[Sequence editor](old_02.png)
-
-Pretty much the same thing, just... ugly.
+  * When I started years ago, it wasn't on version control (I was bad with git at the time), and before I could push it to bitbucket (where it was before being moved to github), I... lost my HDD. The drive died taking all in it. It would be the end of MadTalk... but [JohnGabrielUK](https://github.com/johngabrieluk) used the last plugin version in a game I had access to, and I recovered all the MadTalk files from that game's source. Phew.
+ 
