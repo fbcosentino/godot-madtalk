@@ -23,6 +23,7 @@ offset_bottom = 33.0
 texture = ExtResource("2")
 
 [node name="OptionLabel" type="Label" parent="."]
+auto_translate_mode = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
