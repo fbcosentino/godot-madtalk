@@ -237,6 +237,17 @@ Enabling this checkbox, the menu will show automatically as soon as the text fro
 
 &nbsp;
 
+### Modulate Previously Clicked Options
+
+When using the built-in menu handling system, you can automatically modulate buttons for options the player has already previously selected.
+
+You have two properties for that: one is used when the option was already picked since the last time the dialog was invoked (via `$MadTalk.start_dialog()`, and the other is for options which were selected in the past in previous dialog calls.
+
+![](img_18.png)
+
+
+&nbsp;
+
 ### Year of Reference
 
 Finally, this last property you would only touch if you are using the in-game time features and you need to fine tune the calendar. In a nutshell, the only purpose of this is to align the weekdays and leap years to your liking. The in-game time will start at 01 January of the year 1 (you can change this, of course, via code). You don't have to show "year 1" to your players, you can manually add any value to this when showing the year in the interface (so e.g. you'd add 2467 if in your game's lore the year is 2468), but internally the game starts at year 1. Which weekday is in-game 01/01/0001? Which year will be the next leap year?
