@@ -41,7 +41,7 @@ var hovering_object = null
 
 func _ready() -> void:
 	pass
-	#call_deferred("setup")
+	call_deferred("setup")
 
 func setup():
 	if dialog_data.sheets.size() == 0:

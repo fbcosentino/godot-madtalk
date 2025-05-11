@@ -54,7 +54,7 @@ func _input(event):
 
 
 
-func _on_MadTalk_external_menu_requested(menu_options):
+func _on_MadTalk_external_menu_requested(menu_options: Array, _option_metadata: Array):
 	vending_machine_itemlist.clear()
 	
 	for option in menu_options:
@@ -199,15 +199,18 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="DialogBox" type="Panel" parent="Dialog"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -438.5
-offset_top = -222.0
-offset_right = 438.5
+offset_left = -438.0
+offset_top = -251.0
+offset_right = 439.0
 offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="LabelMessage" type="RichTextLabel" parent="Dialog/DialogBox"]
 layout_mode = 1
@@ -215,9 +218,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 26.0
-offset_top = 22.0
+offset_top = 17.0
 offset_right = -19.0
-offset_bottom = -18.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = SubResource("8")

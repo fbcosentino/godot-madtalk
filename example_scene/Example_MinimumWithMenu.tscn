@@ -18,6 +18,9 @@ func _input(event):
 		(event is InputEventMouseButton) and (event.pressed) and (event.button_index == MOUSE_BUTTON_LEFT)
 	):
 		$MadTalk.dialog_acknowledge()
+	
+	elif (event is InputEventKey) and (event.pressed) and (not event.echo) and (event.keycode == KEY_1):
+		$MadTalk.start_dialog(\"minimum_menu\")
 "
 
 [node name="Scene" type="Node2D"]
@@ -30,6 +33,8 @@ DialogMessageBox = NodePath("../CanvasLayer/Dialog/MessagePanel")
 DialogMessageLabel = NodePath("../CanvasLayer/Dialog/MessagePanel/MessageRichLabel")
 DialogButtonsMenu = NodePath("../CanvasLayer/Dialog/MenuPanel")
 DialogButtonsContainer = NodePath("../CanvasLayer/Dialog/MenuPanel/ButtonContainer")
+ModulateWhenVisitedPreviously = Color(1, 0, 0, 1)
+ModulateWhenVisitedInThisDialog = Color(0, 0, 1, 1)
 AutoShowMenuOnLastMessage = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -72,11 +77,19 @@ text = "Lorem ipsum"
 
 [node name="MenuPanel" type="Panel" parent="CanvasLayer/Dialog"]
 visible = false
-layout_mode = 0
-offset_left = 853.0
-offset_top = 321.0
-offset_right = 1016.0
-offset_bottom = 516.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 214.0
+offset_top = -334.0
+offset_right = 377.0
+offset_bottom = -139.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_group_ = true
 
 [node name="ButtonContainer" type="VBoxContainer" parent="CanvasLayer/Dialog/MenuPanel"]
 layout_mode = 1

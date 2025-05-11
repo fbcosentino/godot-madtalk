@@ -1,10 +1,13 @@
 extends Node
 
-
 var is_during_dialog = false
 var is_during_cinematic = false 
 
-var variables = {
+var variables := {
+}
+var options_visited_global := {
+}
+var options_visited_dialog := {
 }
 
 var time = 0
@@ -22,12 +25,22 @@ func get_variable(var_name: String, default = 0.0):
 	else:
 		return default
 
-#
-#func zero_pad(value, num_digits) -> String:
-#	var res = str(value)
-#	while res.length() < num_digits:
-#		res = "0"+res
-#	return res
+func set_option_visited(option: DialogNodeOptionData, visited: bool):
+	options_visited_global[option.resource_scene_unique_id] = visited
+	options_visited_dialog[option.resource_scene_unique_id] = visited
+
+func get_option_visited_global(option: DialogNodeOptionData) -> bool:
+	if not option.resource_scene_unique_id in options_visited_global:
+		return false
+	return options_visited_global[option.resource_scene_unique_id]
+
+func get_option_visited_dialog(option: DialogNodeOptionData) -> bool:
+	if not option.resource_scene_unique_id in options_visited_dialog:
+		return false
+	return options_visited_dialog[option.resource_scene_unique_id]
+
+func reset_options_visited_dialog():
+	options_visited_dialog.clear()
 
 
 # ==============================================================================

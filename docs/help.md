@@ -64,7 +64,7 @@ Visually, this game will run very dry, while in a final game you want messages t
 
 #### Menus
 
-If you want to have menu options in your dialogs, you need two more nodes:
+If you want to have menu options handled automatically in your dialogs, you need two more nodes:
   * A menu box, similar to the message box (and sibling to it, that is, it's also inside the top dialog node), where hiding this node hides all the menu-related stuff. Like the message box, this would normally be a `Panel`, `TextureRect` or `NinePatchRect` (but doesn't _have_ to be)
   * A container node, the type being one of the automatic layout containers (`VBoxContainer` being the most common, but could also be `HBoxContainer`, one of the flow containers, etc)
 
@@ -75,6 +75,8 @@ Naturally, drag them to the `MadTalk` node so it's aware of it.
 That's it.
 
 If this is all you do, your menus will already work and you're good to go. See next session to make your first dialog sheet.
+
+_Optional:_ You can have MadTalk automatically handle showing previously selected options in a different way. You can read more about that later.
 
 _Optional:_ You'll notice the button shown in your menu when you run your game is the default Godot `Button`, which might not be the aesthetic you want in your game. You can have a custom button instead: prepare a nice node to your liking (one of the `Button`-derived classes, like `Button` itself or `TextureButton`), save that button as a separate scene file, and drag and drop that scene file to `MadTalk`'s `Dialog Button Scene File` property, and that one will be used for your menus instead of the default one. Again, entirely optional. Just for testing, leaving that field blank will use Godot's default button.
 
@@ -123,15 +125,20 @@ In the menu options icon, you can set the menu options for this sequence. If you
 ![](editor_03b.png)
 
 
-You can click the tiny condition icon in the left of a menu option to set a condition which is required to show that button. If the condition is not met, the menu will show as if that button didn't exist. (Menu option conditions are limited to variable comparisons.)
+You can click the tiny condition icon in the left of a menu option to set a condition which is required to show that button. (Menu option conditions are limited to variable comparisons.)
 
 ![](editor_04.png)
 
 ![](editor_04b.png)
 
+If the condition is not met, you can choose if either the button will show as disabled, or the menu will show as if that button didn't exist. Each separate option can have its own configuration.
+
+You can also mark a specific option to auto-disable itself when it's selected, even if it doesn't have any variable condition at all (fields blank). It will still be treated as a conditional option as long as the conditions panel is left open.
+
+![](img_17.png)
+
+
 To create a new sequence, right click on any empty space. To connect them, just drag an output from a sequence to an input of another sequence. Connecting a sequence to itself _is valid_, but only do that if you know what you're doing.
-
-
 
 &nbsp;
 
@@ -247,7 +254,8 @@ If you're not using the in-game time features, then don't even bother about this
 
 If having a sequential container with buttons (e.g. `VBoxContainer` with a list of `TextureButton`) is not how your game works, and you want to manually assemble and control your menus from code, you can use the external menu feature. It uses a signal and a method call to interface your game code with MadTalk. To use the external menu feature, simply don't assign anything to `Dialog Buttons Container`. If that field is empty, MadTalk will assume you're using custom menus.
 
-If you're using that feature and the dialog reaches a menu, MadTalk will not handle the buttons, instead it will emit the `external_menu_requested` signal passing the list of options the menu should have (as Array of String). You do whatever you want with this information.
+If you're using that feature and the dialog reaches a menu, MadTalk will not handle the buttons, instead it will emit the `external_menu_requested` signal passing gwo `Array` arguments: the list of options the menu should have (as Array of a custom resource), and the metadata for those options (as Array of Dictionaries. You do whatever you want with this information.
+
 
 When your custom code decides which of the options should be selected, you call the `select_menu_option(option_index)` method, where `option_index` is the index of the option you selected, from the Array passed in the signal above.
 
@@ -255,11 +263,31 @@ As example, if you are using custom menu (`Dialog Buttons Container` is empty) a
 
 ![](editor_03b.png)
 
-The `MadTalk` node will emit the signal `external_menu_requested` passing as argument the `Array`: 
+The `MadTalk` node will emit the signal `external_menu_requested` passing as first argument the `Array`: 
 
 ```gdscript
-["Let's walk in the park", "Let's eat a pão de queijo", "Nevermind"]
+[<DialogNodeOptionData>, <DialogNodeOptionData>, <DialogNodeOptionData>]
 ```
+
+where (assuming the argument is called `options`):
+
+```gdscript
+options[0].text = "Let's walk in the park"
+options[1].text = "Let's eat a pão de queijo"
+options[2].text = "Nevermind"
+```
+
+and a second argument containing (assuming you never clicked any of those options before):
+
+```gdscript
+[
+    {"enabled": true, "visited": false, "visited_dialog": false},
+    {"enabled": true, "visited": false, "visited_dialog": false},
+    {"enabled": true, "visited": false, "visited_dialog": false}
+]
+```
+
+The field "enabled" indicates this option has passed the conditions to be selected, and false when it should not be selected but is still marked to be visible as disabled. The field "visited" indicates this option was already clicked in the past during this gameplay, and the "visited_dialog" field indicates if it was selected since last call to `$MadTalk.start_dialog()`.
 
 And if you want to continue the dialog with the player selecting "Let's eat a pão de queijo", you call:
 
@@ -493,9 +521,9 @@ As explained in the _Voice Clip_ section earlier in this readme, this signal is 
 
 &nbsp;
 
-* `external_menu_requested(menu_options)`:
+* `external_menu_requested(menu_options: Array, options_metadata: Array)`:
 
-As explained in the _Custom menu_ section, this signal is emitted when a menu is required but there is no node set in the `Dialog Buttons Container`property in the `MadTalk` node. Argument is an `Array` of `String` containing the menu options.
+As explained in the _Custom menu_ section, this signal is emitted when a menu is required but there is no node set in the `Dialog Buttons Container`property in the `MadTalk` node. Argument `menu_options` is an `Array` of `DialogNodeOptionsData` containing the menu options, and argument `options_metadata` is an `Array` of `Dictionary` with fields `enabled`, `visited` and `visited_dialog`.
 
 &nbsp;
 
@@ -618,6 +646,8 @@ Nothing is saved to files. For best flexibility (and to not clutter your ` res:/
 ## Tips
 
   * If you want to save file size exporting the game, you don't need to include the whole plugin. The running game only needs the `res://addons/madtalk/runtime/` folder (hence the name and organization). You can place export rules to avoid the rest.
+  
+  * The dialog editor (`res://addons/madtalk/madtalk_editor.tscn`) **_works_** as a normal game scene inside a running game. You can use this to have an in-game dialog inspector in admin mode - just remember to call `setup()` in it, and manually implement a saving mechanism if you don't want it to be read-only.
 
   * If you have long streams of messages without menus or branching, instead of having them as a single, long sequence, break them down into several shorter sequences. It will have better performance (and is easier to follow on screen).
 
@@ -634,5 +664,5 @@ Nothing is saved to files. For best flexibility (and to not clutter your ` res:/
 
   * This is the _second_ version of this dialog system. The first version (early 2020) was originally part of a game, and looked awful ([Main editor](old_01.png), [Sequence editor](old_02.png)) - but had the same logic.
 
-  * When I started years ago, it wasn't on version control (I was bad with git at the time), and before I could push it to bitbucket (where it was before being moved to github), I... lost my HDD. The drive died taking all in it. It would be the end of MadTalk... but [JohnGabrielUK](https://github.com/johngabrieluk) used the last plugin version in a game I had access to, and I recovered all the MadTalk files from that game's source. Phew.
+  * When I started years ago, it wasn't on version control (I was bad with git at the time), and before I could push it to bitbucket (where it was before being moved to github), I... lost my HDD. The drive died taking all in it. It would be the end of MadTalk... but [JohnGabrielUK](https://github.com/johngabrieluk) used the then-last plugin version in a game I had access to, and I recovered all the MadTalk files from that game's source. Phew.
  

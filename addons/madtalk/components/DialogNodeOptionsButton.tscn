@@ -1,18 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5mhhbui1jcfd"]
+[gd_scene load_steps=11 format=3 uid="uid://c5mhhbui1jcfd"]
 
 [ext_resource type="FontFile" uid="uid://b38okvijpcxmv" path="res://addons/madtalk/fonts/FreeSans_smal.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://dgal43srcee1q" path="res://addons/madtalk/images/panel_bg.png" id="2"]
-[ext_resource type="StyleBox" path="res://addons/madtalk/components/resources/InputStyle_grey.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://dk8cb0qbpag2d" path="res://addons/madtalk/components/resources/InputStyle_grey.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://dxgulu8lvnwrr" path="res://addons/madtalk/images/icon_x.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://6iclvaqbm5dl" path="res://addons/madtalk/images/icon_up.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://c4xg8811uuoq6" path="res://addons/madtalk/images/icon_down.png" id="6"]
 [ext_resource type="Script" uid="uid://h51781skrpvi" path="res://addons/madtalk/components/DialogNodeOptionsButton.gd" id="7"]
 [ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans.tres" id="8"]
 [ext_resource type="Texture2D" uid="uid://cxwd6i3apjou8" path="res://addons/madtalk/images/icon_opt_condition.png" id="9"]
+[ext_resource type="FontFile" path="res://addons/madtalk/fonts/FreeSans_bold_small.tres" id="9_4brdj"]
 
 [node name="DialogNodeOptionsButton" type="Control"]
 clip_contents = true
-custom_minimum_size = Vector2(0, 36)
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 486.0
@@ -20,9 +21,11 @@ offset_bottom = 36.0
 script = ExtResource("7")
 
 [node name="Panel" type="NinePatchRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 36.0
+grow_horizontal = 2
 texture = ExtResource("2")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -77,25 +80,88 @@ offset_bottom = 26.0
 texture_normal = ExtResource("4")
 
 [node name="Condition" type="NinePatchRect" parent="."]
-visible = false
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_top = 33.0
-offset_bottom = 65.0
+offset_bottom = 159.0
+grow_horizontal = 2
 texture = ExtResource("2")
-region_rect = Rect2(0, 4, 0, 0)
+region_rect = Rect2(0, 4, 128, 124)
 patch_margin_left = 12
 patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="VariableEdit" type="LineEdit" parent="Condition"]
+[node name="Label" type="Label" parent="Condition"]
 layout_mode = 0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 148.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+theme_override_fonts/font = ExtResource("9_4brdj")
+theme_override_font_sizes/font_size = 11
+text = "When is this option active?"
+
+[node name="BtnOptionAutodisable" type="OptionButton" parent="Condition"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -297.0
+offset_top = 53.0
+offset_right = -17.0
+offset_bottom = 81.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.195545, 0.195545, 0.195545, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 12
+flat = true
+selected = 0
+item_count = 3
+popup/item_0/text = "Do not auto-disable"
+popup/item_0/id = 0
+popup/item_1/text = "Auto-disable, reset when starting new dialog"
+popup/item_1/id = 1
+popup/item_2/text = "Auto-disable permanently"
+popup/item_2/id = 2
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="Condition/BtnOptionAutodisable"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3")
+
+[node name="Label5" type="Label" parent="Condition/BtnOptionAutodisable"]
+layout_mode = 0
+offset_left = -173.0
+offset_top = -1.0
+offset_right = -3.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+theme_override_constants/line_spacing = -8
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 11
+text = "Automatically disable after this
+option is selected:"
+vertical_alignment = 1
+
+[node name="VariableEdit" type="LineEdit" parent="Condition"]
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_left = 118.0
-offset_top = 5.0
+offset_top = 21.0
 offset_right = -225.0
-offset_bottom = 25.0
+offset_bottom = 48.0
+grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 11
@@ -103,19 +169,45 @@ theme_override_styles/focus = ExtResource("3")
 theme_override_styles/normal = ExtResource("3")
 placeholder_text = "Type variable name here"
 
-[node name="ButtonOperation" type="OptionButton" parent="Condition"]
+[node name="Label2" type="Label" parent="Condition/VariableEdit"]
 layout_mode = 0
+offset_left = -102.0
+offset_top = -1.0
+offset_right = -1.0
+offset_bottom = 18.0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 11
+text = "Variable condition:"
+
+[node name="Label3" type="Label" parent="Condition/VariableEdit/Label2"]
+layout_mode = 0
+offset_top = 12.0
+offset_right = 101.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 9
+text = "(leave blank for always)"
+
+[node name="ButtonOperation" type="OptionButton" parent="Condition"]
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -219.0
-offset_top = 2.0
-offset_right = -170.0
-offset_bottom = 27.0
+offset_top = 20.0
+offset_right = -168.0
+offset_bottom = 48.0
+grow_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 12
 flat = true
+selected = 0
 item_count = 6
 popup/item_0/text = "="
+popup/item_0/id = 0
 popup/item_1/text = "!="
 popup/item_1/id = 1
 popup/item_2/text = ">"
@@ -128,13 +220,15 @@ popup/item_5/text = "<="
 popup/item_5/id = 5
 
 [node name="ValueEdit" type="LineEdit" parent="Condition"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -166.0
-offset_top = 5.0
+offset_top = 21.0
 offset_right = -17.0
-offset_bottom = 25.0
+offset_bottom = 48.0
+grow_horizontal = 0
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 11
@@ -142,16 +236,62 @@ theme_override_styles/focus = ExtResource("3")
 theme_override_styles/normal = ExtResource("3")
 placeholder_text = "Value or variable name"
 
-[node name="Label" type="Label" parent="Condition"]
+[node name="BtnOptionInactiveMode" type="OptionButton" parent="Condition"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -297.0
+offset_top = 90.0
+offset_right = -17.0
+offset_bottom = 118.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.195545, 0.195545, 0.195545, 1)
+theme_override_fonts/font = ExtResource("8")
+theme_override_font_sizes/font_size = 12
+flat = true
+selected = 0
+item_count = 2
+popup/item_0/text = "Show as a disabled item"
+popup/item_0/id = 0
+popup/item_1/text = "Hide the item entirely"
+popup/item_1/id = 1
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="Condition/BtnOptionInactiveMode"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3")
+
+[node name="Label4" type="Label" parent="Condition/BtnOptionInactiveMode"]
 layout_mode = 0
-offset_left = 8.0
+offset_left = -174.0
 offset_top = 7.0
-offset_right = 109.0
-offset_bottom = 21.0
+offset_right = -11.0
+offset_bottom = 22.0
 theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
-theme_override_fonts/font = ExtResource("1")
+theme_override_fonts/font = ExtResource("9_4brdj")
 theme_override_font_sizes/font_size = 11
-text = "Show option when"
+text = "When this option is NOT active:"
+
+[node name="SeparatorLine" type="ColorRect" parent="Condition"]
+modulate = Color(1, 1, 1, 0.301961)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 85.0
+offset_right = -8.0
+offset_bottom = 86.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.282353, 0.258824, 0.301961, 1)
 
 [node name="BtnOptionCondition" type="Button" parent="."]
 layout_mode = 0
