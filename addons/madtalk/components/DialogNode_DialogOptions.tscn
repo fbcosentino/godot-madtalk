@@ -135,6 +135,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="DialogNodeOptionsButton2" parent="Panel/ScrollContainer/VBox" instance=ExtResource("5")]
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 
 [node name="PanelNewLocale" type="Panel" parent="Panel"]

@@ -26,7 +26,7 @@ signal dialog_item_processed(sheet_name, sequence_id, item_index)
 
 signal message_text_shown(speaker_id, speaker_variant, message_text, force_hiding)
 
-signal menu_option_activated(option_id)
+signal menu_option_activated(option_index, option_id)
 signal time_updated(datetime_dict)
 
 # Requests the menu to be processed externally, if dialog_buttons_container is not set
@@ -37,7 +37,7 @@ signal time_updated(datetime_dict)
 #            print(option.text) # Prints the string for this option as written in the sheet
 # One of the options can then be selected with:
 #    $MadTalk.select_menu_option( <numerical index in the menu_options array> )
-signal external_menu_requested(menu_options)
+signal external_menu_requested(menu_options: Array, options_metadata: Array)
 
 signal dialog_aborted
 
@@ -100,6 +100,17 @@ signal dialog_aborted
 @export var DialogButtonsContainer: NodePath
 @onready var dialog_buttons_container = get_node_or_null(DialogButtonsContainer)
 
+@export_subgroup("Menu/Visited Buttons")
+
+## Color to modulate buttons after the option was already selected during
+## this gameplay, but before this particular dialog. See also ModulateWhenVisitedInThisDialog
+@export var ModulateWhenVisitedPreviously: Color = Color.WHITE
+
+## Color to modulate buttons after the option was already selected since this
+## particular dialog was started. In that case, ignores ModulateWhenVisitedPreviously,
+## so you should set both to the same color if they should not be different
+@export var ModulateWhenVisitedInThisDialog: Color = Color.WHITE
+
 @export_subgroup("Menu/Custom Button for Menu")
 ## (Optional) The PackedScene file containing a button template used to build the menu.
 ## You do not need this set to use menus. MadTalk will use the default Button
@@ -117,6 +128,16 @@ signal dialog_aborted
 ## If DialogButtonSceneFile is assigned: Signal name emitted when the option is confirmed
 ## (otherwise, leave as is)
 @export var DialogButtonSignalName: String = "pressed"
+
+## If DialogButtonSceneFile is assigned and this property is not blank:
+## name of a bool property set to true if the dialog option this button refers to was
+## already selected before during this gameplay (in this dialog or not), set to false otherwise
+@export var DialogButtonVisitedProperty: String = ""
+
+## If DialogButtonSceneFile is assigned and this property is not blank:
+## name of a bool property set to true if the dialog option this button refers to was
+## already selected before since this particular dialog started, set to false otherwise
+@export var DialogButtonVisitedInThisDialogProperty: String = ""
 
 @export_subgroup("")
 
@@ -586,24 +607,53 @@ func _anim_dialog_menu_visible(show: bool = true) -> void:
 			dialog_menu_active = false
 
 
-func _assemble_button(id: int, text: String, parent_node: Node) -> Node:
+func _assemble_button(index: int, id: int, text: String, parent_node: Node, option_metadata: Dictionary) -> Node:
+	# Invalid metadata defaults to enabled button
+	var is_btn_enabled: bool = (option_metadata["enabled"] != false) if ("enabled" in option_metadata) else true
+	var is_btn_visited: bool = ("visited" in option_metadata) and (option_metadata["visited"])
+	var is_btn_visited_dialog: bool = ("visited_dialog" in option_metadata) and (option_metadata["visited_dialog"])
+	
+	var is_custom_button = true if DialogButtonSceneFile else false # DialogButtonSceneFile is not boolean, is_custom_button is
+	
 	var new_btn = DialogButtonSceneFile.instantiate() if DialogButtonSceneFile else Button.new()
 	
 	parent_node.add_child(new_btn)
 	new_btn.set(DialogButtonTextProperty, text)
+	
+	if is_custom_button:
+		if DialogButtonVisitedProperty != "":
+			new_btn.set(DialogButtonVisitedProperty, is_btn_visited)
+		if DialogButtonVisitedInThisDialogProperty != "":
+			new_btn.set(DialogButtonVisitedInThisDialogProperty, is_btn_visited_dialog)
+	
+	if is_btn_visited_dialog:
+		new_btn.modulate *= ModulateWhenVisitedInThisDialog
+	elif is_btn_visited:
+		new_btn.modulate *= ModulateWhenVisitedPreviously
+	
+	new_btn.disabled = not is_btn_enabled
+	
 	# _on_menu_button_pressed() is used to multiplex all button signals into one
-	new_btn.connect(DialogButtonSignalName, Callable(self, "_on_menu_button_pressed").bind(id))
+	new_btn.connect(DialogButtonSignalName, _on_menu_button_pressed.bind(index, id))
 	
 	return new_btn
 	
 	
-func _assemble_menu(options: Array) -> int:
+func _assemble_menu(options: Array, options_metadata: Array) -> int:
 	# options = [<list of DialogNodeOptionData>]
 	# Fields:
 	#     DialogNodeOptionData.text            : String = ""
 	#     DialogNodeOptionData.text_locales    : Dictionary (locale String: text String)
 	#         read via get_localized_text()
 	#     DialogNodeOptionData.connected_to_id : int    = -1
+	#
+	# options_metadata = [<list of metadata Dictionaries>]
+	# Fields:
+	#     "enabled"       : bool = true -> if this option can be selected
+	#     "visited        : bool        -> if this option was already selected before during this gameplay
+	#     "visited_dialog :             -> if this option was already selected since starting this dialog
+	#
+	# options[index] and options_metadata[index] share the same index
 
 	if not dialog_buttons_container:
 		debug_print("Menu button container not set")
@@ -618,10 +668,12 @@ func _assemble_menu(options: Array) -> int:
 	# Add new buttons
 	var count = 0
 	menu_connected_ids.clear()
-	for option_item in options:
+	#for option_item in options:
+	for i: int in range(options.size()):
+		var option_item: DialogNodeOptionData = options[i]
 		var item_text = option_item.get_localized_text() # option_item.text
 		menu_connected_ids.append(item_text)
-		var _new_btn = _assemble_button(option_item.connected_to_id, item_text, dialog_buttons_container)
+		var _new_btn = _assemble_button(i, option_item.connected_to_id, item_text, dialog_buttons_container, options_metadata[i])
 		count += 1
 		
 	return count
@@ -673,6 +725,8 @@ func start_dialog(sheet_name: String, sequence_id : int = 0) -> void:
 	
 	is_abort_requested = false
 	is_skip_requested = false
+	
+	MadTalkGlobals.reset_options_visited_dialog()
 	
 	emit_signal("dialog_started", sheet_name, sequence_id)
 	
@@ -975,17 +1029,43 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 			# Even if we have options, some of them can be conditional, and
 			# it might be the case all of them are and no item is left to
 			# be shown at the menu. So we have to buffer a list
-			var options_to_show = []
+			var options_to_show := []
+			var options_metadata := []
 			menu_connected_ids.clear()
 			
-			for option_item in sequence_data.options:
-				if (not option_item.is_conditional) or _check_option_condition(
-					option_item.condition_variable, 
-					option_item.condition_operator, 
-					option_item.condition_value
-				):
+			for option_item: DialogNodeOptionData in sequence_data.options:
+				var conditions_passed := true
+				if option_item.is_conditional:
+					# Case 1: is auto-disable and already visited
+					match option_item.autodisable_mode:
+						option_item.AutodisableModes.RESET_ON_SHEET_RUN:
+							if (MadTalkGlobals.get_option_visited_dialog(option_item)):
+								conditions_passed = false
+						
+						option_item.AutodisableModes.ALWAYS:
+							if (MadTalkGlobals.get_option_visited_global(option_item)):
+								conditions_passed = false
+					
+					# Case 2: variable conditions
+					if conditions_passed:
+						conditions_passed = _check_option_condition(
+							option_item.condition_variable, 
+							option_item.condition_operator, 
+							option_item.condition_value
+						)
+					
+				# We show button if it's active OR it should be shown anyway but as disabled
+				if (conditions_passed) or (option_item.inactive_mode == option_item.InactiveMode.DISABLED):
 					options_to_show.append(option_item)
 					menu_connected_ids.append(option_item.connected_to_id)
+					options_metadata.append({
+						"enabled": conditions_passed,
+						"visited": MadTalkGlobals.get_option_visited_global(option_item),
+						"visited_dialog": MadTalkGlobals.get_option_visited_dialog(option_item)
+					})
+			
+			# Now options_to_show contains options to show (disabled or not)
+			# of which the ones in options_disabled should be disabled
 			
 			# Process options and build menu only with remaining items
 			if options_to_show.size() > 0:
@@ -1026,12 +1106,12 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					if dialog_menu_active:
 						await _anim_dialog_menu_visible(false)
 					# Regenerate buttons
-					var __= _assemble_menu(options_to_show)
+					var __= _assemble_menu(options_to_show, options_metadata)
 					# Show menu
 					await _anim_dialog_menu_visible(true)
 				
 				else:
-					emit_signal("external_menu_requested", options_to_show)
+					external_menu_requested.emit(options_to_show, options_metadata)
 				
 				MadTalkGlobals.is_during_cinematic = false
 				
@@ -1042,7 +1122,10 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				
 				# Wait for an option
 				# Selecting an option is mandatory and dialog halts until then
-				var option_id = await self.menu_option_activated
+				
+				var option_res = await self.menu_option_activated
+				var option_index = option_res[0]
+				var option_id = option_res[1]
 				
 				# Hide menu
 				if dialog_buttons_container:
@@ -1051,6 +1134,9 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					MadTalkGlobals.is_during_cinematic = false
 				
 				if option_id > -1:
+					var selected_option: DialogNodeOptionData = options_to_show[option_index]
+					MadTalkGlobals.set_option_visited(selected_option, true)
+					
 					# jumping to another sequence might also be same speaker 
 					# so we don't hide anything yet
 					await run_dialog_sequence(sheet_name, option_id)
@@ -1273,7 +1359,7 @@ func change_scene_to_file(scene_path: String) -> void:
 
 func select_menu_option(index: int):
 	if index < menu_connected_ids.size():
-		emit_signal("menu_option_activated", menu_connected_ids[index])
+		menu_option_activated.emit(index, menu_connected_ids[index])
 
 
 func _on_animation_finished(anim_name):
@@ -1284,8 +1370,8 @@ func _on_animated_text_tween_completed():
 	emit_signal("text_display_completed")
 	
 
-func _on_menu_button_pressed(id):
-	emit_signal("menu_option_activated", id)
+func _on_menu_button_pressed(index, id):
+	menu_option_activated.emit(index, id)
 
 func get_sheet_names():
 	return dialog_data.sheets.keys()

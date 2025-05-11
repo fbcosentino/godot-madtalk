@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="DialogData" load_steps=71 format=3 uid="uid://dxkjjrap15vxu"]
+[gd_resource type="Resource" script_class="DialogData" load_steps=73 format=3 uid="uid://dxkjjrap15vxu"]
 
 [ext_resource type="Script" uid="uid://bw2q2eucjkylk" path="res://addons/madtalk/components/resources/DialogData.gd" id="1_giduu"]
 [ext_resource type="Script" uid="uid://c2bv5lwcvdmrb" path="res://addons/madtalk/components/resources/DialogNodeItemData.gd" id="2_48vp3"]
@@ -47,6 +47,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="6"]
 script = ExtResource("3_dways")
@@ -57,6 +59,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="2"]
 script = ExtResource("4_f2ijm")
@@ -167,7 +171,7 @@ position = Vector2(460, 60)
 comment = ""
 items = [SubResource("7"), SubResource("8"), SubResource("9")]
 options = []
-continue_sequence_id = 6
+continue_sequence_id = -1
 continue_port_index = 0
 
 [sub_resource type="Resource" id="3"]
@@ -252,9 +256,9 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "Processing the menu externally is easy:
-When the dialog reaches a menu, the [color=#99ff00][b]external_menu_requested([color=#ff9955]menu_options[/color])[/b][/color] signal is called, where [color=#ff9955][b]menu_options[/b][/color] is an Array with the menu options.
+When the dialog reaches a menu, the [color=#99ff00][b]external_menu_requested([color=#ff9955]options, metadata[/color])[/b][/color] signal is called, where [color=#ff9955][b]options[/b][/color] is an Array with the menu options, and [color=#ff9955][b]metadata[/b][/color] is an Array of Dictionaries.
 Each item has a [color=#99ffff][b]text[/b][/color] property containing the text for that option, from the dialog sheet.
-So [b][color=#ff9955]menu_options[[color=#ffff00]0[/color]][/color].[color=#99ffff]text[/color][/b] is the text of the first option, etc."
+So [b][color=#ff9955]options[[color=#ffff00]0[/color]][/color].[color=#99ffff]text[/color][/b] is the text for first option, and [b][color=#ff9955]metadata[lb][color=#ffff00]0[/color][rb][lb][color=#ffff99]\"enabled\"[/color][rb][/color][/b] is the bool indicating if that option is enabled, etc."
 message_voice_clip_locales = {}
 message_text_locales = {}
 message_hide_on_end = 0
@@ -271,7 +275,7 @@ message_speaker_id = ""
 message_speaker_variant = ""
 message_voice_clip = ""
 message_text = "The menu will then pause and wait for your code to select one of the options from that array.
-You take the input from the player in any way you like, and then select an option by calling the method [b][color=#9999ff]select_menu_option( [color=#ffff00]index[/color] )[/color][/b] where the argument is the index of the desired option from the [color=#ff9955][b]menu_options[/b][/color] array.
+You take the input from the player in any way you like, and then select an option by calling the method [b][color=#9999ff]select_menu_option( [color=#ffff00]index[/color] )[/color][/b] where the argument is the index of the desired option from the [color=#ff9955][b]options[/b][/color] array.
 Selecting an invalid index is simply ignored."
 message_voice_clip_locales = {}
 message_text_locales = {}
@@ -333,6 +337,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="21"]
 script = ExtResource("3_dways")
@@ -343,6 +349,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="22"]
 script = ExtResource("3_dways")
@@ -353,6 +361,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="23"]
 script = ExtResource("3_dways")
@@ -363,6 +373,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="25"]
 script = ExtResource("3_dways")
@@ -373,6 +385,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="26"]
 script = ExtResource("3_dways")
@@ -383,6 +397,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="24"]
 script = ExtResource("4_f2ijm")
@@ -633,6 +649,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_x0nqb"]
 script = ExtResource("3_dways")
@@ -647,6 +665,8 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_ml5yl"]
 script = ExtResource("4_f2ijm")
@@ -684,32 +704,44 @@ effect_values = []
 [sub_resource type="Resource" id="Resource_5plx1"]
 script = ExtResource("3_dways")
 text = "Option 1"
-text_locales = {}
+text_locales = {
+"": "Option 1"
+}
 connected_to_id = 1
-is_conditional = false
+is_conditional = true
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_4ierx"]
 script = ExtResource("3_dways")
 text = "Second option"
-text_locales = {}
+text_locales = {
+"": "Second option"
+}
 connected_to_id = 2
 is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_c0esp"]
 script = ExtResource("3_dways")
 text = "Another cool option"
-text_locales = {}
+text_locales = {
+"": "Another cool option"
+}
 connected_to_id = 3
 is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_28bfi"]
 script = ExtResource("4_f2ijm")
@@ -759,11 +791,13 @@ text = "Yes"
 text_locales = {
 "": "Yes"
 }
-connected_to_id = -1
+connected_to_id = 0
 is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_gi4cx"]
 script = ExtResource("3_dways")
@@ -776,11 +810,13 @@ is_conditional = false
 condition_variable = ""
 condition_operator = "="
 condition_value = ""
+autodisable_mode = 0
+inactive_mode = 0
 
 [sub_resource type="Resource" id="Resource_wn6qm"]
 script = ExtResource("4_f2ijm")
 sequence_id = 1
-position = Vector2(640, -240)
+position = Vector2(60, -320)
 comment = ""
 items = [SubResource("Resource_dyln1"), SubResource("Resource_v4udn")]
 options = [SubResource("Resource_kur6e"), SubResource("Resource_gi4cx")]
@@ -846,6 +882,23 @@ sheet_description = ""
 next_sequence_id = 4
 nodes = [SubResource("Resource_28bfi"), SubResource("Resource_wn6qm"), SubResource("Resource_5vhe7"), SubResource("Resource_pnwrx")]
 
+[sub_resource type="Resource" id="kur6e"]
+script = ExtResource("4_f2ijm")
+sequence_id = 0
+position = Vector2(0, 0)
+comment = ""
+items = []
+options = []
+continue_sequence_id = -1
+continue_port_index = 0
+
+[sub_resource type="Resource" id="Resource_mjnvi"]
+script = ExtResource("5_vkpn8")
+sheet_id = "new_sheet_1"
+sheet_description = ""
+next_sequence_id = 1
+nodes = [SubResource("kur6e")]
+
 [resource]
 script = ExtResource("1_giduu")
 version = 1.0
@@ -854,5 +907,6 @@ sheets = {
 "bare_minimum": SubResource("Resource_sxgqo"),
 "external_menu": SubResource("15"),
 "localized": SubResource("Resource_cvf4j"),
-"minimum_menu": SubResource("Resource_s3y14")
+"minimum_menu": SubResource("Resource_s3y14"),
+"new_sheet_1": SubResource("Resource_mjnvi")
 }

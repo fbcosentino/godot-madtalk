@@ -47,7 +47,7 @@ func open(data: DialogNodeData) -> void:
 	# Remove previous items
 	var old_items = buttonlist.get_children()
 	for item in old_items:
-		item.hide()
+		buttonlist.remove_child(item)
 		item.queue_free()
 	
 	# Add new items
@@ -72,9 +72,9 @@ func open(data: DialogNodeData) -> void:
 
 
 
-func add_item(item_data) -> void:
+func add_item(item_data: DialogNodeOptionData) -> void:
 	var new_btn = button_template.instantiate()
-	new_btn.item_data = item_data
+	new_btn.item_data = item_data # Should be used as read-only there
 	buttonlist.add_child(new_btn)
 	
 	btn_temporary_locales[new_btn] = {
@@ -91,10 +91,14 @@ func add_item(item_data) -> void:
 		new_btn.get_node("Condition/VariableEdit").text = item_data.condition_variable
 		new_btn.get_node("Condition/ValueEdit").text = item_data.condition_value
 		new_btn.select_operator(item_data.condition_operator)
+		new_btn.get_node("Condition/BtnOptionAutodisable").selected = int(item_data.autodisable_mode)
+		new_btn.get_node("Condition/BtnOptionInactiveMode").selected = int(item_data.inactive_mode)
 	else:
 		new_btn.get_node("Condition/VariableEdit").text = ""
 		new_btn.get_node("Condition/ValueEdit").text = ""
 		new_btn.select_operator("=")
+		new_btn.get_node("Condition/BtnOptionAutodisable").selected = 0
+		new_btn.get_node("Condition/BtnOptionInactiveMode").selected = 0
 		
 	
 	new_btn.get_node("Panel/BtnUp").connect("pressed", Callable(self, "_on_Button_BtnUp").bind(new_btn))
@@ -187,31 +191,36 @@ func _on_BtnSave_pressed() -> void:
 	save_button_locale_data() # Updates locale_list
 	
 	var new_items = buttonlist.get_children()
-
+	
 	# If we reduced the number of options, delete unused resources
-	if new_items.size() < data_resource.options.size():
-		data_resource.options.resize(new_items.size())
-		
-	# If we increased the number of options, create new resources
-	while new_items.size() > data_resource.options.size():
-		data_resource.options.append( DialogNodeOptionData.new() )
+	#if new_items.size() < data_resource.options.size():
+		#data_resource.options.resize(new_items.size())
+	#
+	# # If we increased the number of options, create new resources
+	#while new_items.size() > data_resource.options.size():
+		#data_resource.options.append( DialogNodeOptionData.new() )
+	
+	data_resource.options = []
 	
 	# Set resource to new data
 	for i in range(new_items.size()):
-		#data_resource.options[i].text = new_items[i].get_node("Panel/ButtonTextEdit").text
-		#data_resource.options[i].text_locales = new_items[i].get_node("Panel/ButtonTextEdit").text_locales
-		data_resource.options[i].text = new_items[i].item_data.text
-		data_resource.options[i].text_locales = new_items[i].item_data.text_locales
-		data_resource.options[i].connected_to_id = new_items[i].connected_id
-		data_resource.options[i].is_conditional = new_items[i].get_node("Condition").visible
-		if data_resource.options[i].is_conditional:
-			data_resource.options[i].condition_variable = new_items[i].get_node("Condition/VariableEdit").text
-			data_resource.options[i].condition_operator = new_items[i].get_selected_operator()
-			data_resource.options[i].condition_value = new_items[i].get_node("Condition/ValueEdit").text
+		var item: DialogNodeOptionData = new_items[i].item_data
+		item.connected_to_id = new_items[i].connected_id
+		item.is_conditional = new_items[i].get_node("Condition").visible
+		if item.is_conditional:
+			item.condition_variable = new_items[i].get_node("Condition/VariableEdit").text
+			item.condition_operator = new_items[i].get_selected_operator()
+			item.condition_value = new_items[i].get_node("Condition/ValueEdit").text
+			item.autodisable_mode = new_items[i].get_node("Condition/BtnOptionAutodisable").selected
+			item.inactive_mode = new_items[i].get_node("Condition/BtnOptionInactiveMode").selected
 		else:
-			data_resource.options[i].condition_variable = ""
-			data_resource.options[i].condition_operator = "="
-			data_resource.options[i].condition_value = ""
+			item.condition_variable = ""
+			item.condition_operator = "="
+			item.condition_value = ""
+			item.autodisable_mode = item.AutodisableModes.NEVER
+			item.inactive_mode = item.InactiveMode.DISABLED
+		
+		data_resource.options.append(item)
 		
 	
 	emit_signal("saved", self)
