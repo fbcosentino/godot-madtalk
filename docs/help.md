@@ -265,7 +265,7 @@ If you're not using the in-game time features, then don't even bother about this
 
 If having a sequential container with buttons (e.g. `VBoxContainer` with a list of `TextureButton`) is not how your game works, and you want to manually assemble and control your menus from code, you can use the external menu feature. It uses a signal and a method call to interface your game code with MadTalk. To use the external menu feature, simply don't assign anything to `Dialog Buttons Container`. If that field is empty, MadTalk will assume you're using custom menus.
 
-If you're using that feature and the dialog reaches a menu, MadTalk will not handle the buttons, instead it will emit the `external_menu_requested` signal passing gwo `Array` arguments: the list of options the menu should have (as Array of a custom resource), and the metadata for those options (as Array of Dictionaries. You do whatever you want with this information.
+If you're using that feature and the dialog reaches a menu, MadTalk will not handle the buttons, instead it will emit the `external_menu_requested` signal passing two `Array` arguments: the list of options the menu should have (as `Array` of `DialogNodeOptionsData` - a custom resource), and the metadata for those options (as `Array` of `Dictionary`). You do whatever you want with this information.
 
 
 When your custom code decides which of the options should be selected, you call the `select_menu_option(option_index)` method, where `option_index` is the index of the option you selected, from the Array passed in the signal above.
@@ -394,6 +394,12 @@ Name might be a bit misleading now, I swear it made more sense in earlier versio
 
 
 * `time`: stores the in-game time in seconds since the start of the calendar (midnight January 1st year 0001). Modifications require calling a method, explained further below
+
+&nbsp;
+
+### Saving Dialog when Saving the Game
+
+To save or load all the dialog states, check the `export_game_data()` and `import_game_data()` methods in the `MadTalkGlobals` singleton, explained below in the _Methods_ section.
 
 
 &nbsp;

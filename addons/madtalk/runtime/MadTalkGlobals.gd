@@ -266,11 +266,16 @@ func next_time_at_weekday(weekday: int) -> int:
 
 
 func export_game_data() -> Dictionary:
+	var visited_options := {}
+	for item_ui in options_visited_global:
+		visited_options[item_ui] = "1" if options_visited_global[item_ui] else "0"
+	
 	var result = {
 		"time": time,
 		"gametime_offset": gametime_offset,
 		"gametime_year": gametime_year,
-		"variables": variables
+		"variables": variables,
+		"visited_options": visited_options,
 	}
 	return result
 	
@@ -281,6 +286,15 @@ func import_game_data(data: Dictionary) -> void:
 		gametime_offset = int(round(float(data["gametime_offset"])))
 	if ("gametime_year" in data):
 		gametime_year = int(round(float(data["gametime_year"])))
+	
+	options_visited_global.clear()
+	if "visited_options" in data:
+		var visited_dict: Dictionary = data["visited_options"]
+		for item_ui in visited_dict:
+			# If coming from a saved file, item_ui will never be StringName
+			# but this Dictionary might be coming from a serialized Resource (bad idea, but still)
+			if (item_ui is String) or (item_ui is StringName):
+				options_visited_global[item_ui] = (not visited_dict[item_ui] in [false, "false", 0, 0.0, "0", "0.0", "no"])
 	
 	variables.clear()
 	for variable_name in data["variables"]:
