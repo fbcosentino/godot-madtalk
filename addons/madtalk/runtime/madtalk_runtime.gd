@@ -1171,7 +1171,9 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				if dialog_buttons_container:
 					# There is always at least one optiong there otherwise we
 					# would not be into this `if`
-					dialog_buttons_container.get_child(0).grab_focus()
+					var first_button: Control = dialog_buttons_container.get_child(0)
+					if first_button.focus_mode != Control.FocusMode.FOCUS_NONE:
+						first_button.grab_focus()
 				
 				if StopSkippingOnMenu and is_skip_requested:
 					is_skip_requested = false
