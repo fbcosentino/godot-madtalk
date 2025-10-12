@@ -13,7 +13,7 @@
 
 [node name="DialogNodeOptionsButton" type="Control"]
 clip_contents = true
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 486.0
@@ -42,8 +42,8 @@ offset_bottom = 31.0
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = ExtResource("3")
 theme_override_styles/normal = ExtResource("3")
+theme_override_styles/focus = ExtResource("3")
 placeholder_text = "Type button text here"
 
 [node name="BtnUp" type="TextureButton" parent="Panel"]
@@ -80,11 +80,12 @@ offset_bottom = 26.0
 texture_normal = ExtResource("4")
 
 [node name="Condition" type="NinePatchRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 33.0
-offset_bottom = 159.0
+offset_bottom = 196.0
 grow_horizontal = 2
 texture = ExtResource("2")
 region_rect = Rect2(0, 4, 128, 124)
@@ -165,8 +166,8 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 11
-theme_override_styles/focus = ExtResource("3")
 theme_override_styles/normal = ExtResource("3")
+theme_override_styles/focus = ExtResource("3")
 placeholder_text = "Type variable name here"
 
 [node name="Label2" type="Label" parent="Condition/VariableEdit"]
@@ -232,9 +233,22 @@ grow_horizontal = 0
 theme_override_colors/font_color = Color(0, 0.160784, 0.180392, 1)
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 11
-theme_override_styles/focus = ExtResource("3")
 theme_override_styles/normal = ExtResource("3")
+theme_override_styles/focus = ExtResource("3")
 placeholder_text = "Value or variable name"
+
+[node name="SeparatorLine" type="ColorRect" parent="Condition"]
+modulate = Color(1, 1, 1, 0.301961)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 85.0
+offset_right = -8.0
+offset_bottom = 86.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.282353, 0.258824, 0.301961, 1)
 
 [node name="BtnOptionInactiveMode" type="OptionButton" parent="Condition"]
 layout_mode = 1
@@ -280,18 +294,53 @@ theme_override_fonts/font = ExtResource("9_4brdj")
 theme_override_font_sizes/font_size = 11
 text = "When this option is NOT active:"
 
-[node name="SeparatorLine" type="ColorRect" parent="Condition"]
+[node name="SeparatorLine2" type="ColorRect" parent="Condition"]
 modulate = Color(1, 1, 1, 0.301961)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 8.0
-offset_top = 85.0
+offset_top = 122.0
 offset_right = -8.0
-offset_bottom = 86.0
+offset_bottom = 123.0
 grow_horizontal = 2
 mouse_filter = 2
 color = Color(0.282353, 0.258824, 0.301961, 1)
+
+[node name="BtnAfterOtherOptionsExhausted" type="CheckButton" parent="Condition"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -471.0
+offset_top = 126.0
+offset_right = -17.0
+offset_bottom = 156.0
+grow_horizontal = 0
+
+[node name="Label5" type="Label" parent="Condition/BtnAfterOtherOptionsExhausted"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 393.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(0.32, 0.32, 0.32, 1)
+theme_override_constants/line_spacing = -8
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 11
+text = "Only show as active after all other options were already selected"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="Condition/BtnAfterOtherOptionsExhausted/Label5"]
+layout_mode = 0
+offset_top = 13.0
+offset_right = 202.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0.4019684, 0.4019684, 0.4019685, 1)
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 9
+text = "(ignores other options which also have this flag on)"
 
 [node name="BtnOptionCondition" type="Button" parent="."]
 layout_mode = 0

@@ -93,13 +93,14 @@ func add_item(item_data: DialogNodeOptionData) -> void:
 		new_btn.select_operator(item_data.condition_operator)
 		new_btn.get_node("Condition/BtnOptionAutodisable").selected = int(item_data.autodisable_mode)
 		new_btn.get_node("Condition/BtnOptionInactiveMode").selected = int(item_data.inactive_mode)
+		new_btn.get_node("Condition/BtnAfterOtherOptionsExhausted").button_pressed = item_data.only_after_exhausted_other_options
 	else:
 		new_btn.get_node("Condition/VariableEdit").text = ""
 		new_btn.get_node("Condition/ValueEdit").text = ""
 		new_btn.select_operator("=")
 		new_btn.get_node("Condition/BtnOptionAutodisable").selected = 0
 		new_btn.get_node("Condition/BtnOptionInactiveMode").selected = 0
-		
+		new_btn.get_node("Condition/BtnAfterOtherOptionsExhausted").button_pressed = false
 	
 	new_btn.get_node("Panel/BtnUp").connect("pressed", Callable(self, "_on_Button_BtnUp").bind(new_btn))
 	new_btn.get_node("Panel/BtnDown").connect("pressed", Callable(self, "_on_Button_BtnDown").bind(new_btn))
@@ -213,12 +214,14 @@ func _on_BtnSave_pressed() -> void:
 			item.condition_value = new_items[i].get_node("Condition/ValueEdit").text
 			item.autodisable_mode = new_items[i].get_node("Condition/BtnOptionAutodisable").selected
 			item.inactive_mode = new_items[i].get_node("Condition/BtnOptionInactiveMode").selected
+			item.only_after_exhausted_other_options = new_items[i].get_node("Condition/BtnAfterOtherOptionsExhausted").button_pressed
 		else:
 			item.condition_variable = ""
 			item.condition_operator = "="
 			item.condition_value = ""
 			item.autodisable_mode = item.AutodisableModes.NEVER
 			item.inactive_mode = item.InactiveMode.DISABLED
+			item.only_after_exhausted_other_options = false
 		
 		data_resource.options.append(item)
 		

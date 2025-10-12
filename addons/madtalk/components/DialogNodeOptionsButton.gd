@@ -2,16 +2,17 @@
 extends Control
 
 const MIN_SIZE_CLOSED := 36
-const MIN_SIZE_OPEN := 160
+const MIN_SIZE_OPEN := 196
 
 var connected_id = -1
 
 var item_data = null # Reference, not a copy - DO NOT MODIFY IN THIS SCRIPT (use as if read-only)
 
-@onready var cond_panel = $Condition
-@onready var cond_op_button = $Condition/ButtonOperation
-@onready var cond_auto_disable = $Condition/BtnOptionAutodisable
-@onready var inactive_mode = $Condition/BtnOptionInactiveMode
+@onready var cond_panel := $Condition
+@onready var cond_op_button := $Condition/ButtonOperation
+@onready var cond_auto_disable := $Condition/BtnOptionAutodisable
+@onready var inactive_mode := $Condition/BtnOptionInactiveMode
+@onready var after_other_options := $Condition/BtnAfterOtherOptionsExhausted
 
 func _ready():
 	cond_panel.visible = false

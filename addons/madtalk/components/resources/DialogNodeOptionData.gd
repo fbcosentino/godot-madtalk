@@ -38,6 +38,10 @@ var port_index : int = -1
 ## otherwise (if it's a text String) it's the variable name to compare to
 @export var condition_value: String = ""
 
+## Only show this option when all options not having this flag were already 
+## selected at least once in gameplay
+@export var only_after_exhausted_other_options := false
+
 ## If the option auto-disables itself after selected
 @export var autodisable_mode := AutodisableModes.NEVER
 

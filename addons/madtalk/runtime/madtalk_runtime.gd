@@ -129,6 +129,11 @@ signal dialog_aborted
 ## (otherwise, leave as is)
 @export var DialogButtonSignalName: String = "pressed"
 
+## If DialogButtonSceneFile is assigned: name of property to set the button as disabled
+## (otherwise, leave as is)
+## A custom button [b]MUST[/b] have a way to be set as disabled. This property is not optional.
+@export var DialogButtonDisabledProperty: String = "disabled"
+
 ## If DialogButtonSceneFile is assigned and this property is not blank:
 ## name of a bool property set to true if the dialog option this button refers to was
 ## already selected before during this gameplay (in this dialog or not), set to false otherwise
@@ -625,13 +630,21 @@ func _assemble_button(index: int, id: int, text: String, parent_node: Node, opti
 			new_btn.set(DialogButtonVisitedProperty, is_btn_visited)
 		if DialogButtonVisitedInThisDialogProperty != "":
 			new_btn.set(DialogButtonVisitedInThisDialogProperty, is_btn_visited_dialog)
+		
+		if DialogButtonDisabledProperty != "":
+			new_btn.set(DialogButtonDisabledProperty, not is_btn_enabled)
+		else:
+			# This one has en else since the disabled property is of utmost importance
+			new_btn.disabled = not is_btn_enabled
+	
+	else:
+		new_btn.disabled = not is_btn_enabled
 	
 	if is_btn_visited_dialog:
 		new_btn.modulate *= ModulateWhenVisitedInThisDialog
 	elif is_btn_visited:
 		new_btn.modulate *= ModulateWhenVisitedPreviously
 	
-	new_btn.disabled = not is_btn_enabled
 	
 	# _on_menu_button_pressed() is used to multiplex all button signals into one
 	new_btn.connect(DialogButtonSignalName, _on_menu_button_pressed.bind(index, id))
@@ -1031,22 +1044,30 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 			# be shown at the menu. So we have to buffer a list
 			var options_to_show := []
 			var options_metadata := []
+			var has_option_yet_to_visit := false # not including options after all options visited
+			var has_option_after_all_options_visited := false
 			menu_connected_ids.clear()
 			
 			for option_item: DialogNodeOptionData in sequence_data.options:
 				var conditions_passed := true
+				
+				# Note: we run MadTalkGlobals.get_option_visited_xxxxxxx(option_item) twice if conditions require
+				# instead of always running and storing in a variable, because performance is preferred
+				# over short code (conditions run so rarely it's better to run the function twice but only when there
+				# are conditions, instead of running always for every dialog option ever)
+				
 				if option_item.is_conditional:
-					# Case 1: is auto-disable and already visited
+					# Case: is auto-disable and already visited
 					match option_item.autodisable_mode:
 						option_item.AutodisableModes.RESET_ON_SHEET_RUN:
 							if (MadTalkGlobals.get_option_visited_dialog(option_item)):
 								conditions_passed = false
 						
 						option_item.AutodisableModes.ALWAYS:
-							if (MadTalkGlobals.get_option_visited_global(option_item)):
+							if MadTalkGlobals.get_option_visited_global(option_item):
 								conditions_passed = false
 					
-					# Case 2: variable conditions
+					# Case: variable conditions
 					if conditions_passed:
 						conditions_passed = _check_option_condition(
 							option_item.condition_variable, 
@@ -1058,14 +1079,38 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 				if (conditions_passed) or (option_item.inactive_mode == option_item.InactiveMode.DISABLED):
 					options_to_show.append(option_item)
 					menu_connected_ids.append(option_item.connected_to_id)
+					var visited_global: bool = MadTalkGlobals.get_option_visited_global(option_item)
 					options_metadata.append({
 						"enabled": conditions_passed,
-						"visited": MadTalkGlobals.get_option_visited_global(option_item),
+						"visited": visited_global,
 						"visited_dialog": MadTalkGlobals.get_option_visited_dialog(option_item)
 					})
+					
+					if conditions_passed:
+						if option_item.only_after_exhausted_other_options:
+							has_option_after_all_options_visited = true
+						
+						elif (not visited_global):
+							has_option_yet_to_visit = true
+					
 			
 			# Now options_to_show contains options to show (disabled or not)
 			# of which the ones in options_disabled should be disabled
+			
+			# We must disable options which are still waiting for others to be selected
+			if has_option_after_all_options_visited and has_option_yet_to_visit:
+				var i := options_to_show.size()-1 # backwards because we might delete
+				while i >= 0:
+					var option_item: DialogNodeOptionData = options_to_show[i]
+					if option_item.only_after_exhausted_other_options:
+						# Disable this one
+						match option_item.inactive_mode:
+							option_item.InactiveMode.DISABLED:
+								options_metadata[i]["enabled"] = false
+							option_item.InactiveMode.HIDDEN:
+								options_to_show.remove_at(i)
+								options_metadata.remove_at(i)
+					i -= 1
 			
 			# Process options and build menu only with remaining items
 			if options_to_show.size() > 0:
@@ -1133,17 +1178,22 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					await _anim_dialog_menu_visible(false)
 					MadTalkGlobals.is_during_cinematic = false
 				
-				if option_id > -1:
+				if option_index >= 0:
 					var selected_option: DialogNodeOptionData = options_to_show[option_index]
 					MadTalkGlobals.set_option_visited(selected_option, true)
+				
+					if option_id > -1:
+						# jumping to another sequence might also be same speaker 
+						# so we don't hide anything yet
+						await run_dialog_sequence(sheet_name, option_id)
 					
-					# jumping to another sequence might also be same speaker 
-					# so we don't hide anything yet
-					await run_dialog_sequence(sheet_name, option_id)
+					else: # Option is valid, but is not connected to any sequence - ends dialog
+						last_speaker_id = ""
+						last_speaker_variant = ""
+						emit_signal("dialog_finished", sheet_name, sequence_id)
+				
 				else:
-					last_speaker_id = ""
-					last_speaker_variant = ""
-					emit_signal("dialog_finished", sheet_name, sequence_id)
+					pass # -1 is provided when aborting
 
 
 			elif sequence_data.continue_sequence_id > -1:
@@ -1345,6 +1395,7 @@ func dialog_acknowledge():
 func dialog_abort():
 	is_abort_requested = true
 	dialog_acknowledge()
+	menu_option_activated.emit(-1,-1)
 	
 func dialog_skip():
 	is_skip_requested = true
