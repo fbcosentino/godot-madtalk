@@ -212,6 +212,13 @@ signal dialog_aborted
 
 @export_subgroup("")
 
+@export_group("Advanced")
+
+## When the user is skipping dialog (via dialog_skip()) and we reach a menu, options
+## will be presented and the user will be forced to pick one. Skipping will resume afterwards.
+## Enabling this options causes the skip to be turned off automatically after the option is selected.
+@export var StopSkippingOnMenu := false
+
 @export_group("Advanced/Message Formatting")
 
 ## Text to be inserted before every message (of every speaker). This will be inserted
@@ -1141,7 +1148,8 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 						
 						# Show text
 						await _anim_dialog_text_visible(true, [0, 1], true) # skips to end
-					
+						if dialog_messagelabel:
+								dialog_messagelabel.visible_ratio = 1.0
 						
 				MadTalkGlobals.is_during_cinematic = true
 				
@@ -1164,6 +1172,9 @@ func run_dialog_item(sheet_name: String = "", sequence_id: int = 0, item_index: 
 					# There is always at least one optiong there otherwise we
 					# would not be into this `if`
 					dialog_buttons_container.get_child(0).grab_focus()
+				
+				if StopSkippingOnMenu and is_skip_requested:
+					is_skip_requested = false
 				
 				# Wait for an option
 				# Selecting an option is mandatory and dialog halts until then
